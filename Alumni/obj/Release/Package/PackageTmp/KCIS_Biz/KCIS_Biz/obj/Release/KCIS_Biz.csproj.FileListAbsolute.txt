@@ -1,0 +1,9 @@
+D:\康桥专案\小黑\學生前台\KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.dll
+D:\康桥专案\小黑\學生前台\KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.pdb
+D:\康桥专案\小黑\學生前台\KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.dll
+D:\康桥专案\小黑\學生前台\KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.pdb
+C:\Users\kerryyu\Documents\Visual Studio 2010\Project\小黑\學生前台\KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.dll
+C:\Users\kerryyu\Documents\Visual Studio 2010\Project\小黑\學生前台\KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.pdb
+C:\Users\kerryyu\Documents\Visual Studio 2010\Project\小黑\學生前台\KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csprojResolveAssemblyReference.cache
+C:\Users\kerryyu\Documents\Visual Studio 2010\Project\小黑\學生前台\KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.dll
+C:\Users\kerryyu\Documents\Visual Studio 2010\Project\小黑\學生前台\KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.pdb

@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F4B8A676-9443-454B-8E0B-29CE81601828}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Alumni</RootNamespace>
+    <AssemblyName>Alumni</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="KCBS_Biz, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\KCBS_Biz.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="A_FillIn_R.aspx" />
+    <Content Include="A_groupLeaderAdmin.aspx" />
+    <Content Include="A_info_c.aspx" />
+    <Content Include="A_info_r.aspx" />
+    <Content Include="A_info_z.aspx" />
+    <Content Include="A_Login.aspx" />
+    <Content Include="A_MoralEducationGroupuserAdmin.aspx" />
+    <Content Include="A_myOrder.aspx" />
+    <Content Include="A_New.aspx" />
+    <Content Include="A_New_d.aspx" />
+    <Content Include="A_New_d1.aspx" />
+    <Content Include="A_New_d3.aspx" />
+    <Content Include="A_New_Recruit.aspx" />
+    <Content Include="A_registrationGroupuseradmin.aspx" />
+    <Content Include="A_schoolReportUseradmin.aspx" />
+    <Content Include="bin\KCIS_Biz.dll" />
+    <Content Include="bin\NPOI.dll" />
+    <Content Include="bin\Alumni.dll" />
+    <Content Include="bin\Alumni.pdb" />
+    <Content Include="checkpay.aspx" />
+    <Content Include="choose.aspx" />
+    <Content Include="course.aspx" />
+    <Content Include="course_d.aspx" />
+    <Content Include="css\app.css" />
+    <Content Include="css\colorbox.css" />
+    <Content Include="css\index.css" />
+    <Content Include="css\list.css" />
+    <Content Include="css\logincss.css" />
+    <Content Include="css\New.css" />
+    <Content Include="css\style.css" />
+    <Content Include="css\style1.css" />
+    <Content Include="css\style_login.css" />
+    <Content Include="fonts\css\font-awesome.min.css" />
+    <Content Include="img\1.jpg" />
+    <Content Include="img\2.jpg" />
+    <Content Include="img\3.jpg" />
+    <Content Include="img\4-1.png" />
+    <Content Include="img\4.jpg" />
+    <Content Include="img\4.png" />
+    <Content Include="img\5-1.png" />
+    <Content Include="img\5.jpg" />
+    <Content Include="img\5.png" />
+    <Content Include="img\bangqiu.jpg" />
+    <Content Include="img\icon1.jpg" />
+    <Content Include="img\icon1.png" />
+    <Content Include="img\icon2.jpg" />
+    <Content Include="img\icon2.png" />
+    <Content Include="img\icon3.jpg" />
+    <Content Include="img\icon3.png" />
+    <Content Include="img\icon4.jpg" />
+    <Content Include="img\icon4.png" />
+    <Content Include="img\jiqiren.jpg" />
+    <Content Include="img\logo_denglu.png" />
+    <Content Include="img\swim.jpg" />
+    <Content Include="index.html" />
+    <Content Include="info.aspx" />
+    <Content Include="js\app.js" />
+    <Content Include="js\check.js" />
+    <Content Include="js\Common.js" />
+    <Content Include="js\info_c.js" />
+    <Content Include="js\info_r.js" />
+    <Content Include="js\info_z.js" />
+    <Content Include="js\jquery1.min.js" />
+    <Content Include="KCIS_Biz\KCIS_Biz.sln" />
+    <Content Include="KCIS_Biz\KCIS_Biz\bin\Debug\KCIS_Biz.dll" />
+    <Content Include="KCIS_Biz\KCIS_Biz\bin\Debug\KCIS_Biz.pdb" />
+    <Content Include="KCIS_Biz\KCIS_Biz\bin\Debug\NPOI.dll" />
+    <Content Include="KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.dll" />
+    <Content Include="KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.pdb" />
+    <Content Include="KCIS_Biz\KCIS_Biz\bin\Release\NPOI.dll" />
+    <Content Include="KCIS_Biz\KCIS_Biz\KCIS_Biz.csproj" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.csproj.FileListAbsolute.txt" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.dll" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.pdb" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csproj.FileListAbsolute.txt" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.dll" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.pdb" />
+    <Content Include="login.aspx" />
+    <Content Include="myorder.aspx" />
+    <Content Include="showFor_C.aspx" />
+    <Content Include="showFor_R.aspx" />
+    <Content Include="showFor_Z.aspx" />
+    <Content Include="UpdateOrder.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Data\LeaveWord.cs" />
+    <Compile Include="App_Data\Utils.cs" />
+    <Compile Include="A_FillIn_R.aspx.cs">
+      <DependentUpon>A_FillIn_R.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_FillIn_R.aspx.designer.cs">
+      <DependentUpon>A_FillIn_R.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_groupLeaderAdmin.aspx.cs">
+      <DependentUpon>A_groupLeaderAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_groupLeaderAdmin.aspx.designer.cs">
+      <DependentUpon>A_groupLeaderAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_info_c.aspx.cs">
+      <DependentUpon>A_info_c.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_info_c.aspx.designer.cs">
+      <DependentUpon>A_info_c.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_info_r.aspx.cs">
+      <DependentUpon>A_info_r.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_info_r.aspx.designer.cs">
+      <DependentUpon>A_info_r.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_info_z.aspx.cs">
+      <DependentUpon>A_info_z.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_info_z.aspx.designer.cs">
+      <DependentUpon>A_info_z.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_Login.aspx.cs">
+      <DependentUpon>A_Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_Login.aspx.designer.cs">
+      <DependentUpon>A_Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_MoralEducationGroupuserAdmin.aspx.cs">
+      <DependentUpon>A_MoralEducationGroupuserAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_MoralEducationGroupuserAdmin.aspx.designer.cs">
+      <DependentUpon>A_MoralEducationGroupuserAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_myOrder.aspx.cs">
+      <DependentUpon>A_myOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_myOrder.aspx.designer.cs">
+      <DependentUpon>A_myOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_New.aspx.cs">
+      <DependentUpon>A_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_New.aspx.designer.cs">
+      <DependentUpon>A_New.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_New_d.aspx.cs">
+      <DependentUpon>A_New_d.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_New_d.aspx.designer.cs">
+      <DependentUpon>A_New_d.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_New_d1.aspx.cs">
+      <DependentUpon>A_New_d1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_New_d1.aspx.designer.cs">
+      <DependentUpon>A_New_d1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_New_d3.aspx.cs">
+      <DependentUpon>A_New_d3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_New_d3.aspx.designer.cs">
+      <DependentUpon>A_New_d3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_New_Recruit.aspx.cs">
+      <DependentUpon>A_New_Recruit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_New_Recruit.aspx.designer.cs">
+      <DependentUpon>A_New_Recruit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_registrationGroupuseradmin.aspx.cs">
+      <DependentUpon>A_registrationGroupuseradmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_registrationGroupuseradmin.aspx.designer.cs">
+      <DependentUpon>A_registrationGroupuseradmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="A_schoolReportUseradmin.aspx.cs">
+      <DependentUpon>A_schoolReportUseradmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="A_schoolReportUseradmin.aspx.designer.cs">
+      <DependentUpon>A_schoolReportUseradmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="checkpay.aspx.cs">
+      <DependentUpon>checkpay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="checkpay.aspx.designer.cs">
+      <DependentUpon>checkpay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="choose.aspx.cs">
+      <DependentUpon>choose.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="choose.aspx.designer.cs">
+      <DependentUpon>choose.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClassStudent.cs" />
+    <Compile Include="course.aspx.cs">
+      <DependentUpon>course.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="course.aspx.designer.cs">
+      <DependentUpon>course.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="course_d.aspx.cs">
+      <DependentUpon>course_d.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="course_d.aspx.designer.cs">
+      <DependentUpon>course_d.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="info.aspx.cs">
+      <DependentUpon>info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="info.aspx.designer.cs">
+      <DependentUpon>info.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KCIS_Biz\KCIS_Biz\ClassAD.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\ClassBasic.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\ClassDB.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\ClassEIP.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\ClassMail.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="myorder.aspx.cs">
+      <DependentUpon>myorder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="myorder.aspx.designer.cs">
+      <DependentUpon>myorder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="showFor_C.aspx.cs">
+      <DependentUpon>showFor_C.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="showFor_C.aspx.designer.cs">
+      <DependentUpon>showFor_C.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="showFor_R.aspx.cs">
+      <DependentUpon>showFor_R.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="showFor_R.aspx.designer.cs">
+      <DependentUpon>showFor_R.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="showFor_Z.aspx.cs">
+      <DependentUpon>showFor_Z.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="showFor_Z.aspx.designer.cs">
+      <DependentUpon>showFor_Z.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateOrder.aspx.cs">
+      <DependentUpon>UpdateOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateOrder.aspx.designer.cs">
+      <DependentUpon>UpdateOrder.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.csprojResolveAssemblyReference.cache" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\build.force" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csprojResolveAssemblyReference.cache" />
+    <Content Include="bin\Alumni.config" />
+    <None Include="Properties\PublishProfiles\Alumni.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="content\" />
+    <Folder Include="KCIS_Biz\KCIS_Biz\obj\Debug\TempPE\" />
+    <Folder Include="KCIS_Biz\KCIS_Biz\obj\Release\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>21001</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:21001/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

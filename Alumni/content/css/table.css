@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+
+.list {
+	width:100%;
+}
+
+.list thead tr th {
+	height:50px;
+	color:#fff;
+	background-color:#2c8180;
+	border-bottom:2px solid #fff;
+	padding:0 10px;
+}
+
+.list thead tr th .sort {
+	width:11px;
+	height:16px;
+	padding-top:2px;
+	margin-left:10px;
+	display:inline-block;
+}
+
+.list thead tr th .sort .up {
+	width:11px;
+	height:6px;
+	background:url(../img/icon_sort_up.png) no-repeat;
+	display:block;
+}
+
+.list thead tr th .sort .down {
+	width:11px;
+	height:6px;
+	margin-top:4px;
+	background:url(../img/icon_sort_down.png) no-repeat;
+	display:block;
+}
+
+.list tbody tr td {
+	color:#777;
+	border-bottom:2px solid #fff;
+	padding:10px;
+}
+
+.list tbody tr td a {
+	color:#444;
+	font-weight:bold;
+}
+
+.list tbody tr:nth-of-type(odd) td{background-color:#e5f7fb;}
+.list tbody tr:nth-of-type(even) td{background-color:#f3fafc;}
+
+/*----------------------------------------------------- activity */
+.activity-table{margin-top:20px;}
+.activity-table tr th:nth-of-type(1), .activity-table tr td:nth-of-type(1){width:60%;}
+.activity-table tr th:nth-of-type(2), .activity-table tr td:nth-of-type(2){width:20%;}
+.activity-table tr th:nth-of-type(3), .activity-table tr td:nth-of-type(3){width:20%;}
+
+/*----------------------------------------------------- web guide */
+.guide table{width:100%;}
+.guide table thead tr th, .guide table tbody tr th{width:16.7%; border-left:10px solid #fff; background:#e5f7fb; text-align:left; padding:10px;}
+.guide table thead tr th a, .guide table tbody tr th a{color:#5d5d5d; font-size:110%; font-size:1.1rem;}
+.guide table thead tr th:hover, .guide table tbody tr th:hover{background:#2c8180;}
+.guide table thead tr th:hover a, .guide table tbody tr th:hover a{color:#fff; text-decoration:none;}
+.guide table tbody tr{background:#f3fafc;}
+.guide table tbody tr th{display:none;}
+.guide table tbody tr td{width:16.7%; border-left:10px solid #fff; vertical-align:top;}
+.guide table thead tr th:nth-of-type(1), .guide table tbody tr td:nth-of-type(1){border-left:none;}
+.guide table tbody tr td a{color:#5d5d5d; display:block; width:100%; padding:10px;}
+.guide table tbody tr td a.sub{padding-left:20px; color:#7c7c7c;}
+.guide table tbody tr td a:hover{background:#b9d8df; text-decoration:none;}
+
+/*----------------------------------------------------- media(RWD) */
+@media only screen and (max-width: 768px) {
+.list thead tr th{display:none;}
+.list tr, .list td{display:block;}
+.list tbody tr{margin-bottom:25px;}
+.list tbody tr td{position:relative; padding:10px; text-align:justify;}
+.list tbody tr td:last-child{border-bottom:none;}
+.list tbody tr td:before{position:absolute; top:0px; left:0px; height:auto; text-align:right; padding:10px 0 0 10px; display:inline-block; font-weight:bold;}
+
+/*----------------------------------------------------- activity */
+.activity-table tr th:nth-of-type(1), .activity-table tr td:nth-of-type(1){width:100%;}
+.activity-table tr th:nth-of-type(2), .activity-table tr td:nth-of-type(2){width:100%;}
+.activity-table tr th:nth-of-type(3), .activity-table tr td:nth-of-type(3){width:100%;}
+.activity-table tbody tr td:nth-of-type(1){padding-left:60px;}
+.activity-table tbody tr td:nth-of-type(1):before{content:"標題：";}
+.activity-table tbody tr td:nth-of-type(2){padding-left:90px;}
+.activity-table tbody tr td:nth-of-type(2):before{content:"上稿館別：";}
+.activity-table tbody tr td:nth-of-type(3){padding-left:90px;}
+.activity-table tbody tr td:nth-of-type(3):before{content:"發佈時間：";}
+
+/*----------------------------------------------------- web guide */
+.guide table, .guide table tbody, .guide table tbody tr{display:block;}
+.guide table thead{display:none;}
+.guide table tbody tr th{display:block; width:100%; border-left:none;}
+.guide table tbody tr td{display:none; width:100%; border-left:none;}
+
+}
+
+@media only screen and (max-width: 414px) {
+/*----------------------------------------------------- web guide */
+.guide table tbody tr th a{font-size:100%; font-size:1rem;}
+}

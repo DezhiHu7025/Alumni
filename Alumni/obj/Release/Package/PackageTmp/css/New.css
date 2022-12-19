@@ -1,0 +1,332 @@
+﻿@charset "utf-8";
+/* CSS Document */
+html, body, form, div, img, p, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, select, input, button textarea, th, td, hr, article, aside, header, footer, nav, section, summary, figure, figcaption {margin: 0;padding: 0;}
+html{color: #333;font: 14px/1.428571429 "微软雅黑"; line-height:2em;}
+body {
+    background: url('/img/backgroundtexture1.png') repeat;
+}
+#main{max-width: 700px; height: auto; overflow: hidden; margin:20px auto; background: #fff; padding: 0 0 10px 0;border-radius: 20px;filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+   -moz-box-shadow: 2px 2px 10px #909090;
+   -webkit-box-shadow: 2px 2px 10px #909090;
+   box-shadow:2px 2px 10px #909090;
+ }
+.top{min-height:50px; width: 100%; background-color: #920783; margin-bottom: 15px; text-align:center;padding:5px 0 3px 0;}
+.contect{padding: 15px;}
+.red{color: #FF0004;}
+.title_bold{ font-weight: bold;}
+.hui{color: #737373; font-size: 12px;}
+.kuai{line-height: 1.5em;}
+.field-container .ant-input-number:not([disabled]), .field-container .ant-input:not([disabled]), .field-container .ant-radio-inner:not([disabled]), .field-container .ant-select-selection:not([disabled]), .field-container .ant-time-picker-input:not([disabled]) {
+    background-color: hsla(0,0%,100%,.65);
+}
+.ant-input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    font-variant:tabular-nums;
+    list-style: none;
+    -webkit-font-feature-settings: "tnum","tnum";
+    font-feature-settings: "tnum","tnum";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 11px;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #c7f0f6;
+    background-image: none;
+    border: 1px solid #ebebeb;
+    border-radius: 2px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.field-container .ant-checkbox-inner, .field-container .ant-radio-inner {
+    border-color: #b3b3b3;
+}
+.ant-radio-inner {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 100px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.ant-radio {
+    margin: 0;
+    line-height: 1;
+    vertical-align: sub;
+    outline: none;
+}
+.ant-radio, .ant-radio-wrapper {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    -webkit-font-feature-settings: "tnum","tnum";
+    font-feature-settings: "tnum","tnum";
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    cursor: pointer;
+}
+body .ant-checkbox-group, body .ant-checkbox-wrapper, body .ant-radio-wrapper {
+    color: #333;
+}
+.ant-form-item-control {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+.ant-radio-inner {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 100px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.button {
+         background-color: #b222af;
+         border-radius: 5px;
+         -webkit-border-radius: 5px;
+         -moz-border-border-radius: 5px;
+         border: none;
+         padding: 10px 25px 10px 25px;
+         color: #fff;
+         text-shadow: 1px 1px 1px #949494;
+}
+ 
+.button:hover {
+         background-color:#80A24A;
+}
+
+
+#pic1 {
+ display: none;
+} 
+
+
+.ReactTable.gd-react-table {
+    border-color: #ebebeb;
+    background-color: hsla(0,0%,100%,.65);
+}
+.ReactTable {
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,.1);
+}
+.gd-react-table-wrapper .ReactTable .rt-table {
+    overflow-y: hidden;
+}
+.ReactTable .rt-table, .ReactTable .rt-thead {
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+}
+.ReactTable .rt-table {
+    flex: auto 1;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: auto;
+}
+.ReactTable * {
+    box-sizing: border-box;
+}
+.ReactTable.gd-react-table.rthfc.-sp .rt-tfoot, .ReactTable.gd-react-table.rthfc.-sp .rt-thead {
+    position: relative;
+}
+.ReactTable.gd-react-table .rt-thead.-header {
+    font-weight: 700;
+    font-size: 14px;
+    background-color: #f4f4f4;
+    border-bottom: 0;
+    box-shadow: none;
+    font-weight: 400;
+}
+.rthfc .rt-thead.-header, .rthfc .rt-thead.-headerGroups {
+    z-index: 3;
+}
+.ReactTable .rt-thead {
+    flex: 1 0 auto;
+    flex-direction: column;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.ReactTable .rt-table, .ReactTable .rt-thead {
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+}
+.ReactTable .rt-thead .rt-tr {
+    text-align: center;
+}
+.ReactTable .rt-tr {
+    -webkit-box-flex: 1;
+    flex: 1 0 auto;
+    display: -webkit-inline-box;
+    display: inline-flex;
+}
+.ReactTable.gd-react-table.with-statements.is-expand .rt-td.rthfc-td-fixed-left-last.is-statement, .ReactTable.gd-react-table.with-statements.is-expand .rt-th.rthfc-th-fixed-left-last.is-statement {
+    padding: 7px;
+}
+.ReactTable.gd-react-table.with-statements.is-expand .rt-td.rthfc-td-fixed-left-last, .ReactTable.gd-react-table.with-statements.is-expand .rt-th.rthfc-th-fixed-left-last {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+.ReactTable.gd-react-table.rthfc.-sp .rthfc-td-fixed, .ReactTable.gd-react-table.rthfc.-sp .rthfc-th-fixed {
+    z-index: 10;
+}
+.ReactTable.gd-react-table.rthfc .-filters .rt-th.rthfc-th-fixed-left-last, .ReactTable.gd-react-table.rthfc .rt-td.rthfc-td-fixed-left-last, .ReactTable.gd-react-table.rthfc .rt-th.rthfc-th-fixed-left-last {
+    border-color: #ebebeb;
+    background-color: #f4f4f4;
+}
+.ReactTable.gd-react-table .rt-thead.-header .rt-th {
+    border-bottom: 1px solid #ebebeb;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    white-space: normal;
+}
+.rthfc .-filters .rt-th.rthfc-th-fixed-left-last, .rthfc .rt-td.rthfc-td-fixed-left-last, .rthfc .rt-th.rthfc-th-fixed-left-last {
+    border-right: 1px solid #ccc;
+}
+.ReactTable.gd-react-table.rthfc .rt-td, .ReactTable.gd-react-table.rthfc .rt-th {
+    background-color: transparent;
+}
+.ReactTable .rt-thead .rt-td:last-child, .ReactTable .rt-thead .rt-th:last-child {
+    border-right: 0;
+}
+.rthfc.-sp .rt-tbody {
+    overflow: visible;
+    -webkit-box-flex: 1;
+    flex: 1 0 auto;
+}
+.ReactTable .rt-tbody {
+    -webkit-box-flex: 99999;
+    flex: 99999 1 auto;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    overflow: auto;
+}
+.ReactTable .rt-tr-group {
+    -webkit-box-flex: 1;
+    flex: 1 0 auto;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+}
+.ReactTable.gd-react-table.-highlight .rt-tbody .rt-tr:not(.-padRow):hover .rt-td {
+    background: #e0f2ff;
+    -webkit-transition: background .3s;
+    transition: background .3s;
+}
+.ReactTable.gd-react-table.with-statements.is-expand .rt-td.rthfc-td-fixed-left-last.is-statement .statement-content, .ReactTable.gd-react-table.with-statements.is-expand .rt-th.rthfc-th-fixed-left-last.is-statement .statement-content {
+    opacity: 1;
+    visibility: visible;
+}
+.ReactTable.gd-react-table.-highlight .rt-tbody .rt-tr:not(.-padRow):hover .rt-td {
+    background: #e9feff;
+    -webkit-transition: background .3s;
+    transition: background .3s;
+}
+.ReactTable.gd-react-table .rt-tbody .rt-td .table-cell-content {
+    width: 100%;
+}
+.ReactTable * {
+    box-sizing: border-box;
+}
+.has-error.has-error .text-field.is-embeded.ant-input:not([disabled]), .text-field.text-field.is-embeded.ant-input:not([disabled]) {
+    background-color: transparent;
+}
+.has-error.has-error .text-field.is-embeded, .has-error.has-error .text-field.is-embeded:focus, .has-error.has-error .text-field.is-embeded:hover, .text-field.text-field.is-embeded, .text-field.text-field.is-embeded:focus, .text-field.text-field.is-embeded:hover {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+.has-error.has-error .text-field.is-embeded, .text-field.text-field.is-embeded {
+    height: 42px;
+    line-height: 42px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: transparent;
+}
+.ant-form-item {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    -webkit-font-feature-settings: "tnum","tnum";
+    font-feature-settings: "tnum","tnum";
+    margin: 0 0 24px;
+    vertical-align: top;
+}
+.butom{text-align: center;}
+
+
+/*新增照片*/
+
+#preview {
+
+width:50%;
+height:auto;
+overflow:hidden;
+}
+
+
+
+
