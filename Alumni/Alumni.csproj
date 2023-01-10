@@ -145,71 +145,11 @@
       <Link>SqlServerTypes\x86\SqlServerSpatial110.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="A_FillIn_R.aspx" />
-    <Content Include="A_groupLeaderAdmin.aspx" />
-    <Content Include="A_info_c.aspx" />
-    <Content Include="A_info_r.aspx" />
-    <Content Include="A_info_z.aspx" />
-    <Content Include="A_Login.aspx" />
-    <Content Include="A_MoralEducationGroupuserAdmin.aspx" />
-    <Content Include="A_myOrder.aspx" />
-    <Content Include="A_New.aspx" />
-    <Content Include="A_New_d.aspx" />
-    <Content Include="A_New_d1.aspx" />
-    <Content Include="A_New_d3.aspx" />
-    <Content Include="A_New_Recruit.aspx" />
-    <Content Include="A_registrationGroupuseradmin.aspx" />
-    <Content Include="A_schoolReportUseradmin.aspx" />
-    <Content Include="bin\Alumni.dll" />
-    <Content Include="bin\Alumni.pdb" />
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\JavaScriptEngineSwitcher.Core.dll" />
-    <Content Include="bin\JavaScriptEngineSwitcher.Jint.dll" />
-    <Content Include="bin\JavaScriptEngineSwitcher.Msie.dll" />
-    <Content Include="bin\Jint.dll" />
-    <Content Include="bin\KCBS_Biz.dll" />
-    <Content Include="bin\KCIS_Biz.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\MsieJavaScriptEngine.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\NPOI.dll" />
-    <Content Include="bin\React.dll" />
-    <Content Include="bin\React.Web.dll" />
-    <Content Include="bin\React.Web.xml" />
-    <Content Include="bin\React.xml" />
-    <Content Include="bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll" />
-    <Content Include="bin\ru-ru\MsieJavaScriptEngine.resources.dll" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.React.dll" />
-    <Content Include="bin\System.Web.Optimization.React.xml" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebActivatorEx.dll" />
-    <Content Include="bin\WebGrease.dll" />
-    <Content Include="bin\WebMatrix.Data.dll" />
-    <Content Include="bin\WebMatrix.Data.xml" />
-    <Content Include="checkpay.aspx" />
-    <Content Include="choose.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="course.aspx" />
-    <Content Include="course_d.aspx" />
     <Content Include="css\87324d90015dc0b502908b1e2808af43embedcompiled_fastui.css" />
     <Content Include="css\app.css" />
     <Content Include="css\colorbox.css" />
@@ -335,7 +275,6 @@
     <Content Include="img\swim.jpg" />
     <Content Include="img\XA-Library-02.jpg" />
     <Content Include="index.html" />
-    <Content Include="info.aspx" />
     <Content Include="js\app.js" />
     <Content Include="js\check.js" />
     <Content Include="js\Common.js" />
@@ -362,23 +301,14 @@
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csprojResolveAssemblyReference.cache" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.dll" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.pdb" />
-    <Content Include="login.aspx" />
-    <Content Include="myorder.aspx" />
     <Content Include="readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="bin\Alumni.config" />
-    <Content Include="bin\Alumni.dll.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="showFor_C.aspx" />
-    <Content Include="showFor_R.aspx" />
-    <Content Include="showFor_Z.aspx" />
     <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="summercampuseradmin.aspx" />
-    <Content Include="UpdateOrder.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -390,158 +320,17 @@
     <Compile Include="App_Data\LeaveWord.cs" />
     <Compile Include="App_Data\Utils.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="A_FillIn_R.aspx.cs">
-      <DependentUpon>A_FillIn_R.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_FillIn_R.aspx.designer.cs">
-      <DependentUpon>A_FillIn_R.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_groupLeaderAdmin.aspx.cs">
-      <DependentUpon>A_groupLeaderAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_groupLeaderAdmin.aspx.designer.cs">
-      <DependentUpon>A_groupLeaderAdmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_info_c.aspx.cs">
-      <DependentUpon>A_info_c.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_info_c.aspx.designer.cs">
-      <DependentUpon>A_info_c.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_info_r.aspx.cs">
-      <DependentUpon>A_info_r.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_info_r.aspx.designer.cs">
-      <DependentUpon>A_info_r.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_info_z.aspx.cs">
-      <DependentUpon>A_info_z.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_info_z.aspx.designer.cs">
-      <DependentUpon>A_info_z.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_Login.aspx.cs">
-      <DependentUpon>A_Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_Login.aspx.designer.cs">
-      <DependentUpon>A_Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_MoralEducationGroupuserAdmin.aspx.cs">
-      <DependentUpon>A_MoralEducationGroupuserAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_MoralEducationGroupuserAdmin.aspx.designer.cs">
-      <DependentUpon>A_MoralEducationGroupuserAdmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_myOrder.aspx.cs">
-      <DependentUpon>A_myOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_myOrder.aspx.designer.cs">
-      <DependentUpon>A_myOrder.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_New.aspx.cs">
-      <DependentUpon>A_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_New.aspx.designer.cs">
-      <DependentUpon>A_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_New_d.aspx.cs">
-      <DependentUpon>A_New_d.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_New_d.aspx.designer.cs">
-      <DependentUpon>A_New_d.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_New_d1.aspx.cs">
-      <DependentUpon>A_New_d1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_New_d1.aspx.designer.cs">
-      <DependentUpon>A_New_d1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_New_d3.aspx.cs">
-      <DependentUpon>A_New_d3.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_New_d3.aspx.designer.cs">
-      <DependentUpon>A_New_d3.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_New_Recruit.aspx.cs">
-      <DependentUpon>A_New_Recruit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_New_Recruit.aspx.designer.cs">
-      <DependentUpon>A_New_Recruit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_registrationGroupuseradmin.aspx.cs">
-      <DependentUpon>A_registrationGroupuseradmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_registrationGroupuseradmin.aspx.designer.cs">
-      <DependentUpon>A_registrationGroupuseradmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="A_schoolReportUseradmin.aspx.cs">
-      <DependentUpon>A_schoolReportUseradmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="A_schoolReportUseradmin.aspx.designer.cs">
-      <DependentUpon>A_schoolReportUseradmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="checkpay.aspx.cs">
-      <DependentUpon>checkpay.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="checkpay.aspx.designer.cs">
-      <DependentUpon>checkpay.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="choose.aspx.cs">
-      <DependentUpon>choose.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="choose.aspx.designer.cs">
-      <DependentUpon>choose.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ClassStudent.cs" />
     <Compile Include="Controllers\AdminssionController.cs" />
     <Compile Include="Controllers\CertificateController.cs" />
     <Compile Include="Controllers\CodeMstrController.cs" />
     <Compile Include="Controllers\DDLController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="course.aspx.cs">
-      <DependentUpon>course.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="course.aspx.designer.cs">
-      <DependentUpon>course.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="course_d.aspx.cs">
-      <DependentUpon>course_d.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="course_d.aspx.designer.cs">
-      <DependentUpon>course_d.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Db\EmailDb.cs" />
     <Compile Include="Db\IDbOperation.cs" />
     <Compile Include="Db\SchoolDb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="info.aspx.cs">
-      <DependentUpon>info.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="info.aspx.designer.cs">
-      <DependentUpon>info.aspx</DependentUpon>
     </Compile>
     <Compile Include="KCIS_Biz\KCIS_Biz\ClassAD.cs" />
     <Compile Include="KCIS_Biz\KCIS_Biz\ClassBasic.cs" />
@@ -554,67 +343,15 @@
     <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Certificate\CertificateModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\FlagTips.cs" />
     <Compile Include="Models\IMS_CODEMSTRModel.cs" />
     <Compile Include="Models\Report\ReportModel.cs" />
-    <Compile Include="myorder.aspx.cs">
-      <DependentUpon>myorder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="myorder.aspx.designer.cs">
-      <DependentUpon>myorder.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BasicService.cs" />
     <Compile Include="Service\CommonService.cs" />
-    <Compile Include="showFor_C.aspx.cs">
-      <DependentUpon>showFor_C.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="showFor_C.aspx.designer.cs">
-      <DependentUpon>showFor_C.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="showFor_R.aspx.cs">
-      <DependentUpon>showFor_R.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="showFor_R.aspx.designer.cs">
-      <DependentUpon>showFor_R.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="showFor_Z.aspx.cs">
-      <DependentUpon>showFor_Z.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="showFor_Z.aspx.designer.cs">
-      <DependentUpon>showFor_Z.aspx</DependentUpon>
-    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
-    <Compile Include="summercampuseradmin.aspx.cs">
-      <DependentUpon>summercampuseradmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="summercampuseradmin.aspx.designer.cs">
-      <DependentUpon>summercampuseradmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UpdateOrder.aspx.cs">
-      <DependentUpon>UpdateOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UpdateOrder.aspx.designer.cs">
-      <DependentUpon>UpdateOrder.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
