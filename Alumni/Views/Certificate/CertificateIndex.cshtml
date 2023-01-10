@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "CertificateIndex";
+}
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="../css/new2.css" rel="stylesheet" />
+    <script src="../js/jquery1.min.js"></script>
+</head>
+
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="../img/logo_XY2.png" />
+    </div>
+        <form id="ff">
+            <div>
+                        <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">KCISEC SchoolFellow  IN / Transfer Out Certificate Application Page| 康桥校友在读/转出证明申请页面</h3>
+                        <br />
+
+                <div class="content1">
+                    <div class="leftDiv">
+                        <p class="kuai">
+                            <span class="title_bold">1.康桥学号  KCISEC Student Number&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="Stu_Empno" name="Stu_Empno" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">2.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                            <input ID="Stu_Name" name="Stu_Name"  runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">3.证件类型 Type Of ID&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please Choose&nbsp;&nbsp;|&nbsp;请选择</span><br />
+                            @*<select id="IDCard" name="IDCard" class="ant-input">
+                <option th:each="id=" IDCard":${id="IDCard" }" th:value="${id=" IDCard".value}" th:text="${id=" IDCard".text}"></option>
+            </select>*@
+                            <select name="IDCard" id="IDCard" class="form-control select-list" required="required">
+                                @*<option th:each="IDCard:${list}" th:value="${IDCard.value}" th:text="${IDCard.text}"></option>*@
+                                <option value="">---请选择证件类型---</option>
+                                <option value="身份证">身份证</option>
+                                <option value="台胞证">台胞证</option>
+                                <option value="居住证">居住证</option>
+                            </select>
+
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">4.证件号 ID Number&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="IDcard_Number" name="IDcard_Number" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">5.护照英文名 English Name Of Passport &nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="PassportEname" name="PassportEname" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                    </div>
+                    <div class="rightDiv">
+                        <p class="kuai">
+                            <span class="title_bold">6.户籍地 Registered Residence&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="Hcountry" name="Hcountry" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">7.邮寄地址 Send By Post Address&nbsp;&nbsp;</span>
+                            <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                            <input ID="Adress" name="Adress" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list"><span class="red">*(提示：邮寄到付)</span>
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">8.邮箱 Email &nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="Email" name="Email" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">9.联系电话 Telephone Number &nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="NewPhone" name="NewPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                    </div>
+
+                </div>
+
+
+                <div class="butom" style="text-align:center;">
+                    <a href="../Home/Index" class="button">返回 Back</a>  |
+                    <button id="btn_submit" name="btn_submit" type="submit"  class="button">提交 Submit</button>
+                </div>
+                   
+            </div>
+        </form>
+        <script type="text/javascript">
+
+            $(function () {
+                $('#ff').on('submit', function (e) {
+                    e.preventDefault();
+                    var model = $('#ff').serialize();
+                    var len = document.getElementById('NewPhone').value;
+                    console.log(len);
+                    if (len.length != 11) {
+                        alert("手机号码应为11位 The mobile phone number should be 11 digits");
+                        return false;
+                    }
+                    console.log(model);
+                    $.ajax({
+                        type: 'post',
+                        url: 'CertificateSave',
+                        data: model,
+                        beforeSend: function () {
+                            // 禁用按钮防止重复提交   
+                            $("#submit").attr({ disabled: "disabled" });
+                        },  
+                        success: function (result) {
+                            if (result.IsSuccess) {
+                                console.log("OKOKOK");
+                                alert('提交成功 Submitted successfully！');
+                                window.location.href = "@Url.Action("Index", "Home")";
+                            }
+                            else {
+                                alert(result.Msg);
+                            }
+                        }
+                    })
+                })
+            });
+        </script>
+</body>
+

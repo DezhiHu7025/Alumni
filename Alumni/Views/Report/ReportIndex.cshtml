@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "ReportIndex";
+}
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="../css/new2.css" rel="stylesheet" />
+    <script src="../js/jquery1.min.js"></script>
+</head>
+
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="../img/logo_XY2.png" />
+    </div>
+    <form id="ff">
+        <div>
+            <h3 class="title">KCISEC SchoolFellow Transcript Application Page| 康桥校友成绩单申请页面</h3>
+            <br />
+
+            <div class="content1">
+                <div class="leftDiv">
+                    <p class="kuai">
+                        <span class="title_bold">1.康桥学号  KCISEC Student Number&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">2.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">3.护照英文名 Passport English Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="PassportEname" name="PassportEname" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">4.成绩单类型 Transcript Type&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="ReportCard" name="ReportCard" runat="server" Font-Size="14px" ForeColor="#666666" onchange="JavaScript:selectDpList(this)" class="form-control select-list" required="required">
+                            <option value="">---请选择成绩单类型---</option>
+                            <option value="正式">正式</option>
+                            <option value="非正式">非正式</option>
+                        </select>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">5.申请学年/学期 Apply School Year/Semester&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="txt_yyyy" name="txt_yyyy" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                            <option value="">---请选择申请学年---</option>
+                            <option value="G6">G6</option>
+                            <option value="G7">G7</option>
+                            <option value="G8">G8</option>
+                            <option value="G9">G9</option>
+                            <option value="G10">G10</option>
+                            <option value="G11">G11</option>
+                            <option value="G12">G12</option>
+                        </select>
+                        <select ID="txt_mm" name="txt_mm" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                            <option value="">---请选择申请学年---</option>
+                            <option value="G6">G6</option>
+                            <option value="G7">G7</option>
+                            <option value="G8">G8</option>
+                            <option value="G9">G9</option>
+                            <option value="G10">G10</option>
+                            <option value="G11">G11</option>
+                            <option value="G12">G12</option>
+                        </select>
+                    </p>
+                    <br />
+                </div>
+                <div class="rightDiv">
+                    <p class="kuai">
+                        <span class="title_bold">6.申请用途 Apply For&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="txt_UseFor" name="txt_UseFor" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                            <option value="">---请选择申请用途---</option>
+                            <option value="签证">签证</option>
+                            <option value="申请学校">申请学校</option>
+                            <option value="公正">公正</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">7.申请份数 Apply Number Of Copies&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="txt_Copies" name="txt_Copies" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                            <option value="">---请选择申请份数---</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select><span style="float:left">份</span>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">8.收取成绩单方式 Receiving Mode&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="txt_takeWay" name="txt_takeWay" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list"
+                                onchange="JavaScript:selectDpListWay(this)">
+                            <option value="">---请选择收取方式---</option>
+                            <option value="邮寄">邮寄</option>
+                            <option value="邮箱">邮箱</option>
+                        </select>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">9.邮寄/邮箱地址 Post/Emails Address&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                        <input ID="txt_SendAdress" name="txt_SendAdress" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list"">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">10.联系电话 Telephone Number&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="txt_Cphone" name="txt_Cphone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                </div>
+
+            </div>
+
+
+            <div class="butom" style="text-align:center;">
+                <a href="../Home/Index" class="button">返回 Back</a>  |
+                <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
+            </div>
+
+        </div>
+    </form>
+    <script type="text/javascript">
+
+            $(function () {
+                $('#ff').on('submit', function (e) {
+                    e.preventDefault();
+                    var model = $('#ff').serialize();
+                    var len = document.getElementById('txt_Cphone').value;
+                    console.log(len);
+                    if (len.length != 11) {
+                        alert("手机号码应为11位 The mobile phone number should be 11 digits");
+                        return false;
+                    }
+                    console.log(model);
+                    $.ajax({
+                        type: 'post',
+                        url: 'ReportSave',
+                        data: model,
+                        beforeSend: function () {
+                            // 禁用按钮防止重复提交
+                            $("#submit").attr({ disabled: "disabled" });
+                        },
+                        success: function (result) {
+                            if (result.IsSuccess) {
+                                alert('提交成功 Submitted successfully！');
+                                window.location.href = "@Url.Action("Index", "Home")";
+                            }
+                            else {
+                                alert(result.Msg);
+                            }
+                        }
+                    })
+                })
+            });
+       
+    </script>
+</body>
+

@@ -68,42 +68,47 @@
             <span class="hover-line"></span>
         </nav>
 
+        <!-- menu 选单 -->
+        <nav id="menu" style='display:none'>
+
+            <span class="hover-line"></span>
+        </nav>
+
         <!-- 内容 -->
-        <div id="main-content">
-
-
-            <div class="clear"></div>
-            <!-- 快速连结 -->
-            <div id="hot-service">
-                <h2 class="title">:: Form Application 校友表单申请</h2>
-                <ul class="remove-text-nodes">
+        <div style="margin:0px;padding:0px;text-align:center">
+            <div id="hot-service" style="margin-top:5px;padding:0px;text-align:center">
+                <h3 class="title">:: Alumni Form Application  校友表单申请:: </h3>
+                <ul class="remove-text-nodes" style="text-align:center">
                     <li>
-                        <a href="https://library.kcisxa.org.cn/" title=" 校友入校申请" target="_blank">
-                            <img alt="Search 校友入校申请" src="img/Links_search.png" />
-                            <p>Search<br>校友入校申请</p>
-                        </a>
+                        <asp:PlaceHolder ID="PlaceHolderList1" runat="server" EnableViewState="False"></asp:PlaceHolder>
+
                     </li>
 
                     <li>
-                        <a href="Resources/E-Resources.html" title="转出/在读申请" target="_blank">
-                            <img alt="转出/在读申请" src="img/Links_e-Resources.png" />
-                            <p>e-Resources<br>转出/在读申请</p>
-                        </a>
+                        <asp:PlaceHolder ID="PlaceHolderList2" runat="server" EnableViewState="False"></asp:PlaceHolder>
                     </li>
 
                     <li>
-                        <a href="https://library.kcisxa.org.cn/" title="成绩单申请" target="_blank">
-                            <img alt="成绩单申请" src="img/Links_account.png" />
-                            <p>My Account<br>成绩单申请</p>
-                        </a>
+                        <asp:PlaceHolder ID="PlaceHolderList3" runat="server" EnableViewState="False"></asp:PlaceHolder>
                     </li>
 
                     <li>
-                        <a href="http://www.kcisec.com/alumni_association/" title="联络信息更新" target='联络信息更新'>
-                            <img alt="联络信息更新" src="img/Links_GoodReads.png" />
-                            <p>Reading Program<br>联络信息更新</p>
+                        <a href="http://portal.kcistz.org.cn/alumni_association/" title="联络信息更新" target='联络信息更新'>
+                            <img style='width:30%;height:30%' alt="联络信息更新" src="img/Links_GoodReads.png" />
+                            <p>Alumni Information<br />校友联络信息更新</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="A_myOrder.aspx" title="我的单据">
+                            <img style='width:30%;height:30%' alt="联络信息更新" src="img/Links_MagazineList.png" />
+                            <p>My FormList<br />我的单据</p>
+                        </a>
+                    </li>
+                    <!--
+                    <li>
+                     <asp:PlaceHolder ID="PlaceHolderList4" runat="server" EnableViewState="False"></asp:PlaceHolder>
+                </li>校友应聘
+                    -->
 
 
 

@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,12 +13,16 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Alumni</RootNamespace>
     <AssemblyName>Alumni</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -38,11 +43,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KCBS_Biz, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AspNetUtil, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\KCBS_Biz.dll</HintPath>
+      <HintPath>bin\AspNetUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNetUtilModel, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AspNetUtilModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Cells, Version=8.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.2\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteJs, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RouteJs.Mvc5.2.2.0\lib\net45\RouteJs.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteJs.Mvc5, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RouteJs.Mvc5.2.2.0\lib\net45\RouteJs.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlServerDB, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlServerDB_dotNET.2.0.2\lib\net40\SqlServerDB.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -53,6 +84,24 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -60,8 +109,42 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="UniDb, Version=1.0.2.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\UniDb.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.9\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x64\msvcr100.dll">
+      <Link>SqlServerTypes\x64\msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x64\SqlServerSpatial110.dll">
+      <Link>SqlServerTypes\x64\SqlServerSpatial110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x86\msvcr100.dll">
+      <Link>SqlServerTypes\x86\msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x86\SqlServerSpatial110.dll">
+      <Link>SqlServerTypes\x86\SqlServerSpatial110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="A_FillIn_R.aspx" />
     <Content Include="A_groupLeaderAdmin.aspx" />
     <Content Include="A_info_c.aspx" />
@@ -77,25 +160,138 @@
     <Content Include="A_New_Recruit.aspx" />
     <Content Include="A_registrationGroupuseradmin.aspx" />
     <Content Include="A_schoolReportUseradmin.aspx" />
-    <Content Include="bin\KCIS_Biz.dll" />
-    <Content Include="bin\NPOI.dll" />
     <Content Include="bin\Alumni.dll" />
     <Content Include="bin\Alumni.pdb" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\JavaScriptEngineSwitcher.Core.dll" />
+    <Content Include="bin\JavaScriptEngineSwitcher.Jint.dll" />
+    <Content Include="bin\JavaScriptEngineSwitcher.Msie.dll" />
+    <Content Include="bin\Jint.dll" />
+    <Content Include="bin\KCBS_Biz.dll" />
+    <Content Include="bin\KCIS_Biz.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\MsieJavaScriptEngine.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\NPOI.dll" />
+    <Content Include="bin\React.dll" />
+    <Content Include="bin\React.Web.dll" />
+    <Content Include="bin\React.Web.xml" />
+    <Content Include="bin\React.xml" />
+    <Content Include="bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll" />
+    <Content Include="bin\ru-ru\MsieJavaScriptEngine.resources.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.React.dll" />
+    <Content Include="bin\System.Web.Optimization.React.xml" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebActivatorEx.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bin\WebMatrix.Data.dll" />
+    <Content Include="bin\WebMatrix.Data.xml" />
     <Content Include="checkpay.aspx" />
     <Content Include="choose.aspx" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="course.aspx" />
     <Content Include="course_d.aspx" />
+    <Content Include="css\87324d90015dc0b502908b1e2808af43embedcompiled_fastui.css" />
     <Content Include="css\app.css" />
     <Content Include="css\colorbox.css" />
+    <Content Include="css\general.css" />
+    <Content Include="css\images\animated-overlay.gif" />
+    <Content Include="css\images\appointment_block.png" />
+    <Content Include="css\images\arrow_down.png" />
+    <Content Include="css\images\arrow_up.png" />
+    <Content Include="css\images\bubble_combined_v2.png" />
+    <Content Include="css\images\close.png" />
+    <Content Include="css\images\combined_v22.png" />
+    <Content Include="css\images\controls.png" />
+    <Content Include="css\images\fast_link_arrow.png" />
+    <Content Include="css\images\grabbing.png" />
+    <Content Include="css\images\icon_app_close.png" />
+    <Content Include="css\images\icon_mobile_home.png" />
+    <Content Include="css\images\icon_mobile_search.png" />
+    <Content Include="css\images\icon_page_first.png" />
+    <Content Include="css\images\icon_page_last.png" />
+    <Content Include="css\images\icon_page_next.png" />
+    <Content Include="css\images\icon_page_prev.png" />
+    <Content Include="css\images\icon_search.png" />
+    <Content Include="css\images\icon_search_gray.png" />
+    <Content Include="css\images\icon_search_white.png" />
+    <Content Include="css\images\loading.gif" />
+    <Content Include="css\images\mainclasses.gif" />
+    <Content Include="css\images\menu_arrow_hover.gif" />
+    <Content Include="css\images\menu_icon.jpg" />
+    <Content Include="css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="css\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="css\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="css\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="css\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="css\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="css\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="css\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="css\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\index.css" />
+    <Content Include="css\index\images\animated-overlay.gif" />
+    <Content Include="css\index\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="css\index\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="css\index\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="css\index\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="css\index\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="css\index\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="css\index\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="css\index\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="css\index\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="css\index\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="css\index\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="css\index\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\index\jquery.ui.core.min.css" />
+    <Content Include="css\index\jquery.ui.tabs.min.css" />
+    <Content Include="css\index\jquery.ui.theme.min.css" />
+    <Content Include="css\jquery.ui.core.min.css" />
+    <Content Include="css\jquery.ui.tabs.min.css" />
+    <Content Include="css\jquery.ui.theme.min.css" />
     <Content Include="css\list.css" />
     <Content Include="css\logincss.css" />
+    <Content Include="css\menu.css" />
     <Content Include="css\New.css" />
+    <Content Include="css\owl.carousel.css" />
+    <Content Include="css\owl.theme.css" />
+    <Content Include="css\pop.css" />
+    <Content Include="css\reset.css" />
+    <Content Include="css\style-desktop.css" />
     <Content Include="css\style.css" />
     <Content Include="css\style1.css" />
     <Content Include="css\style_login.css" />
-    <Content Include="fonts\css\font-awesome.min.css" />
+    <Content Include="css\table.css" />
+    <Content Include="css\template.css" />
+    <Content Include="css\ui.totop.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="img\1.jpg" />
+    <Content Include="img\1109.jpg" />
+    <Content Include="img\1123.jpg" />
+    <Content Include="img\1123.png" />
+    <Content Include="img\1124.jpg" />
     <Content Include="img\2.jpg" />
     <Content Include="img\3.jpg" />
     <Content Include="img\4-1.png" />
@@ -104,7 +300,9 @@
     <Content Include="img\5-1.png" />
     <Content Include="img\5.jpg" />
     <Content Include="img\5.png" />
+    <Content Include="img\backgroundtexture1.png" />
     <Content Include="img\bangqiu.jpg" />
+    <Content Include="img\bg.jpg" />
     <Content Include="img\icon1.jpg" />
     <Content Include="img\icon1.png" />
     <Content Include="img\icon2.jpg" />
@@ -114,8 +312,28 @@
     <Content Include="img\icon4.jpg" />
     <Content Include="img\icon4.png" />
     <Content Include="img\jiqiren.jpg" />
+    <Content Include="img\KS-XY-02.jpg" />
+    <Content Include="img\Links_account.png" />
+    <Content Include="img\Links_e-Resources.png" />
+    <Content Include="img\Links_GoodReads.png" />
+    <Content Include="img\Links_MagazineList.png" />
+    <Content Include="img\Links_search.png" />
+    <Content Include="img\Links_WebResources.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\logo001.jpg" />
+    <Content Include="img\logo002.jpg" />
+    <Content Include="img\logo003.jpg" />
+    <Content Include="img\logo1213.png" />
     <Content Include="img\logo_denglu.png" />
+    <Content Include="img\logo_XY.png" />
+    <Content Include="img\logo_XY1.png" />
+    <Content Include="img\logo_XY2.png" />
+    <Content Include="img\logo_XY22.png" />
+    <Content Include="img\logo_XY2昆山.png" />
+    <Content Include="img\logo_XY_old.png" />
+    <Content Include="img\P0000040_1.png" />
     <Content Include="img\swim.jpg" />
+    <Content Include="img\XA-Library-02.jpg" />
     <Content Include="index.html" />
     <Content Include="info.aspx" />
     <Content Include="js\app.js" />
@@ -133,25 +351,45 @@
     <Content Include="KCIS_Biz\KCIS_Biz\bin\Release\KCIS_Biz.pdb" />
     <Content Include="KCIS_Biz\KCIS_Biz\bin\Release\NPOI.dll" />
     <Content Include="KCIS_Biz\KCIS_Biz\KCIS_Biz.csproj" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.csproj.FileListAbsolute.txt" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.csprojResolveAssemblyReference.cache" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.dll" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.pdb" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\build.force" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csproj.FileListAbsolute.txt" />
+    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csprojResolveAssemblyReference.cache" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.dll" />
     <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.pdb" />
     <Content Include="login.aspx" />
     <Content Include="myorder.aspx" />
+    <Content Include="readme.txt" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="bin\Alumni.config" />
+    <Content Include="bin\Alumni.dll.config" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="showFor_C.aspx" />
     <Content Include="showFor_R.aspx" />
     <Content Include="showFor_Z.aspx" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="summercampuseradmin.aspx" />
     <Content Include="UpdateOrder.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\LeaveWord.cs" />
     <Compile Include="App_Data\Utils.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="A_FillIn_R.aspx.cs">
       <DependentUpon>A_FillIn_R.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -272,6 +510,12 @@
       <DependentUpon>choose.aspx</DependentUpon>
     </Compile>
     <Compile Include="ClassStudent.cs" />
+    <Compile Include="Controllers\AdminssionController.cs" />
+    <Compile Include="Controllers\CertificateController.cs" />
+    <Compile Include="Controllers\CodeMstrController.cs" />
+    <Compile Include="Controllers\DDLController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="course.aspx.cs">
       <DependentUpon>course.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -285,6 +529,12 @@
     </Compile>
     <Compile Include="course_d.aspx.designer.cs">
       <DependentUpon>course_d.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Db\EmailDb.cs" />
+    <Compile Include="Db\IDbOperation.cs" />
+    <Compile Include="Db\SchoolDb.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="info.aspx.cs">
       <DependentUpon>info.aspx</DependentUpon>
@@ -311,6 +561,11 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Certificate\CertificateModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
+    <Compile Include="Models\FlagTips.cs" />
+    <Compile Include="Models\IMS_CODEMSTRModel.cs" />
+    <Compile Include="Models\Report\ReportModel.cs" />
     <Compile Include="myorder.aspx.cs">
       <DependentUpon>myorder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -318,7 +573,12 @@
     <Compile Include="myorder.aspx.designer.cs">
       <DependentUpon>myorder.aspx</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\BasicService.cs" />
+    <Compile Include="Service\CommonService.cs" />
     <Compile Include="showFor_C.aspx.cs">
       <DependentUpon>showFor_C.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -340,6 +600,14 @@
     <Compile Include="showFor_Z.aspx.designer.cs">
       <DependentUpon>showFor_Z.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="summercampuseradmin.aspx.cs">
+      <DependentUpon>summercampuseradmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="summercampuseradmin.aspx.designer.cs">
+      <DependentUpon>summercampuseradmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UpdateOrder.aspx.cs">
       <DependentUpon>UpdateOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -349,13 +617,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="KCIS_Biz\KCIS_Biz\obj\Debug\KCIS_Biz.csprojResolveAssemblyReference.cache" />
-    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\build.force" />
-    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="KCIS_Biz\KCIS_Biz\obj\Release\KCIS_Biz.csprojResolveAssemblyReference.cache" />
-    <Content Include="bin\Alumni.config" />
-    <None Include="Properties\PublishProfiles\Alumni.pubxml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Adminssion\InstructionsForAdminission.cshtml" />
+    <Content Include="Views\Certificate\CertificateIndex.cshtml" />
+    <Content Include="Views\Report\ReportIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -364,12 +636,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="content\" />
+    <Folder Include="css\images\_notes\" />
+    <Folder Include="css\index\images\_notes\" />
+    <Folder Include="css\index\_notes\" />
+    <Folder Include="css\_notes\" />
     <Folder Include="KCIS_Biz\KCIS_Biz\obj\Debug\TempPE\" />
     <Folder Include="KCIS_Biz\KCIS_Biz\obj\Release\TempPE\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <Folder Include="Service References\" />
+    <Folder Include="Views\BasicService\" />
+    <Folder Include="Views\CodeMstr\" />
+    <Folder Include="Views\DDL\" />
+    <Folder Include="Views\IDbOperation\" />
+    <Folder Include="Views\SchoolDb\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -384,9 +662,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>21001</DevelopmentServerPort>
+          <DevelopmentServerPort>63737</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:21001/</IISUrl>
+          <IISUrl>http://localhost:63737/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -396,6 +674,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
