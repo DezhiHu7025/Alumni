@@ -6,8 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
-    <link href="../css/new2.css" rel="stylesheet" />
-    <script src="../js/jquery1.min.js"></script>
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <script src="~/js/jquery1.min.js"></script>
 </head>
 
 <body>
@@ -79,7 +79,7 @@
                     <p class="kuai">
                         <span class="title_bold">6.申请用途 Apply For&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="txt_UseFor" name="txt_UseFor" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                        <select ID="txt_UseFor" name="txt_UseFor" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择申请用途---</option>
                             <option value="签证">签证</option>
                             <option value="申请学校">申请学校</option>
@@ -91,7 +91,7 @@
                     <p class="kuai">
                         <span class="title_bold">7.申请份数 Apply Number Of Copies&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="txt_Copies" name="txt_Copies" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                        <select ID="txt_Copies" name="txt_Copies" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择申请份数---</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -104,7 +104,7 @@
                     <p class="kuai">
                         <span class="title_bold">8.收取成绩单方式 Receiving Mode&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="txt_takeWay" name="txt_takeWay" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list"
+                        <select ID="txt_takeWay" name="txt_takeWay" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required"
                                 onchange="JavaScript:selectDpListWay(this)">
                             <option value="">---请选择收取方式---</option>
                             <option value="邮寄">邮寄</option>
@@ -115,13 +115,13 @@
                     <p class="kuai">
                         <span class="title_bold">9.邮寄/邮箱地址 Post/Emails Address&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                        <input ID="txt_SendAdress" name="txt_SendAdress" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list"">
+                        <input ID="txt_SendAdress" name="txt_SendAdress" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
                     </p>
                     <br />
                     <p class="kuai">
-                        <span class="title_bold">10.联系电话 Telephone Number&nbsp;&nbsp;<span class="red"></span></span>
+                        <span class="title_bold">10.联系电话 Telephone Number&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="txt_Cphone" name="txt_Cphone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                        <input ID="txt_Cphone" name="txt_Cphone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
                     </p>
                     <br />
                 </div>
@@ -130,7 +130,7 @@
 
 
             <div class="butom" style="text-align:center;">
-                <a href="../Home/Index" class="button">返回 Back</a>  |
+                <a href="~/Home/Index" class="button">返回 Back</a>  |
                 <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
             </div>
 
