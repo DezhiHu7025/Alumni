@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "BillIndex";
+}
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <script src="~/js/jquery1.min.js"></script>
+</head>
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="~/img/logo_XY2.png" />
+    </div>
+        <div>
+            <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Association document query | 康桥校友会单据查询</h3>
+            <br />
+            <form id="qq">
+                @*<span class="item-title">表单名称</span><input id="Form_Name" name="Form_Name" type="text">
+                <span class="item-title">表单状态</span><input id="IS_PASS" name="IS_PASS" type="text">
+                <button id="btn_submit" name="btn_submit" type="submit" Font-Names="微軟正黑體" Height="28px" onclick="ButtonSearch_Click" Width="100px">查询 Query</button>*@
+                <table id="tab" height="200" class="item-title"></table>
+            </form>
+            
+            <div class="butom" style="text-align:center;">
+                @Html.ActionLink("返回 Back", "Index", "Home", new { area = "" }, new { @class = "button" })
+            </div>
+
+        </div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        const model = ({
+            Form_Name: '',
+            IS_PASS: 'N',
+            Stu_Empno:'H22080031',
+        });
+        //var formData = new FormData(qq);
+        //formData.append('Form_Name', '成绩申请单');
+        //model.Form_Name = qq.formData.append('Form_Name', '成绩申请单');
+        //alert(model.Form_Name);
+        //console.log(formData);
+            $.ajax({
+                url: "query",
+                type: "post",
+                dataType: 'json',
+                data: model,
+                success: function (data) {
+                    var str = "";//定义用于拼接的字符串
+                    for (var i = 0; i < data.length; i++) {
+                        str = "<tr><td></tr></td><tr><td>" + "表单名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].Form_Name + "</td></tr><tr><td>"
+                            + data[i].TitleName + ":&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].SendAdress + "</td></tr></tr><td>"
+                            + "表单状态:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].IS_PASS + "</td></tr><tr><td><hr/></tr></td>";
+                        //追加到table中
+                        $("#tab").append(str);
+                    }
+                },
+                error: function (msg) {
+                    alert("查询失败" + msg);
+                }
+            });
+        //});
+    });
+</script>
+
+
+

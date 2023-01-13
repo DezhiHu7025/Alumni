@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "InformationIndex";
+}
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <script src="~/js/jquery1.min.js"></script>
+</head>
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="~/img/logo_XY2.png" />
+    </div>
+    <form id="ff">
+        <div>
+            <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;" >KCISEC Alumni Association contact details update | 康桥校友会联络信息更新</h3>
+            <br />
+            <p>
+                Please provide your most recent contact details so that the KCISEC Alumni Association can stay in touch.
+                <br/>
+                请提供您最新的联络方式，以便康桥校友会能与您保持联系。
+            </p>
+
+            <div class="content1">
+                <div class="leftDiv">
+                    <p class="kuai">
+                        <span class="title_bold">1.康桥学号 KCISEC Student Number&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">2.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">3.英文名 English Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in English&nbsp;&nbsp;|&nbsp;请用英文填写</span><br />
+                        <input ID="Stu_Eame" name="Stu_Eame" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold"> 4.您是否在G12从康桥毕业？ <br /> &nbsp;&nbsp; Did you graduate from KCISEC in Year 12?&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="GraduationStatus" name="GraduationStatus" runat="server" Font-Size="14px" ForeColor="#666666" onchange="JavaScript:selectDpList(this)" class="form-control select-list" required="required">
+                            <option value="">---请选择---</option>
+                            <option value="Y">是，我从康桥高中毕业 Yes, I graduated High School from KCISEC.</option>
+                            <option value="N">否，我并非从康桥高中毕业 No, I did not graduate High School from KCISEC.</option>
+                        </select>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">
+                            5.您目前在哪种院校就读？ <br /> &nbsp;&nbsp;  What type of educational institution are you currently studying at? &nbsp;&nbsp;<span class="red">*</span>
+                        </span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="College" name="College" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                            <option value="">---请选择就读院校---</option>
+                            <option value="HighSchool">高中 High School</option>
+                            <option value="College">学院／大学（本科）College/University (undergraduates)</option>
+                            <option value="JustGraduated">刚毕业 Recently graduated</option>
+                        </select>
+                    </p>
+                    <br />
+                </div>
+                <div class="rightDiv">
+                    <p class="kuai">
+                        <span class="title_bold">6.邮箱地址 Email Address&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="Email" name="Email" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">7.微信账号 WeChat ID&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="WeChat" name="WeChat" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">8.电话号码 Phone number&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="NewPhone" name="NewPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">9. 您是否愿意加入康桥校友会？ <br /> &nbsp;&nbsp;  Would you like to join in the KCISEC Alumni Association?&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="WillJoin" name="WillJoin" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                            <option value="">---请选择---</option>
+                            <option value="HighSchool">是 Yes</option>
+                            <option value="College">否 No</option>
+                        </select>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">
+                            10.请上传您的近照。
+                            Please upload your recent photos.&nbsp;&nbsp;<span class="red">*</span>
+                        </span>
+                        <br /><span class="hui">Please upload&nbsp;&nbsp;|&nbsp;请上传</span><br />
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">图片预览</label>
+                            <div class="col-sm-10">
+                                <a href="javascript:;" class="file">
+                                    选择文件
+                                    <input type="file" name="img" required>
+                                </a>
+                                <img id="img" height="100" src="">
+                            </div>
+                        </div>
+                        @*<div class="form-group row">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <button type="button" class="btn btn-primary" onclick="return preserve()">保存</button>
+                            </div>
+                        </div>*@
+                        @*<input ID="LatestPhoto" name="LatestPhoto" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">*@
+                    </p>
+                    <br />
+                </div>
+
+            </div>
+
+
+            <div class="butom" style="text-align:center;">
+                @Html.ActionLink("返回 Back", "Index", "Home", new { area = "" }, new { @class = "button" })|
+                <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
+            </div>
+
+        </div>
+    </form>
+    <script type="text/javascript">
+
+        
+        var small_img = document.querySelector('input[name=small_img]');
+        var img = document.querySelector('input[name=img]');
+        small_imgs = document.querySelector('#small_img');
+        imgs = document.querySelector('#img');
+        if (small_img) {
+            small_img.addEventListener('change', function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                reader.addEventListener("load", function () {
+                    small_imgs.src = reader.result;
+                }, false);
+                // 调用reader.readAsDataURL()方法，把图片转成base64
+                reader.readAsDataURL(file);
+                $("img").eq(0).css("display", "block");
+            }, false);
+        }
+        if (img) {
+            img.addEventListener('change', function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                reader.addEventListener("load", function () {
+                    imgs.src = reader.result;
+                }, false);
+                // 调用reader.readAsDataURL()方法，把图片转成base64
+                reader.readAsDataURL(file);
+                $("img").eq(1).css("display", "block");
+            }, false);
+        }
+
+        function preserve() {
+            var picture = new FormData();
+            var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
+            picture.append("img", img);
+            console.log(file);
+            console.log(img);
+            console.log(picture);
+            $.ajax({
+                type: "post",
+                url: "PictureSave",/*此处填写上传路径*/
+                processData: false,
+                contentType: false,
+                data: picture,
+                dataType: "json",
+                success: function (data) {
+
+                }
+            });
+        }
+
+
+            $(function () {
+                $('#ff').on('submit', function (e) {
+                    e.preventDefault();
+                    var model = $('#ff').serialize();
+                    var len = document.getElementById('NewPhone').value;
+                    console.log(len);
+                    if (len != null &&  len != ""){
+                        if (len.length != 11) {
+                            alert("手机号码应为11位 The mobile phone number should be 11 digits");
+                            return false;
+                        }
+                    }
+                    console.log(model);
+                    $.ajax({
+                        type: 'post',
+                        url: 'InformationSave',
+                        data: model,
+                        beforeSend: function () {
+                            // 禁用按钮防止重复提交
+                            $("#submit").attr({ disabled: "disabled" });
+                        },
+                        success: function (result) {
+                            if (result.IsSuccess) {
+                                alert('提交成功 Submitted successfully！');
+                                window.location.href = "@Url.Action("Index", "Home")";
+                            }
+                            else {
+                                alert(result.Msg);
+                            }
+                        }
+                    })
+                })
+            });
+
+    </script>
+</body>
+
