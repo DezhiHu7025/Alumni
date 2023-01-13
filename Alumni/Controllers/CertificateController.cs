@@ -26,7 +26,7 @@ namespace Alumni.Controllers
                                                    FROM [db_forminf].[dbo].[OldStudent_Onlin_List] a
                                                        LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
                                                            ON a.form_name = b.form_name
-                                                   WHERE b.shopForm_id = 'S0000001' and b.form_id = 'P0000002'
+                                                   WHERE b.shopForm_id = 'S0000001' and b.form_id = 'P0000002' and is_pass = 'N'
                                                          AND (a.stunum = @Stu_Empno OR a.Phone = @NewPhone) ");
                     string cnt = db.Query<int>(checkSql, model).FirstOrDefault().ToString();
                     if (Convert.ToInt32(cnt) > 0)

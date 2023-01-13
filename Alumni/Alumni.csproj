@@ -321,10 +321,12 @@
     <Compile Include="App_Data\Utils.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminssionController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\CertificateController.cs" />
     <Compile Include="Controllers\CodeMstrController.cs" />
     <Compile Include="Controllers\DDLController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Db\EmailDb.cs" />
     <Compile Include="Db\IDbOperation.cs" />
@@ -343,10 +345,13 @@
     <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="KCIS_Biz\KCIS_Biz\obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Models\Bill\BillModel.cs" />
+    <Compile Include="Models\Bill\queryBillModel.cs" />
     <Compile Include="Models\Certificate\CertificateModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\FlagTips.cs" />
     <Compile Include="Models\IMS_CODEMSTRModel.cs" />
+    <Compile Include="Models\Information\InformationModel.cs" />
     <Compile Include="Models\Report\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BasicService.cs" />
@@ -365,6 +370,8 @@
     <Content Include="Views\Adminssion\InstructionsForAdminission.cshtml" />
     <Content Include="Views\Certificate\CertificateIndex.cshtml" />
     <Content Include="Views\Report\ReportIndex.cshtml" />
+    <Content Include="Views\Information\InformationIndex.cshtml" />
+    <Content Include="Views\Bill\BillIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

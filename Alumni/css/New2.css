@@ -24,13 +24,13 @@
 			margin:0 auto;
 }
 .leftDiv{
-	width:400px;
+	width:500px;
 	position:absolute;
 			
 }
 .rightDiv{
 			height:100px;
-			margin-left:400px;
+			margin-left:500px;
 }
 .form-control{
 	display:block;
@@ -54,5 +54,37 @@
 	font-size: 1.17em;
 	font-weight: bold;
 	line-height: 0em;
+}
+.file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+         padding: 4px 12px;
+         overflow: hidden;
+         color: #1E88C7;
+         text-decoration: none;
+         text-indent: 0;
+         line-height: 20px;
+}
+ 
+.file input {
+         position: absolute;
+         font-size: 100px;
+         right: 0;
+         top: 0;
+         opacity: 0;
+}
+ 
+.file:hover {
+         background: #AADFFD;
+         border-color: #78C3F3;
+         color: #004974;
+         text-decoration: none;
+}
+.item-title{
+	color:#333333;
+	font:17px微软雅黑
 }
          
