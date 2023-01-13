@@ -87,4 +87,19 @@
 	color:#333333;
 	font:17px微软雅黑
 }
+.content2{
+			width:1140px;
+			height:800px;
+			margin:0 auto;
+}
+.leftDiv2{
+	width:500px;
+	position:absolute;
+			
+}
+.rightDiv2{
+			height:800px;
+			margin-left:500px;
+}
+.hui2{color: #333333; font-size: 14px;}
          

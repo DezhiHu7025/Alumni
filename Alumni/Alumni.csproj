@@ -327,6 +327,7 @@
     <Compile Include="Controllers\DDLController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Db\EmailDb.cs" />
     <Compile Include="Db\IDbOperation.cs" />
@@ -352,6 +353,7 @@
     <Compile Include="Models\FlagTips.cs" />
     <Compile Include="Models\IMS_CODEMSTRModel.cs" />
     <Compile Include="Models\Information\InformationModel.cs" />
+    <Compile Include="Models\Question\QuestionModel.cs" />
     <Compile Include="Models\Report\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BasicService.cs" />
@@ -372,6 +374,7 @@
     <Content Include="Views\Report\ReportIndex.cshtml" />
     <Content Include="Views\Information\InformationIndex.cshtml" />
     <Content Include="Views\Bill\BillIndex.cshtml" />
+    <Content Include="Views\Question\QuestionIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
