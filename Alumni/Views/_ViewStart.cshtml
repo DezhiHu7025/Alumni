@@ -1,3 +1,21 @@
-﻿@{
+﻿@*@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+@{
+    var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var action = ViewContext.RouteData.Values["action"].ToString().ToLower();
+
+    string[] lController = new string[] { "manager", "taotaldata" };
+    string[] lAction = new string[] { "managerIndex", "taotaldataIndex" };
+
+
+    if (lController.Contains(controller))
+    {
+        Layout = null;
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
 }

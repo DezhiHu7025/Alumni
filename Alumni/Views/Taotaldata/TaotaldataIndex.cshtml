@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "TaotaldataIndex";
+}
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <script src="~/js/jquery1.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="~/static/css/css2.css" rel="stylesheet">
+    <link href="~/static/css/all.min.css" rel="stylesheet">
+    <link href="~/static/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/static/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/static/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    <link href="~/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/static/css/style.css" rel="stylesheet">
+</head>
+<div>
+    <div class="d-flex mb-2">
+        <span class="item-title">单据类型</span>
+        <select ID="Form_Name" name="Form_Name" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+            <option value="">---请选择---</option>
+            <option value="P0000002">转出/在读证明</option>
+            <option value="P0000003">成绩单申请</option>
+        </select>
+
+        <span class="item-title">学生手机号/学生学号</span>
+        <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2"/>
+        <span class="item-title">审核状态</span>
+        <select ID="IS_PASS" name="IS_PASS" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+            <option value="">---请选择---</option>
+            <option value="N">审核中</option>
+            <option value="Y">已审核通过</option>
+            <option value="D">审核不通过	</option>
+        </select>
+        <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索 Search</button>
+    </div>
+    <table id="table"></table>
+
+    <script src="~/static/js/bootstrap.bundle.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/chart.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/easing.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/waypoints.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/owl.carousel.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/moment.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/moment-timezone.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/tempusdominus-bootstrap-4.min.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/main.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/rocket-loader.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+    <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+
+
+    <script type="text/javascript">
+       
+
+        $(function () {
+            $('#table').bootstrapTable('destroy');
+            $('#table').bootstrapTable({
+                ajax: function (request) {
+                        var model = {
+                            "IS_PASS": $("#IS_PASS").val(),
+                            "Form_Name": $("#Form_Name").val(),
+                            "Stu_Empno": $("#Stu_Empno").val(),
+                        }
+                    request.data = model;
+                    $.ajax({
+                        type: "post",
+                        url: "GetData",
+                        contentType: "application/json;charset=UTF-8",
+                        data: JSON.stringify(request.data),
+                        dataType: "json",
+                        jsonp: 'callback',
+                        success: function (msg) {
+                            request.success({
+                                rows: msg
+                            });
+                            $('#table').bootstrapTable('load', msg);
+                        },
+                        error: function () {
+                            alert("错误");
+                        }
+                    });
+                },
+                toolbar: '#toolbar',
+                singleSelect: true,
+                clickToSelect: true,
+                sortName: "AddTime",
+                sortOrder: "desc",
+                cache: false,
+                striped:true,
+                pageSize: 10,
+                pageNumber: 1,
+                pageList: "[15, 25, 50, 100, All]",
+                showToggle: true,
+                showRefresh: true,
+                showColumns: true,
+                search: true,
+                pagination: true,
+                columns: [{
+                    field: "mchSeqNo",
+                    checkbox: true,
+                }, {
+                    field: 'Form_Name',
+                    title: '单据名称',
+                    switchable: true
+                }, {
+                    field: 'IS_PASS',
+                    title: '审核状态',
+                    switchable: true
+                }, {
+                    field: 'Stu_Empno',
+                    title: '学号',
+                    switchable: true
+                }, {
+                    field: 'Stu_Name',
+                    title: '姓名',
+                    switchable: true,
+                    sortable: true
+                }, {
+                    field: 'EmailAdress',
+                    title: '邮件/邮箱地址',
+                    switchable: true
+                }, {
+                    field: 'Phone',
+                    title: '手机号',
+                    switchable: true
+                }, {
+                    field: 'AddTime',
+                    title: '提交时间',
+                    switchable: true
+                }],
+            });
+
+            $('#btn_search').click(function () {
+                $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+            });
+        });
+    </script>
+</div>
+
+
