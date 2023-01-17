@@ -13,5 +13,10 @@ namespace Alumni.Controllers
         {
             return View();
         }
+
+        public ActionResult InstructionIndex()
+        {
+            return View();
+        }
     }
 }

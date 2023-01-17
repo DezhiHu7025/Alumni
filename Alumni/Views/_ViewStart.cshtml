@@ -5,13 +5,20 @@
     var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
     var action = ViewContext.RouteData.Values["action"].ToString().ToLower();
 
-    string[] lController = new string[] { "manager", "taotaldata" };
-    string[] lAction = new string[] { "managerIndex", "taotaldataIndex" };
+    string[] lController = new string[] { "manager", "taotaldata","report" };
+    string[] lAction = new string[] { "managerindex", "taotaldataindex" , "totalreportindex", "instructionindex" };
 
 
     if (lController.Contains(controller))
     {
-        Layout = null;
+        if (lAction.Contains(action))
+        {
+            Layout = null;
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
     }
     else
     {

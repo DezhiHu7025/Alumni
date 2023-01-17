@@ -1,5 +1,6 @@
 ﻿using Alumni.Db;
 using Alumni.Models;
+using Alumni.Models.Bill;
 using Alumni.Models.Report;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,63 @@ namespace Alumni.Controllers
                     db.DoExtremeSpeedTransaction(trans);
                 }
                 return Json(new FlagTips { IsSuccess = true });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
+        public ActionResult TotalReportIndex()
+        {
+            return View();
+        }
+
+        public ActionResult GetReportData(queryBillModel model)
+        {
+            var list = new List<ReportModel>();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.CmchSeqNo,
+       a.form_name,
+       a.stu_empno,
+       a.stu_name,
+       a.passportEname,
+       a.reportCard,
+       a.txt_yyyy,
+       a.txt_mm,
+       a.UseFor txt_UseFor,
+       a.Copies txt_Copies,
+       a.takeWay txt_takeWay,
+       a.SendAdress txt_SendAdress,
+       a.Cphone txt_Cphone,
+       ims.text is_pass,
+       a.Is_inner,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[Achievement_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' ");
+                    if (!string.IsNullOrEmpty(model.Stu_Empno))
+                    {
+                        sql += " and (a.stu_empno = @Stu_Empno or a.Cphone = @Stu_Empno )";
+                    }
+                    if (!string.IsNullOrEmpty(model.IS_PASS))
+                    {
+                        sql += " and a.is_pass = @IS_PASS ";
+                    }
+                    sql += " ORDER BY a.addtime DESC ";
+
+                    list = db.Query<ReportModel>(sql, model).ToList();
+                }
+                return Json(list);
 
             }
             catch (Exception ex)

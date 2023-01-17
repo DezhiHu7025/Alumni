@@ -380,6 +380,8 @@
     <Content Include="Views\Question\QuestionIndex.cshtml" />
     <Content Include="Views\Manager\ManagerIndex.cshtml" />
     <Content Include="Views\Taotaldata\TaotaldataIndex.cshtml" />
+    <Content Include="Views\Report\TotalReportIndex.cshtml" />
+    <Content Include="Views\Manager\InstructionIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

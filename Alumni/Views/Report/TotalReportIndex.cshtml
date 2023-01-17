@@ -1,0 +1,236 @@
+﻿
+@{
+    ViewBag.Title = "TotalReportIndex";
+}
+<body>
+    <div>
+        <div class="d-flex mb-2">
+            <hr>
+            <span class="item-title">学生手机号/学生学号</span>
+            <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
+            <span class="item-title">审核状态</span>
+            <select ID="IS_PASS" name="IS_PASS" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+                <option value="">---请选择---</option>
+                <option value="N">审核中</option>
+                <option value="Y">已审核通过</option>
+                <option value="D">审核不通过	</option>
+            </select>
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索 Search</button>
+        </div>
+        <div id="toolbox">
+            <button class="btn" id="edit_table_btn"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="myModal">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">请审核成绩单单据信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" class="form-horizontal">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" disabled="disabled" id="CmchSeqNo">
+                                <label for="" class="col-sm-2 control-label">表单名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" disabled="disabled" id="Form_Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">学号</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="Stu_Empno_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">审核状态</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="IS_PASS_edit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">审核意见</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked="">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        审核通过
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        审核不通过
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="sava-edit-btn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table id="table"></table>
+        <script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+        <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+        <script type="text/javascript">
+            $(function () {
+                var $table = $("#table");
+                $('#table').bootstrapTable('destroy');
+                $('#table').bootstrapTable({
+                    ajax: function (request) {
+                        var model = {
+                            "IS_PASS": $("#IS_PASS").val(),
+                            "Stu_Empno": $("#Stu_Empno").val(),
+                        }
+                        request.data = model;
+                        $.ajax({
+                            type: "post",
+                            url:"@(Url.Action("GetReportData", "Report"))",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(request.data),
+                            dataType: "json",
+                            jsonp: 'callback',
+                            success: function (msg) {
+                                request.success({
+                                    rows: msg
+                                });
+                                $('#table').bootstrapTable('load', msg);
+                            },
+                            error: function () {
+                                alert("错误");
+                            }
+                        });
+                    },
+                    toolbar: '#toolbar',
+                    singleSelect: true,
+                    clickToSelect: true,
+                    sortName: "AddTime",
+                    sortOrder: "desc",
+                    cache: false,
+                    striped: true,
+                    pageSize: 10,
+                    pageNumber: 1,
+                    pageList: "[15, 25, 50, 100, All]",
+                    showToggle: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    search: true,
+                    pagination: true,
+                    columns: [{
+                        field: "mchSeqNo",
+                        checkbox: true,
+                    }, {
+                        field: 'Form_Name',
+                        title: '单据名称',
+                        switchable: true
+                    }, {
+                        field: 'IS_PASS',
+                        title: '审核状态',
+                        switchable: true
+                    }, {
+                        field: 'Stu_Empno',
+                        title: '学号',
+                        switchable: true
+                    }, {
+                        field: 'Stu_Name',
+                        title: '姓名',
+                        switchable: true,
+                        sortable: true
+                    }, {
+                            field: 'PassportEname',
+                        title: '护照英文名',
+                        switchable: true
+                    }, {
+                            field: 'ReportCard',
+                        title: '成绩单类型',
+                        switchable: true
+                    }, {
+                            field: 'txt_yyyy',
+                        title: '申请学年',
+                        switchable: true
+                        }, {
+                            field: 'txt_mm',
+                            title: '申请学期',
+                            switchable: true
+                        }, {
+                            field: 'txt_UseFor',
+                            title: '申请用途',
+                            switchable: true
+                        }, {
+                            field: 'txt_Copies',
+                            title: '申请份数',
+                            switchable: true
+                        }, {
+                            field: 'txt_takeWay',
+                            title: '收取方式',
+                            switchable: true
+                        }, {
+                            field: 'txt_SendAdress',
+                            title: '邮寄地址或邮箱',
+                            switchable: true
+                        }, {
+                            field: 'txt_Cphone',
+                            title: '手机号',
+                            switchable: true
+                        }, {
+                            field: 'AddTime',
+                            title: '提交时间',
+                            switchable: true
+                        }],
+                });
+
+                var $editbtn = $("#edit_table_btn");
+                $(function () {
+                    $editbtn.click(function () {
+                        var info = $table.bootstrapTable('getSelections')[0];
+                        if (info.length == 2) {
+                            alert("请选择数据");
+                        } else {
+                            console.log($("#myModal").modal())
+                            $("#CmchSeqNo").val(info.CmchSeqNo)
+                            $("#IS_PASS_edit").val(info.IS_PASS_edit)
+                            $("#Form_Name").val(info.Form_Name)
+                            $("#Stu_Empno_edit").val(info.Stu_Empno_edit)
+                            $("#myModal").modal();
+                        }
+                    });
+
+                    /*
+                    //获取点击的行的行号 有效：为获得编辑的行号的尝试。
+                    $table.on("click-row.bs.table",function(e, row, $element) {
+                            var index= $element.data('index');
+                            alert(index);
+                    });
+                    */
+
+                    //关闭模态框数据保存到table
+                    $("#sava-edit-btn").click(function () {
+                        $('#myModal').modal('hide');
+                        var CmchSeqNo = $("#CmchSeqNo").val();
+                        var IS_PASS_edit = $("#IS_PASS_edit").val();
+                        var Form_Name = $("#Form_Name").val();
+                        var Stu_Empno_edit = $("#Stu_Empno_edit").val();
+
+                        $table.bootstrapTable("updateRow", {
+                            index: index,
+                            row: {
+                                CmchSeqNo: CmchSeqNo,
+                                IS_PASS_edit: IS_PASS_edit,
+                                Form_Name: Form_Name,
+                                Stu_Empno_edit: Stu_Empno_edit,
+                            }
+                        });
+                    })
+                })
+
+
+                $('#btn_search').click(function () {
+                    $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+                });
+            });
+        </script>
+    </div>
+</body>
