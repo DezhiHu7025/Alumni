@@ -24,7 +24,7 @@
 
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a  class="navbar-brand mx-4 mb-3">
+                <a class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>校友系统后台</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -38,29 +38,14 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-
                     <ul class="Menu">
-                        @*<div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="#" class="dropdown-item">Buttons</a>
-                        <a href="#" class="dropdown-item">Typography</a>
-                        <a href="#" class="dropdown-item">Other Elements</a>
-                    </div>
-                </div>*@
-                        <li class="current" data-id="111"><i class="far fa-file-alt me-2"></i>校友系统后台说明</li>
-                        <li data-id="222"><i class="fa fa-th me-2"></i>校友入校申请</li>
-                        <li data-id="333"><i class="fa fa-keyboard me-2"></i>在读/转出证明</li>
-                        <li data-id="444"><i class="fa fa-table me-2"></i>成绩单查询</li>
-                        <li data-id="555"><i class="fa fa-chart-bar me-2"></i>总数据查询</a>
+                        <li class="current" data-id="111"><a class="nav-item nav-link">校友系统后台说明</a></li>
+                        <li data-id="222"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">校友入校申请</a></li>
+                        <li data-id="333"><a href="#" class="nav-item nav-link">在读/转出证明查询</a>
+                        <li data-id="444"><a class="nav-item nav-link">成绩单查询</a></li>
+                        <li data-id="555"><a class="nav-item nav-link">总数据查询</a></li>
                     </ul>
                 </div>
-                @*<ul class="Menu">
-            <li class="current" data-id="111">后台管理</li>
-            <li data-id="222">成绩单查询</li>
-            <li data-id="333">总数据查询</li>
-        </ul>*@
-
             </nav>
         </div>
 
@@ -163,8 +148,8 @@
             $(".Menu").on("click", "li", function () {
                 var sId = $(this).data("id");//获取data-id的值
                 window.location.hash = sId;
+                loacdInner(sId);
             });
-
             function loacdInner(sId) {
                 var sId = window.location.hash;
                 var pathn, i;
@@ -178,7 +163,7 @@
                         i = 0;
                         break;
                     case "#333":
-                        pathn = "@(Url.Action("TaotaldataIndex", "Taotaldata"))",
+                        pathn = "@(Url.Action("TotalCertificateIndex", "Certificate"))",
                         i = 0;
                         break;
                     case "#444":
@@ -194,7 +179,7 @@
                         i = 0;
                         break;
                 }
-                $("#content").load(pathn);//加载相应内
+                $("#content").load(pathn);//加载相应内容
                 $(".Menu li").eq(i).addClass("current").siblings().removeClass("current");//当前列表高亮
             }
             var sId = window.location.hash;

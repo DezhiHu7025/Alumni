@@ -382,6 +382,7 @@
     <Content Include="Views\Taotaldata\TaotaldataIndex.cshtml" />
     <Content Include="Views\Report\TotalReportIndex.cshtml" />
     <Content Include="Views\Manager\InstructionIndex.cshtml" />
+    <Content Include="Views\Certificate\TotalCertificateIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

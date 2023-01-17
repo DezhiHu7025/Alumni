@@ -66,5 +66,15 @@ namespace Alumni.Models.Certificate
         /// 创建时间
         /// </summary>
         public DateTime timenow { get; set; }
+
+        /// <summary>
+        /// 提交时间
+        /// </summary>
+        public string AddTime { get; set; }
+
+        /// <summary>
+        /// 审核状态
+        /// </summary>
+        public string IS_PASS { get; set; }
     }
 }

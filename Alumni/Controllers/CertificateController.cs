@@ -1,5 +1,6 @@
 ﻿using Alumni.Db;
 using Alumni.Models;
+using Alumni.Models.Bill;
 using Alumni.Models.Certificate;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,10 @@ namespace Alumni.Controllers
 {
     public class CertificateController : Controller
     {
+        /// <summary>
+        /// 转出/在读证明
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CertificateIndex()
         {
             return View();
@@ -58,6 +63,73 @@ namespace Alumni.Controllers
             {
                 return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
             }
+        }
+
+        public ActionResult TotalCertificateIndex()
+        {
+            return View();
+        }
+
+        public ActionResult GetCertificateData(queryBillModel model)
+        {
+            var list = new List<CertificateModel>();
+            try
+            {
+                list = querList(model);
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+            return Json(list);
+        }
+
+        public List<CertificateModel> querList(queryBillModel model)
+        {
+            var list = new List<CertificateModel>();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.ZmchSeqNo KmchSeqNo,
+       a.form_name,
+       a.stunum Stu_Empno,
+       a.stuname Stu_Name,
+       ims.text is_pass,
+       a.IDcard,
+       a.IDcard_number,
+       a.passportEname,
+       a.adress,
+       a.Hcountry,
+       a.txt_Newphone NewPhone,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+	   a.EmailAdress Email,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[Turn_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' ");
+                    if (!string.IsNullOrEmpty(model.Stu_Empno))
+                    {
+                        sql += " and (a.stunum = @Stu_Empno or a.txt_Newphone = @Stu_Empno )";
+                    }
+                    if (!string.IsNullOrEmpty(model.IS_PASS))
+                    {
+                        sql += " and a.is_pass = @IS_PASS ";
+                    }
+                    sql += " ORDER BY a.addtime DESC ";
+
+                    list = db.Query<CertificateModel>(sql, model).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return list;
         }
     }
 }
