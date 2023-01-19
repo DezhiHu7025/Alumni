@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
     <link href="~/css/new2.css" rel="stylesheet" />
     <script src="~/static/js/jquery-3.4.1.min.js"></script>
+    <script src="~/static/js/main.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/rocket-loader.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
@@ -25,7 +28,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>校友系统后台</h3>
+                    <h3 class="text-primary">校友系统后台</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -40,8 +43,8 @@
                 <div class="navbar-nav w-100">
                     <ul class="Menu">
                         <li class="current" data-id="111"><a class="nav-item nav-link">校友系统后台说明</a></li>
-                        <li data-id="222"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">校友入校申请</a></li>
-                        <li data-id="333"><a href="#" class="nav-item nav-link">在读/转出证明查询</a>
+                        <li data-id="222"><a class="nav-item nav-link">入校申请查询</a></li>
+                        <li data-id="333"><a class="nav-item nav-link">在读/转出证明查询</a>
                         <li data-id="444"><a class="nav-item nav-link">成绩单查询</a></li>
                         <li data-id="555"><a class="nav-item nav-link">总数据查询</a></li>
                     </ul>
@@ -51,10 +54,10 @@
 
         <div class="content">
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="#" class="navbar-brand d-flex d-lg-none me-4">
+                <a class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
@@ -159,7 +162,7 @@
                         i = 0;
                         break;
                     case "#222":
-                        pathn = "@(Url.Action("TaotaldataIndex", "Taotaldata"))",
+                        pathn = "@(Url.Action("TotalAdminissionIndex", "Adminssion"))",
                         i = 0;
                         break;
                     case "#333":

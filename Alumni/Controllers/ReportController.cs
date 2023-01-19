@@ -119,5 +119,48 @@ WHERE b.shopForm_id = 'S0000001' ");
                 return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
             }
         }
+
+        public ActionResult GetReport(string CmchSeqNo)
+        {
+            ReportModel model = new ReportModel();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.CmchSeqNo,
+       a.form_name,
+       a.stu_empno,
+       a.stu_name,
+       a.passportEname,
+       a.reportCard,
+       a.txt_yyyy,
+       a.txt_mm,
+       a.UseFor txt_UseFor,
+       a.Copies txt_Copies,
+       a.takeWay txt_takeWay,
+       a.SendAdress txt_SendAdress,
+       a.Cphone txt_Cphone,
+       ims.text is_pass,
+       a.Is_inner,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[Achievement_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' and a.CmchSeqNo = @CmchSeqNo ");
+
+                    model = db.Query<ReportModel>(sql, new { CmchSeqNo }).FirstOrDefault();
+                }
+                return Json(model, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
     }
 }
