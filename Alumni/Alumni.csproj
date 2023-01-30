@@ -418,6 +418,7 @@
     <Content Include="Views\Certificate\TotalCertificateIndex.cshtml" />
     <Content Include="Views\Adminssion\TotalAdminissionIndex.cshtml" />
     <Content Include="Views\Report\SignReportVw.cshtml" />
+    <Content Include="Views\Certificate\SignCertificateVw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

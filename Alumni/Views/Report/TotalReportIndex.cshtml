@@ -138,7 +138,7 @@
             $("button").popover()
             $sign.click(function () {
                 var info = $table.bootstrapTable('getSelections')[0];
-
+                console.log(info)
                 if (info == null) {
                     alert("请选择数据");
                 } else {

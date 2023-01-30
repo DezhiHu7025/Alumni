@@ -16,19 +16,19 @@
                 <option value="Y">已审核通过</option>
                 <option value="D">审核不通过	</option>
             </select>
-            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索 Search</button>
-        </div>
-        <div id="toolbox">
-            <button class="btn" id="edit_table_btn"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
+            <button class="btn btn-primary ms-2" id="btn_sign"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
         </div>
         <table id="table"></table>
-        <script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-        <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-        <script type="text/javascript">
-            $(function () {
-                var $table = $("#table");
-                $('#table').bootstrapTable('destroy');
-                $('#table').bootstrapTable({
+    </div>
+</body>
+<script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script type="text/javascript">
+    $(function () {
+        var $table = $("#table");
+        $('#table').bootstrapTable('destroy');
+        $('#table').bootstrapTable({
                     ajax: function (request) {
                         var model = {
                             "IS_PASS": $("#IS_PASS").val(),
@@ -69,9 +69,14 @@
                     search: true,
                     pagination: true,
                     columns: [{
-                        field: "KmchSeqNo",
+                        field: "id",
                         checkbox: true,
-                    }, {
+                    },
+                    {
+                        field: "KmchSeqNo",
+                        visible: false,
+                    },
+                    {
                         field: 'Form_Name',
                         title: '单据名称',
                         switchable: true
@@ -121,13 +126,64 @@
                             title: '提交时间',
                             switchable: true
                         }],
-                });
+        });
+        
+        var $sign = $("#btn_sign");
+        $(function () {
+        $("button").popover()
+            $sign.click(function () {
+                var info = $table.bootstrapTable('getSelections')[0];
+                console.log(info.KmchSeqNo)
+                if (info == null) {
+                    alert("请选择数据");
+                } else {
 
-                $('#btn_search').click(function () {
-                    $('#table').bootstrapTable('refresh', { pageNumber: 1 });
-                });
+                    var KmchSeqNo = info.KmchSeqNo;
+                    var IS_PASS = info.IS_PASS;
+                    if (IS_PASS != "审核中") {
+                        alert("此单据已审核，请勿重复审核")
+                    }
+                    else
+                    {
+                        $.ajax({
+                        url: "@(Url.Action("GetCertificate", "Certificate"))",
+                        type: "get",
+                        dataType: "json",
+                        data: { KmchSeqNo: KmchSeqNo },
+                        success: function (res) {
+                            //取到的数据存储到localStorage
+                            localStorage.clear();
+                            localStorage.setItem("KmchSeqNo", res.KmchSeqNo);
+                            localStorage.setItem("Form_Name", res.Form_Name);
+                            localStorage.setItem("Stu_Empno", res.Stu_Empno);
+                            localStorage.setItem("Stu_Name", res.Stu_Name);
+                            localStorage.setItem("IDCard", res.IDCard);
+                            localStorage.setItem("IDcard_Number", res.IDcard_Number);
+                            localStorage.setItem("PassportEname", res.PassportEname);
+                            localStorage.setItem("Hcountry", res.Hcountry);
+                            localStorage.setItem("Adress", res.Adress);
+                            localStorage.setItem("Email", res.Email);
+                            localStorage.setItem("NewPhone", res.NewPhone);
+                            localStorage.setItem("AddTime", res.AddTime);
+                            localStorage.setItem("IS_PASS", res.IS_PASS);
+                            //原窗口打开新页面
+                            window.location.href = "#SignCertificate";
+                                window.location.reload();
+                        },
+                        error: function (res) {
+                           alert("error")
+                        }
+                    });
+                    }
+                   
+                }
             });
-        </script>
-    </div>
-</body>
+        });
+
+        $('#btn_search').click(function () {
+            $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+        });   
+
+    });
+</script>
 

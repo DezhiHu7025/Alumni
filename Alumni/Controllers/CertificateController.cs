@@ -21,6 +21,11 @@ namespace Alumni.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 提交转出在读证明
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult CertificateSave(CertificateModel model)
         {
             try
@@ -70,6 +75,11 @@ namespace Alumni.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 转出在读证明 信息列表
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult GetCertificateData(queryBillModel model)
         {
             var list = new List<CertificateModel>();
@@ -130,6 +140,100 @@ WHERE b.shopForm_id = 'S0000001' ");
                
             }
             return list;
+        }
+
+        public ActionResult SignCertificateVw()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 转出在读证明具体信息
+        /// </summary>
+        /// <param name="CmchSeqNo"></param>
+        /// <returns></returns>
+        public ActionResult GetCertificate(string KmchSeqNo)
+        {
+            CertificateModel model = new CertificateModel();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.ZmchSeqNo KmchSeqNo,
+       a.form_name,
+       a.stunum Stu_Empno,
+       a.stuname Stu_Name,
+       ims.text is_pass,
+       a.IDcard,
+       a.IDcard_number,
+       a.passportEname,
+       a.adress,
+       a.Hcountry,
+       a.txt_Newphone NewPhone,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+	   a.EmailAdress Email,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[Turn_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' and a.ZmchSeqNo = @KmchSeqNo ");
+
+                    model = db.Query<CertificateModel>(sql, new { KmchSeqNo }).FirstOrDefault();
+                }
+                return Json(model, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 审核转出在读证明
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult SignCertificate(CertificateModel model)
+        {
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    DateTime now = DateTime.Now;
+                    RecordModel record = new RecordModel();
+                    record.GUID = Guid.NewGuid().ToString();
+                    record.ChSeqNo = model.KmchSeqNo;
+                    record.Form_Name = model.Form_Name;
+                    //todo:获取登录名
+                    record.Signer = "admin";
+                    record.SignTime = now;
+                    record.Comments = model.Comments;
+                    record.IS_PASS = model.SignStatus;
+
+                    model.IS_PASS = model.SignStatus;
+                    string sql1 = @"update  [db_forminf].[dbo].[Turn_indent] set is_pass =@IS_PASS where form_name=@Form_Name and  (Is_inner ='Z' OR Is_inner = 'N') AND is_pass = 'N' and ZmchSeqNo =@KmchSeqNo ";
+                    string sql2 = @"update  [db_forminf].[dbo].[OldStudent_Onlin_List] set is_pass =@IS_PASS where form_name=@Form_Name and  is_pass = 'N'  and mchSeqNo =@KmchSeqNo ";
+                    string sqlRecord = @"INSERT INTO  [db_forminf].[dbo].[Record] ([GUID],[ChSeqNo],[Form_Name],[Signer],[SignTime],[Comments],[IS_PASS])
+                                           VALUES(@GUID,@ChSeqNo,@Form_Name,@Signer,@SignTime,@Comments,@IS_PASS);";
+
+                    model.timenow = now;
+                    Dictionary<string, object> trans = new Dictionary<string, object>();
+                    trans.Add(sql1, model);
+                    trans.Add(sql2, model);
+                    trans.Add(sqlRecord, record);
+                    db.DoExtremeSpeedTransaction(trans);
+                }
+                return Json(new FlagTips { IsSuccess = true });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
         }
     }
 }

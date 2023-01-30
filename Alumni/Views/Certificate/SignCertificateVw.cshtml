@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "SignCertificateVw";
+}
+<body>
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">请审转出/在读证明单据信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal" id="ReportDetail">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <input type="hidden" class="form-control" disabled="disabled" id="KmchSeqNo">
+
+                                <span class="col-sm-2 control-label">单据名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Form_Name" />
+
+                                <span class="col-sm-2 control-label">
+                                    学号:
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Stu_Empno" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Stu_Name" />
+
+                                <span class="col-sm-2 control-label">护照英文名:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="PassportEname" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">证件类型:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="IDCard" />
+
+                                <span class="col-sm-2 control-label">证件号码:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="IDcard_Number" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">户籍地:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Hcountry" />
+
+                                <span class="col-sm-2 control-label">邮寄地址:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Adress" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">邮箱地址:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Email" />
+
+                                <span class="col-sm-2 control-label">手机号:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="NewPhone" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">提交时间:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="AddTime" />
+
+                                <span class="col-sm-2 control-label">审核状态:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="IS_PASS" />
+                            </div>
+                        </div>
+                        <br />
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <input class="form-check-input" type="radio" name="SignStatus" id="gridRadios1" value="Y" checked="">
+                                <label class="form-check-label" for="gridRadios1">
+                                    审核通过
+                                </label>
+                                <input class="form-check-input" type="radio" name="SignStatus" id="gridRadios2" value="D">
+                                <label class="form-check-label" for="gridRadios2">
+                                    审核不通过
+                                </label>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">审核意见:</span>
+                                <textarea type="text" class="col-sm-12" id="Comments" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        
+        $("#KmchSeqNo").val(localStorage.getItem("KmchSeqNo"));
+        $("#Form_Name").val(localStorage.getItem("Form_Name"));
+        $("#Stu_Empno").val(localStorage.getItem("Stu_Empno"));
+        $("#Stu_Name").val(localStorage.getItem("Stu_Name"));
+        $("#PassportEname").val(localStorage.getItem("PassportEname"));
+        $("#IDCard").val(localStorage.getItem("IDCard"));
+        $("#IDcard_Number").val(localStorage.getItem("IDcard_Number"));
+        $("#Hcountry").val(localStorage.getItem("Hcountry"));
+        $("#Adress").val(localStorage.getItem("Adress"));
+        $("#Email").val(localStorage.getItem("Email"));
+        $("#NewPhone").val(localStorage.getItem("NewPhone")); 
+        $("#AddTime").val(localStorage.getItem("AddTime")); 
+        $("#IS_PASS").val(localStorage.getItem("IS_PASS"));
+        localStorage.clear();
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#333";
+            window.location.reload();
+        });
+
+        //确定 提交审核状态
+        $("#btn_save").click(function () {
+            var signvalue = $('input[type=radio][name=SignStatus]:checked').val();
+            var model = {
+                KmchSeqNo: $("#KmchSeqNo").val(),
+                Comments: $("#Comments").val(),
+                Form_Name: $("#Form_Name").val(),
+                SignStatus: signvalue
+            }
+            if (signvalue == "D" && model.Comments == '') {
+                alert("审核不通过请填写审核意见");
+                return false;
+            }
+            $.ajax({
+                url: "@(Url.Action("SignCertificate", "Certificate"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('审核完成');
+                         window.location.href = "#333";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>
+
