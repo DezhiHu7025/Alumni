@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "SignAdminissionVw";
+}
+
+<body>
+    WWEERR
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">请审转出/在读证明单据信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal" id="ReportDetail">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <input type="hidden" class="form-control" disabled="disabled" id="RmchSeqNo">
+
+                                <span class="col-sm-2 control-label">单据名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="Form_Name" />
+
+                                <span class="col-sm-2 control-label">
+                                    教职员姓名:
+                                    
+                                </span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="teacnerName" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">教职员部门:</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="DeptName" />
+
+                                <span class="col-sm-2 control-label">校友学号:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="alumnusEmp" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">校友姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="alumnusName" />
+
+                                <span class="col-sm-2 control-label">校友离校班级:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="LeaveClass" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">校友入校日期:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="intoDate2" />
+
+                                <span class="col-sm-2 control-label">校友电话:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="alumnusPhone" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-20">
+                                <span class="col-sm-2 control-label">其他拜访师长:</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="teacnerName2" />
+
+                                <span class="col-sm-2 control-label">其他需求或备注:</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="remarks" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">提交时间:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="AddTime2" />
+
+                                <span class="col-sm-2 control-label">审核状态:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" disabled="disabled" id="IS_PASS" />
+                            </div>
+                        </div>
+                        <br />
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <input class="form-check-input" type="radio" name="SignStatus" id="gridRadios1" value="Y" checked="">
+                                <label class="form-check-label" for="gridRadios1">
+                                    审核通过
+                                </label>
+                                <input class="form-check-input" type="radio" name="SignStatus" id="gridRadios2" value="D">
+                                <label class="form-check-label" for="gridRadios2">
+                                    审核不通过
+                                </label>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">审核意见:</span>
+                                <textarea type="text" class="col-sm-12" id="Comments" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+
+        $("#RmchSeqNo").val(localStorage.getItem("RmchSeqNo"));
+        $("#Form_Name").val(localStorage.getItem("Form_Name"));
+        $("#teacnerName").val(localStorage.getItem("teacnerName"));
+        $("#DeptName").val(localStorage.getItem("DeptName"));
+        $("#alumnusEmp").val(localStorage.getItem("alumnusEmp"));
+        $("#alumnusName").val(localStorage.getItem("alumnusName"));
+        $("#LeaveClass").val(localStorage.getItem("LeaveClass"));
+        $("#intoDate2").val(localStorage.getItem("intoDate2"));
+        $("#alumnusPhone").val(localStorage.getItem("alumnusPhone"));
+        $("#teacnerName2").val(localStorage.getItem("teacnerName2"));
+        $("#remarks").val(localStorage.getItem("remarks"));
+        $("#AddTime2").val(localStorage.getItem("AddTime2"));
+        $("#IS_PASS").val(localStorage.getItem("IS_PASS"));
+        localStorage.clear();
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#222";
+            window.location.reload();
+        });
+
+        //确定 提交审核状态
+        $("#btn_save").click(function () {
+            var signvalue = $('input[type=radio][name=SignStatus]:checked').val();
+            var model = {
+                RmchSeqNo: $("#RmchSeqNo").val(),
+                Comments: $("#Comments").val(),
+                Form_Name: $("#Form_Name").val(),
+                SignStatus: signvalue
+            }
+            if (signvalue == "D" && model.Comments == '') {
+                alert("审核不通过请填写审核意见");
+                return false;
+            }
+            $.ajax({
+                url: "@(Url.Action("SignAdminssion", "Adminssion"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('审核完成');
+                         window.location.href = "#222";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>
+

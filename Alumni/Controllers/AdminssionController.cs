@@ -29,6 +29,11 @@ namespace Alumni.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 入校申请信息列表
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult GetAdminssionData(queryBillModel model)
         {
             var list = new List<AdminssionModel>();
@@ -43,6 +48,51 @@ namespace Alumni.Controllers
             return Json(list);
         }
 
+        public List<AdminssionModel> querList(queryBillModel model)
+        {
+            var list = new List<AdminssionModel>();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.*,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+	   a.intoDate intoDate2,
+	   a.addtime addtime2,
+	   ims.text is_pass,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[EntryApply_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' ");
+                    if (!string.IsNullOrEmpty(model.Stu_Empno))
+                    {
+                        sql += " and (a.alumnusEmp = @Stu_Empno or a.alumnusPhone = @Stu_Empno )";
+                    }
+                    if (!string.IsNullOrEmpty(model.IS_PASS))
+                    {
+                        sql += " and a.is_pass = @IS_PASS ";
+                    }
+                    sql += " ORDER BY a.addtime DESC ";
+
+                    list = db.Query<AdminssionModel>(sql, model).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 入校申请信息下载
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult AdminissionExport(queryBillModel model)
         {
             try
@@ -84,9 +134,9 @@ namespace Alumni.Controllers
                     sheet.Cells[i + 1, 9].PutValue(dt[i].teacnerName2);
                     sheet.Cells[i + 1, 10].PutValue(dt[i].remarks);
                     sheet.Cells[i + 1, 11].PutValue(dt[i].AddTime2);
-                  //  sheet.Cells[i + 1, 19].PutValue(Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd"));                   
+                    //  sheet.Cells[i + 1, 19].PutValue(Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd"));                   
                 }
-                using(MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream())
                 {
                     wb.Save(ms, new OoxmlSaveOptions(SaveFormat.Xlsx));
                     var Base64Content = Convert.ToBase64String(ms.ToArray());
@@ -96,7 +146,7 @@ namespace Alumni.Controllers
                         data = Base64Content,
                         FileName = string.Format("Adminission_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmssfff")),
                         FileType = "application/vnd.ms-excel"
-                    },JsonRequestBehavior.AllowGet);
+                    }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -105,9 +155,19 @@ namespace Alumni.Controllers
             }
         }
 
-        public List<AdminssionModel> querList(queryBillModel model)
+        public ActionResult SignAdminissionVw()
         {
-            var list = new List<AdminssionModel>();
+            return View();
+        }
+
+        /// <summary>
+        /// 入校申请具体信息
+        /// </summary>
+        /// <param name="CmchSeqNo"></param>
+        /// <returns></returns>
+        public ActionResult GetAdminssion(string RmchSeqNo)
+        {
+            AdminssionModel model = new AdminssionModel();
             try
             {
                 using (SchoolDb db = new SchoolDb())
@@ -124,25 +184,61 @@ FROM [db_forminf].[dbo].[EntryApply_indent] a
     LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
         ON ims.code = 'AuditState'
            AND a.is_pass = ims.value
-WHERE b.shopForm_id = 'S0000001' ");
-                    if (!string.IsNullOrEmpty(model.Stu_Empno))
-                    {
-                        sql += " and (a.alumnusEmp = @Stu_Empno or a.alumnusPhone = @Stu_Empno )";
-                    }
-                    if (!string.IsNullOrEmpty(model.IS_PASS))
-                    {
-                        sql += " and a.is_pass = @IS_PASS ";
-                    }
-                    sql += " ORDER BY a.addtime DESC ";
+WHERE b.shopForm_id = 'S0000001' and a.RmchSeqNo = @RmchSeqNo ");
 
-                    list = db.Query<AdminssionModel>(sql, model).ToList();
+                    model = db.Query<AdminssionModel>(sql, new { RmchSeqNo }).FirstOrDefault();
                 }
+                return Json(model, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 审核入校申请
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult SignAdminssion(AdminssionModel model)
+        {
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    DateTime now = DateTime.Now;
+                    RecordModel record = new RecordModel();
+                    record.GUID = Guid.NewGuid().ToString();
+                    record.ChSeqNo = model.RmchSeqNo;
+                    record.Form_Name = model.Form_Name;
+                    //todo:获取登录名
+                    record.Signer = "admin";
+                    record.SignTime = now;
+                    record.Comments = model.Comments;
+                    record.IS_PASS = model.SignStatus;
+
+                    model.IS_PASS = model.SignStatus;
+
+                    string sql1 = @"update  [db_forminf].[dbo].[EntryApply_indent] set is_pass =@IS_PASS where form_name=@Form_Name and  (Is_inner ='Z' OR Is_inner = 'N') AND is_pass = 'N' and RmchSeqNo =@RmchSeqNo ";
+                    string sql2 = @"update  [db_forminf].[dbo].[OldStudent_Onlin_List] set is_pass =@IS_PASS where form_name=@Form_Name and  is_pass = 'N'  and mchSeqNo =@RmchSeqNo ";
+                    string sqlRecord = @"INSERT INTO  [db_forminf].[dbo].[Record] ([GUID],[ChSeqNo],[Form_Name],[Signer],[SignTime],[Comments],[IS_PASS])
+                                           VALUES(@GUID,@ChSeqNo,@Form_Name,@Signer,@SignTime,@Comments,@IS_PASS);";
+                    
+                    Dictionary<string, object> trans = new Dictionary<string, object>();
+                    trans.Add(sql1, model);
+                    trans.Add(sql2, model);
+                    trans.Add(sqlRecord, record);
+                    db.DoExtremeSpeedTransaction(trans);
+                }
+                return Json(new FlagTips { IsSuccess = true });
 
             }
-            return list;
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
         }
     }
 }

@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "TotalAdminissionIndex";
+}
+
+
+<body>
+    <h2>入校申请查询</h2><br />
+    <div>
+        <div class="d-flex mb-2">
+            <hr>
+            <span class="item-title">学生手机号/学生学号</span>
+            <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
+            <span class="item-title">审核状态</span>
+            <select ID="IS_PASS" name="IS_PASS" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+                <option value="">---请选择---</option>
+                <option value="N">审核中</option>
+                <option value="Y">已审核通过</option>
+                <option value="D">审核不通过	</option>
+            </select>
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
+            <button class="btn btn-primary ms-2" id="btn_sign"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
+            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载Excel</button>
+        </div>
+        <table id="table"></table>
+        <script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+        <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+        <script type="text/javascript">
+            $(function () {
+                var $table = $("#table");
+                $('#table').bootstrapTable('destroy');
+                $('#table').bootstrapTable({
+                    ajax: function (request) {
+                        var model = {
+                            "IS_PASS": $("#IS_PASS").val(),
+                            "Stu_Empno": $("#Stu_Empno").val(),
+                        }
+                        request.data = model;
+                        $.ajax({
+                            type: "post",
+                            url:"@(Url.Action("GetAdminssionData", "Adminssion"))",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(request.data),
+                            dataType: "json",
+                            jsonp: 'callback',
+                            success: function (msg) {
+                                request.success({
+                                    rows: msg
+                                });
+                                $('#table').bootstrapTable('load', msg);
+                            },
+                            error: function () {
+                                alert("错误");
+                            }
+                        });
+                    },
+                    toolbar: '#toolbar',
+                    singleSelect: true,
+                    clickToSelect: true,
+                    sortName: "AddTime",
+                    sortOrder: "desc",
+                    cache: false,
+                    striped: true,
+                    pageSize: 10,
+                    pageNumber: 1,
+                    pageList: "[15, 25, 50, 100, All]",
+                    showToggle: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    search: true,
+                    pagination: true,
+                    showExport: true,
+                    columns: [{
+                        field: "id",
+                        checkbox: true,
+                    },{
+                        field: "RmchSeqNo",
+                        visible: false,
+                    },{
+                        field: 'Form_Name',
+                        title: '单据名称',
+                        switchable: true
+                    }, {
+                        field: 'IS_PASS',
+                        title: '审核状态',
+                        switchable: true
+                    }, {
+                            field: 'teacnerName',
+                            title: '教职员姓名',
+                        switchable: true
+                    }, {
+                            field: 'DeptName',
+                            title: '教职员部门',
+                        switchable: true,
+                        sortable: true
+                    }, {
+                            field: 'alumnusEmp',
+                            title: '校友学号',
+                        switchable: true
+                    }, {
+                            field: 'alumnusName',
+                            title: '校友姓名',
+                        switchable: true
+                    }, {
+                            field: 'LeaveClass',
+                            title: '校友离校班级',
+                        switchable: true
+                        }, {
+                            field: 'intoDate2',
+                            title: '校友入校日期',
+                            switchable: true
+                        }, {
+                            field: 'alumnusPhone',
+                            title: '校友电话',
+                            switchable: true
+                        }, {
+                            field: 'teacnerName2',
+                            title: '其他拜访师长姓名',
+                            switchable: true
+                        }, {
+                            field: 'remarks',
+                            title: '其他需求或备注',
+                            switchable: true
+                        }, {
+                            field: 'AddTime2',
+                            title: '提交时间',
+                            switchable: true
+                        }],
+                });
+
+        var $sign = $("#btn_sign");
+        $(function () {
+        $("button").popover()
+            $sign.click(function () {
+                var info = $table.bootstrapTable('getSelections')[0];
+                if (info == null) {
+                    alert("请选择数据");
+                } else {
+
+                    var RmchSeqNo = info.RmchSeqNo;
+                    var IS_PASS = info.IS_PASS;
+                    if (IS_PASS != "审核中") {
+                        alert("此单据已审核，请勿重复审核")
+                    }
+                    else
+                    {
+                        $.ajax({
+                        url: "@(Url.Action("GetAdminssion", "Adminssion"))",
+                        type: "get",
+                        dataType: "json",
+                        data: { RmchSeqNo: RmchSeqNo },
+                            success: function (res) {
+                            //取到的数据存储到localStorage
+                            localStorage.clear();
+                            localStorage.setItem("RmchSeqNo", res.RmchSeqNo);
+                            localStorage.setItem("Form_Name", res.Form_Name);
+                            localStorage.setItem("teacnerName", res.teacnerName);
+                            localStorage.setItem("DeptName", res.DeptName);
+                            localStorage.setItem("alumnusEmp", res.alumnusEmp);
+                            localStorage.setItem("alumnusName", res.alumnusName);
+                            localStorage.setItem("LeaveClass", res.LeaveClass);
+                            localStorage.setItem("intoDate2", res.intoDate2);
+                            localStorage.setItem("alumnusPhone", res.alumnusPhone);
+                            localStorage.setItem("teacnerName2", res.teacnerName2);
+                            localStorage.setItem("remarks", res.remarks);
+                            localStorage.setItem("AddTime2", res.AddTime2);
+                            localStorage.setItem("IS_PASS", res.IS_PASS);
+                            //原窗口打开新页面
+                            window.location.href = "#SignAdminission";
+                            window.location.reload();
+                        },
+                        error: function (res) {
+                           alert("error")
+                        }
+                    });
+                    }
+                   
+                }
+            });
+        });
+
+                $('#btn_search').click(function () {
+                    $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+                });
+
+                $('#btn_export').click(function () {
+                    var url = "@(Url.Action("AdminissionExport", "Adminssion"))";
+                    //window.location = url;
+                    //lplLoadingPanel.Hide();
+                    var model = {
+                        "IS_PASS": $("#IS_PASS").val(),
+                        "Stu_Empno": $("#Stu_Empno").val(),
+                    }
+                    $.ajax({
+                        url: url,
+                        data: JSON.stringify(model),
+                        dataType: 'json',
+                        method: 'post',
+                        success: function (result) {
+                            if (result.IsSuccess) {
+
+                                const download = (fileName, blob) => {
+                                    const link = document.createElement("a");
+                                    link.href = URL.createObjectURL(blob);
+                                    link.download = fileName;
+                                    link.click();
+                                    link.remove();
+                                    URL.revokeObjectURL(link.href);
+                                };
+                              //  $.blobDownload(result.FileName, myBlob);
+                                var myBlob = new Blob([result.data], { type: result.FileType });
+                                download(result.FileName, myBlob);
+
+                                //var newdata = JSON.parse(result.data);
+                                //const blob = new Blob([result.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  });//
+                                //const elink = document.createElement("a");
+                                //elink.download = "111";
+                                //elink.style.display = "none";
+                                //elink.href = URL.createObjectURL(blob);
+                                //document.body.appendChild(elink);
+                                //elink.click();
+                                //URL.revokeObjectURL(elink.href);
+                                //document.body.removeChild(elink);
+
+
+                            } else {
+                                __notification.show({ message: result.Msg }, 'error');
+                            }
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            //__notification.show({ message: xhr.responseText }, 'error');
+                        },
+                    });
+
+                });
+               
+            });
+        </script>
+    </div>
+</body>
+
+
