@@ -3,86 +3,32 @@
     ViewBag.Title = "TotalReportIndex";
 }
 <body>
-    <div>
-        <div>
-            <div class="d-flex mb-2">
-                <hr>
-                <span class="item-title">学生手机号/学生学号</span>
-                <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
-                <span class="item-title">审核状态</span>
-                <select ID="IS_PASS" name="IS_PASS" runat="server" class="col-sm-12 col-md-6 col-xl-2">
-                    <option value="">---请选择---</option>
-                    <option value="N">审核中</option>
-                    <option value="Y">已审核通过</option>
-                    <option value="D">审核不通过	</option>
-                </select>
-                <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索 Search</button>
-            </div>
-            <div id="toolbox">
-                <button class="btn" id="edit_table_btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
-            </div>
-
-            <table id="table"></table>
+    <div id="fade" style="display:block">
+        <div class="d-flex mb-2">
+            <hr>
+            <span class="item-title">学生手机号/学生学号</span>
+            <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
+            <span class="item-title">审核状态</span>
+            <select ID="IS_PASS" name="IS_PASS" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+                <option value="">---请选择---</option>
+                <option value="N">审核中</option>
+                <option value="Y">已审核通过</option>
+                <option value="D">审核不通过	</option>
+            </select>
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索 Search</button>
+            <button class="btn btn-primary ms-2" id="btn_sign"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
         </div>
+        <table id="table"></table>
+    </div>
+</body>
 
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="myModal">
-            <div class="modal-dialog modal-lg" tabindex="-1" data-keyboard="true"  role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">请审核成绩单单据信息</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" class="form-horizontal">
-                            <div class="form-group">
-                                <input type="hidden" class="form-control" disabled="disabled" id="CmchSeqNo">
-                                <label for="" class="col-sm-2 control-label">表单名称</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" disabled="disabled" id="Form_Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">学号</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Stu_Empno_edit">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">审核状态</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="IS_PASS_edit">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">审核意见</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked="">
-                                    <label class="form-check-label" for="gridRadios1">
-                                        审核通过
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                                    <label class="form-check-label" for="gridRadios2">
-                                        审核不通过
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" id="sava-edit-btn">保存</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="~/static/js/jquery.modal.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-        <script src="~/static/js/jquery.modal.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-        <script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-        <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-        <script type="text/javascript">
-            $(function () {
-                var $table = $("#table");
+<script src="~/static/js/jquery-ui.js"></script>
+<script src="~/static/js/bootstrap.min.js"></script>
+<script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script type="text/javascript">
+
+    $(function () {
+        var $table = $("#table");
                 $('#table').bootstrapTable('destroy');
                 $('#table').bootstrapTable({
                     ajax: function (request) {
@@ -187,70 +133,59 @@
                         }],
                 });
 
-                var $editbtn = $("#edit_table_btn");
-                $(function () {
-                    $("button").popover()
-                    $editbtn.click(function () {
-                        var info = $table.bootstrapTable('getSelections')[0];
-                        if (info == null) {
-                            alert("请选择数据");
-                        } else {
-                            var CmchSeqNo = info.CmchSeqNo;
-                            $('#myModal').popover();
-                            //console.log($("#CmchSeqNo").val(info.CmchSeqNo))
-                            //$("#CmchSeqNo").val(info.CmchSeqNo)
-                            //$("#IS_PASS_edit").val(info.IS_PASS_edit)
-                            //$("#Form_Name").val(info.Form_Name)
-                            //$("#Stu_Empno_edit").val(info.Stu_Empno_edit)
-                            //$("#myModal").modal();
-                            $.ajax({
-                                url: "@(Url.Action("GetReport", "Report"))",
-                                type: "get",
-                                dataType: "json",
-                                data: { CmchSeqNo: CmchSeqNo },
-                                success: function (res) {
-                                  //  window.open("#myModal")
-                                    $("#IS_PASS_edit").val(res.IS_PASS)
-                                    $("#Form_Name").val(res.Form_Name)
-                                    $("#Stu_Empno_edit").val(res.Stu_Empno)
-                                }
-                            });
+        var $sign = $("#btn_sign");
+        $(function () {
+            $("button").popover()
+            $sign.click(function () {
+                var info = $table.bootstrapTable('getSelections')[0];
+
+                if (info == null) {
+                    alert("请选择数据");
+                } else {
+
+                    var CmchSeqNo = info.CmchSeqNo;
+                    var IS_PASS = info.IS_PASS;
+                    if (IS_PASS != "审核中") {
+                        alert("此成绩单申请已审核，请勿重复审核")
+                    }
+                    else
+                    {
+                        $.ajax({
+                        url: "@(Url.Action("GetReport", "Report"))",
+                        type: "get",
+                        dataType: "json",
+                        data: { CmchSeqNo: CmchSeqNo },
+                        success: function (res) {
+                            //取到的数据存储到localStorage
+                            localStorage.setItem("CmchSeqNo", res.CmchSeqNo);
+                            localStorage.setItem("Form_Name", res.Form_Name);
+                            localStorage.setItem("Stu_Empno", res.Stu_Empno);
+                            localStorage.setItem("Stu_Name", res.Stu_Name);
+                            localStorage.setItem("PassportEname", res.PassportEname);
+                            localStorage.setItem("ReportCard", res.ReportCard);
+                            localStorage.setItem("txt_yyyy", res.txt_yyyy);
+                            localStorage.setItem("txt_mm", res.txt_mm);
+                            localStorage.setItem("txt_UseFor", res.txt_UseFor);
+                            localStorage.setItem("txt_Copies", res.txt_Copies);
+                            localStorage.setItem("txt_takeWay", res.txt_takeWay);
+                            localStorage.setItem("txt_SendAdress", res.txt_SendAdress);
+                            localStorage.setItem("txt_Cphone", res.txt_Cphone);
+                            localStorage.setItem("IS_PASS", res.IS_PASS);
+                            //原窗口打开新页面
+                            window.location.href = "#SignReport";
+                            window.location.reload();
                         }
                     });
-
-                    /*
-                    //获取点击的行的行号 有效：为获得编辑的行号的尝试。
-                    $table.on("click-row.bs.table",function(e, row, $element) {
-                            var index= $element.data('index');
-                            alert(index);
-                    });
-                    */
-
-                    //关闭模态框数据保存到table
-                    $("#sava-edit-btn").click(function () {
-                        $('#myModal').modal('hide');
-                        var CmchSeqNo = $("#CmchSeqNo").val();
-                        var IS_PASS_edit = $("#IS_PASS_edit").val();
-                        var Form_Name = $("#Form_Name").val();
-                        var Stu_Empno_edit = $("#Stu_Empno_edit").val();
-
-                        $table.bootstrapTable("updateRow", {
-                            index: index,
-                            row: {
-                                CmchSeqNo: CmchSeqNo,
-                                IS_PASS_edit: IS_PASS_edit,
-                                Form_Name: Form_Name,
-                                Stu_Empno_edit: Stu_Empno_edit,
-                            }
-                        });
-                    })
-                })
-
-
-                $('#btn_search').click(function () {
-                    $('#table').bootstrapTable('refresh', { pageNumber: 1 });
-                });
+                    }
+                   
+                }
             });
-        </script>
-    </div>
-</body>
+
+        });
+
+        $('#btn_search').click(function () {
+            $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+        });
+                
+    });
+</script>

@@ -388,6 +388,7 @@
     <Compile Include="Models\IMS_CODEMSTRModel.cs" />
     <Compile Include="Models\Information\InformationModel.cs" />
     <Compile Include="Models\Question\QuestionModel.cs" />
+    <Compile Include="Models\RecordModel.cs" />
     <Compile Include="Models\Report\ReportModel.cs" />
     <Compile Include="Models\Taotaldata\TaotaldataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -416,6 +417,7 @@
     <Content Include="Views\Manager\InstructionIndex.cshtml" />
     <Content Include="Views\Certificate\TotalCertificateIndex.cshtml" />
     <Content Include="Views\Adminssion\TotalAdminissionIndex.cshtml" />
+    <Content Include="Views\Report\SignReportVw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

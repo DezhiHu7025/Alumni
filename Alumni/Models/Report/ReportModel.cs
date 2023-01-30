@@ -86,5 +86,25 @@ namespace Alumni.Models.Report
         /// 提交时间
         /// </summary>
         public string AddTime { get; set; }
+
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string Comments { get; set; }
+
+        /// <summary>
+        /// 审核人
+        /// </summary>
+        public string Signer { get; set; }
+
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public DateTime SignTime { get; set; }
+
+        /// <summary>
+        /// 选择审核状态
+        /// </summary>
+        public string SignStatus { get; set; }
     }
 }

@@ -18,6 +18,11 @@ namespace Alumni.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 提交成绩单申请
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult ReportSave(ReportModel model)
         {
             try
@@ -68,6 +73,16 @@ namespace Alumni.Controllers
             return View();
         }
 
+        public ActionResult SignReportVw()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 成绩单信息列表
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult GetReportData(queryBillModel model)
         {
             var list = new List<ReportModel>();
@@ -111,7 +126,7 @@ WHERE b.shopForm_id = 'S0000001' ");
 
                     list = db.Query<ReportModel>(sql, model).ToList();
                 }
-                return Json(list);
+                return Json(list, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -120,6 +135,11 @@ WHERE b.shopForm_id = 'S0000001' ");
             }
         }
 
+        /// <summary>
+        /// 成绩单具体信息
+        /// </summary>
+        /// <param name="CmchSeqNo"></param>
+        /// <returns></returns>
         public ActionResult GetReport(string CmchSeqNo)
         {
             ReportModel model = new ReportModel();
@@ -155,6 +175,51 @@ WHERE b.shopForm_id = 'S0000001' and a.CmchSeqNo = @CmchSeqNo ");
                     model = db.Query<ReportModel>(sql, new { CmchSeqNo }).FirstOrDefault();
                 }
                 return Json(model, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 审核成绩单
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult SignReport(ReportModel model)
+        {
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    DateTime now = DateTime.Now;
+                    RecordModel record = new RecordModel();
+                    record.GUID = Guid.NewGuid().ToString();
+                    record.ChSeqNo = model.CmchSeqNo;
+                    record.Form_Name = model.Form_Name;
+                    //todo:获取登录名
+                    record.Signer = "admin";
+                    record.SignTime = now;
+                    record.Comments = model.Comments;
+                    record.IS_PASS = model.SignStatus;
+
+                    model.IS_PASS = model.SignStatus;
+                    string sql1 = @"update  [db_forminf].[dbo].[Achievement_indent] set is_pass = @IS_PASS where form_name=@Form_Name and  (Is_inner ='Z' OR Is_inner = 'N') AND is_pass = 'N'  and CmchSeqNo =@CmchSeqNo ";
+                    string sql2 = @"update  [db_forminf].[dbo].[OldStudent_Onlin_List] set is_pass = @IS_PASS where form_name=@Form_Name and  is_pass = 'N'  and mchSeqNo =@CmchSeqNo ";
+                    string sqlRecord = @"INSERT INTO  [db_forminf].[dbo].[Record] ([GUID],[ChSeqNo],[Form_Name],[Signer],[SignTime],[Comments],[IS_PASS])
+                                           VALUES(@GUID,@ChSeqNo,@Form_Name,@Signer,@SignTime,@Comments,@IS_PASS);";
+
+                    model.timenow = now;
+                    model.Form_Name = "成绩单申请";
+                    Dictionary<string, object> trans = new Dictionary<string, object>();
+                    trans.Add(sql1, model);
+                    trans.Add(sql2, model);
+                    trans.Add(sqlRecord, record);
+                    db.DoExtremeSpeedTransaction(trans);
+                }
+                return Json(new FlagTips { IsSuccess = true });
 
             }
             catch (Exception ex)
