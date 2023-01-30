@@ -174,7 +174,10 @@
                             //原窗口打开新页面
                             window.location.href = "#SignReport";
                             window.location.reload();
-                        }
+                            },
+                            error: function (res) {
+                                alert("error")
+                            }
                     });
                     }
                    
