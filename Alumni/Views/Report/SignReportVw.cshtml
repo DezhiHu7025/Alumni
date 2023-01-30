@@ -141,6 +141,10 @@
                 IS_PASS: $("#IS_PASS").val(),
                 SignStatus: signvalue
             }
+            if (signvalue == "D" && model.Comments == '') {
+                alert("审核不通过请填写审核意见");
+                return false;
+            }
             $.ajax({
                 url: "@(Url.Action("SignReport", "Report"))",
                 type: "post",
