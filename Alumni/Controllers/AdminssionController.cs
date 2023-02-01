@@ -39,20 +39,6 @@ namespace Alumni.Controllers
             var list = new List<AdminssionModel>();
             try
             {
-                list = querList(model);
-            }
-            catch (Exception ex)
-            {
-                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
-            }
-            return Json(list);
-        }
-
-        public List<AdminssionModel> querList(queryBillModel model)
-        {
-            var list = new List<AdminssionModel>();
-            try
-            {
                 using (SchoolDb db = new SchoolDb())
                 {
                     string sql = string.Format(@"SELECT a.*,
@@ -83,6 +69,46 @@ WHERE b.shopForm_id = 'S0000001' ");
             }
             catch (Exception ex)
             {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+            return Json(list);
+        }
+        
+        public List<AdminssionModel> querList(string Stu_Empno, string IS_PASS)
+        {
+            var list = new List<AdminssionModel>();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.*,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+	   a.intoDate intoDate2,
+	   a.addtime addtime2,
+	   ims.text is_pass,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[EntryApply_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' ");
+                    if (!string.IsNullOrEmpty(Stu_Empno))
+                    {
+                        sql += " and (a.alumnusEmp = @Stu_Empno or a.alumnusPhone = @Stu_Empno )";
+                    }
+                    if (!string.IsNullOrEmpty(IS_PASS))
+                    {
+                        sql += " and a.is_pass = @IS_PASS ";
+                    }
+                    sql += " ORDER BY a.addtime DESC ";
+
+                    list = db.Query<AdminssionModel>(sql, new { Stu_Empno, IS_PASS }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
 
             }
             return list;
@@ -93,14 +119,13 @@ WHERE b.shopForm_id = 'S0000001' ");
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ActionResult AdminissionExport(queryBillModel model)
+        public ActionResult AdminissionExport(string Stu_Empno,string IS_PASS)
         {
             try
             {
-                var dt = querList(model);
+                var dt = querList(Stu_Empno, IS_PASS);
 
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                //TODO: excel template
                 string templatePath = string.Format("~\\Excel\\Adminission.xlsx");
                 FileStream fs = new FileStream(System.Web.HttpContext.Current.Server.MapPath(templatePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 Workbook wb = new Workbook(fs);
@@ -136,18 +161,10 @@ WHERE b.shopForm_id = 'S0000001' ");
                     sheet.Cells[i + 1, 11].PutValue(dt[i].AddTime2);
                     //  sheet.Cells[i + 1, 19].PutValue(Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd"));                   
                 }
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    wb.Save(ms, new OoxmlSaveOptions(SaveFormat.Xlsx));
-                    var Base64Content = Convert.ToBase64String(ms.ToArray());
-                    return Json(new FlagTips
-                    {
-                        IsSuccess = true,
-                        data = Base64Content,
-                        FileName = string.Format("Adminission_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmssfff")),
-                        FileType = "application/vnd.ms-excel"
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                MemoryStream bookStream = new MemoryStream();//创建文件流
+                wb.Save(bookStream, new OoxmlSaveOptions(SaveFormat.Xlsx)); //文件写入流（向流中写入字节序列）
+                bookStream.Seek(0, SeekOrigin.Begin);//输出之前调用Seek，把0位置指定为开始位置
+                return File(bookStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Adminission_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmssfff")));//最后以文件形式返回
             }
             catch (Exception ex)
             {

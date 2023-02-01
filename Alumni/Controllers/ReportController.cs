@@ -2,8 +2,11 @@
 using Alumni.Models;
 using Alumni.Models.Bill;
 using Alumni.Models.Report;
+using Aspose.Cells;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -211,8 +214,6 @@ WHERE b.shopForm_id = 'S0000001' and a.CmchSeqNo = @CmchSeqNo ");
                     string sqlRecord = @"INSERT INTO  [db_forminf].[dbo].[Record] ([GUID],[ChSeqNo],[Form_Name],[Signer],[SignTime],[Comments],[IS_PASS])
                                            VALUES(@GUID,@ChSeqNo,@Form_Name,@Signer,@SignTime,@Comments,@IS_PASS);";
 
-                    model.timenow = now;
-                    model.Form_Name = "成绩单申请";
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(sql1, model);
                     trans.Add(sql2, model);
@@ -221,6 +222,117 @@ WHERE b.shopForm_id = 'S0000001' and a.CmchSeqNo = @CmchSeqNo ");
                 }
                 return Json(new FlagTips { IsSuccess = true });
 
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
+        public List<ReportModel> querList(string Stu_Empno, string IS_PASS)
+        {
+            var list = new List<ReportModel>();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.CmchSeqNo,
+       a.form_name,
+       a.stu_empno,
+       a.stu_name,
+       a.passportEname,
+       a.reportCard,
+       a.txt_yyyy,
+       a.txt_mm,
+       a.UseFor txt_UseFor,
+       a.Copies txt_Copies,
+       a.takeWay txt_takeWay,
+       a.SendAdress txt_SendAdress,
+       a.Cphone txt_Cphone,
+       ims.text is_pass,
+       a.Is_inner,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[Achievement_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' ");
+                    if (!string.IsNullOrEmpty(Stu_Empno))
+                    {
+                        sql += " and (a.stu_empno = @Stu_Empno or a.Cphone = @Stu_Empno )";
+                    }
+                    if (!string.IsNullOrEmpty(IS_PASS))
+                    {
+                        sql += " and a.is_pass = @IS_PASS ";
+                    }
+                    sql += " ORDER BY a.addtime DESC ";
+
+                    list = db.Query<ReportModel>(sql, new { Stu_Empno, IS_PASS }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 成绩单信息下载
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult ReportExport(string Stu_Empno, string IS_PASS)
+        {
+            try
+            {
+                var dt = querList(Stu_Empno, IS_PASS);
+
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                string templatePath = string.Format("~\\Excel\\Report.xlsx");
+                FileStream fs = new FileStream(System.Web.HttpContext.Current.Server.MapPath(templatePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                Workbook wb = new Workbook(fs);
+                Worksheet sheet = wb.Worksheets[0];
+                sheet.Name = "成绩单申请";
+
+                Cells cells = sheet.Cells;
+                int columnCount = cells.MaxColumn;  //获取表页的最大列数
+                int rowCount = cells.MaxRow;        //获取表页的最大行数
+
+                for (int col = 0; col < columnCount; col++)
+                {
+                    sheet.AutoFitColumn(col, 0, rowCount);
+                }
+                for (int col = 0; col < columnCount; col++)
+                {
+                    cells.SetColumnWidthPixel(col, cells.GetColumnWidthPixel(col) + 30);
+                }
+
+                for (int i = 0; i < dt.Count; i++)//遍历DataTable行
+                {
+                    sheet.Cells[i + 1, 0].PutValue(dt[i].Form_Name);
+                    sheet.Cells[i + 1, 1].PutValue(dt[i].IS_PASS);
+                    sheet.Cells[i + 1, 2].PutValue(dt[i].Stu_Empno);
+                    sheet.Cells[i + 1, 3].PutValue(dt[i].Stu_Name);
+                    sheet.Cells[i + 1, 4].PutValue(dt[i].PassportEname);
+                    sheet.Cells[i + 1, 5].PutValue(dt[i].ReportCard);
+                    sheet.Cells[i + 1, 6].PutValue(dt[i].txt_yyyy);
+                    sheet.Cells[i + 1, 7].PutValue(dt[i].txt_mm);
+                    sheet.Cells[i + 1, 8].PutValue(dt[i].txt_UseFor);
+                    sheet.Cells[i + 1, 9].PutValue(dt[i].txt_Copies);
+                    sheet.Cells[i + 1, 10].PutValue(dt[i].txt_takeWay);
+                    sheet.Cells[i + 1, 11].PutValue(dt[i].txt_SendAdress);
+                    sheet.Cells[i + 1, 12].PutValue(dt[i].txt_Cphone);
+                    sheet.Cells[i + 1, 13].PutValue(dt[i].AddTime);
+                    //  sheet.Cells[i + 1, 19].PutValue(Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd"));                   
+                }
+                MemoryStream bookStream = new MemoryStream();//创建文件流
+                wb.Save(bookStream, new OoxmlSaveOptions(SaveFormat.Xlsx)); //文件写入流（向流中写入字节序列）
+                bookStream.Seek(0, SeekOrigin.Begin);//输出之前调用Seek，把0位置指定为开始位置
+                return File(bookStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Report_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmssfff")));//最后以文件形式返回
             }
             catch (Exception ex)
             {

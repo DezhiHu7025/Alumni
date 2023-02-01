@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Alumni.Models.Taotaldata
+namespace Alumni.Models.Totaldata
 {
-    public class TaotaldataModel
+    public class TotaldataModel
     {
         /// <summary>
         /// 流水号

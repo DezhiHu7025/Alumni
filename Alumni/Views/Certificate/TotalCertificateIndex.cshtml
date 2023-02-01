@@ -4,6 +4,7 @@
 }
 
 <body>
+    <h2>转出/证明在读查询</h2><br />
     <div>
         <div class="d-flex mb-2">
             <hr>
@@ -18,6 +19,7 @@
             </select>
             <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
             <button class="btn btn-primary ms-2" id="btn_sign"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
+            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>
         </div>
         <table id="table"></table>
     </div>
@@ -133,7 +135,6 @@
         $("button").popover()
             $sign.click(function () {
                 var info = $table.bootstrapTable('getSelections')[0];
-                console.log(info.KmchSeqNo)
                 if (info == null) {
                     alert("请选择数据");
                 } else {
@@ -178,6 +179,13 @@
                    
                 }
             });
+        });
+
+        $('#btn_export').click(function () {
+            var IS_PASS = $("#IS_PASS").val();
+            var Stu_Empno = $("#Stu_Empno").val();
+            var url = "@(Url.Action("CertificateExport", "Certificate"))" + "?IS_PASS=" + IS_PASS + "&Stu_Empno=" + Stu_Empno;             
+            window.location = url;                                               
         });
 
         $('#btn_search').click(function () {

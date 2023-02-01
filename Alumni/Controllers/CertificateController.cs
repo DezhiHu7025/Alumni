@@ -2,8 +2,11 @@
 using Alumni.Models;
 using Alumni.Models.Bill;
 using Alumni.Models.Certificate;
+using Aspose.Cells;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -85,20 +88,6 @@ namespace Alumni.Controllers
             var list = new List<CertificateModel>();
             try
             {
-                list = querList(model);
-            }
-            catch (Exception ex)
-            {
-                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
-            }
-            return Json(list);
-        }
-
-        public List<CertificateModel> querList(queryBillModel model)
-        {
-            var list = new List<CertificateModel>();
-            try
-            {
                 using (SchoolDb db = new SchoolDb())
                 {
                     string sql = string.Format(@"SELECT a.ZmchSeqNo KmchSeqNo,
@@ -137,9 +126,9 @@ WHERE b.shopForm_id = 'S0000001' ");
             }
             catch (Exception ex)
             {
-               
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
             }
-            return list;
+            return Json(list);
         }
 
         public ActionResult SignCertificateVw()
@@ -229,6 +218,112 @@ WHERE b.shopForm_id = 'S0000001' and a.ZmchSeqNo = @KmchSeqNo ");
                 }
                 return Json(new FlagTips { IsSuccess = true });
 
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
+        public List<CertificateModel> querList(string Stu_Empno, string IS_PASS)
+        {
+            var list = new List<CertificateModel>();
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string sql = string.Format(@"SELECT a.ZmchSeqNo KmchSeqNo,
+       a.form_name,
+       a.stunum Stu_Empno,
+       a.stuname Stu_Name,
+       ims.text is_pass,
+       a.IDcard,
+       a.IDcard_number,
+       a.passportEname,
+       a.adress,
+       a.Hcountry,
+       a.txt_Newphone NewPhone,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+	   a.EmailAdress Email,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[Turn_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.form_id IN ( 'P0000002', 'P0000003' )");
+                    if (!string.IsNullOrEmpty(Stu_Empno))
+                    {
+                        sql += " and (a.stunum = @Stu_Empno or a.txt_Newphone = @Stu_Empno )";
+                    }
+                    if (!string.IsNullOrEmpty(IS_PASS))
+                    {
+                        sql += " and a.is_pass = @IS_PASS ";
+                    }
+                    sql += " ORDER BY a.addtime DESC ";
+
+                    list = db.Query<CertificateModel>(sql, new { Stu_Empno, IS_PASS}).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 转出/在读证明下载
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult CertificateExport(string Stu_Empno, string IS_PASS)
+        {
+            try
+            {
+                var dt = querList(Stu_Empno, IS_PASS);
+
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                string templatePath = string.Format("~\\Excel\\Certificate.xlsx");
+                FileStream fs = new FileStream(System.Web.HttpContext.Current.Server.MapPath(templatePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                Workbook wb = new Workbook(fs);
+                Worksheet sheet = wb.Worksheets[0];
+                sheet.Name = "转出在读证明";
+
+                Cells cells = sheet.Cells;
+                int columnCount = cells.MaxColumn;  //获取表页的最大列数
+                int rowCount = cells.MaxRow;        //获取表页的最大行数
+
+                for (int col = 0; col < columnCount; col++)
+                {
+                    sheet.AutoFitColumn(col, 0, rowCount);
+                }
+                for (int col = 0; col < columnCount; col++)
+                {
+                    cells.SetColumnWidthPixel(col, cells.GetColumnWidthPixel(col) + 30);
+                }
+
+                for (int i = 0; i < dt.Count; i++)//遍历DataTable行
+                {
+                    sheet.Cells[i + 1, 0].PutValue(dt[i].Form_Name);
+                    sheet.Cells[i + 1, 1].PutValue(dt[i].IS_PASS);
+                    sheet.Cells[i + 1, 2].PutValue(dt[i].Stu_Empno);
+                    sheet.Cells[i + 1, 3].PutValue(dt[i].Stu_Name);
+                    sheet.Cells[i + 1, 4].PutValue(dt[i].IDCard);
+                    sheet.Cells[i + 1, 5].PutValue(dt[i].IDcard_Number);
+                    sheet.Cells[i + 1, 6].PutValue(dt[i].PassportEname);
+                    sheet.Cells[i + 1, 7].PutValue(dt[i].Hcountry);
+                    sheet.Cells[i + 1, 8].PutValue(dt[i].Adress);
+                    sheet.Cells[i + 1, 9].PutValue(dt[i].Email);
+                    sheet.Cells[i + 1, 10].PutValue(dt[i].NewPhone);
+                    sheet.Cells[i + 1, 11].PutValue(dt[i].AddTime);
+                    //  sheet.Cells[i + 1, 19].PutValue(Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CDATE).ToString("yyyy/MM/dd"));                   
+                }
+                MemoryStream bookStream = new MemoryStream();//创建文件流
+                wb.Save(bookStream, new OoxmlSaveOptions(SaveFormat.Xlsx)); //文件写入流（向流中写入字节序列）
+                bookStream.Seek(0, SeekOrigin.Begin);//输出之前调用Seek，把0位置指定为开始位置
+                return File(bookStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("Certificate_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmssfff")));//最后以文件形式返回
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@
             </select>
             <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
             <button class="btn btn-primary ms-2" id="btn_sign"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
-            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载Excel</button>
+            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>
         </div>
         <table id="table"></table>
         <script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
@@ -184,54 +184,10 @@
                 });
 
                 $('#btn_export').click(function () {
-                    var url = "@(Url.Action("AdminissionExport", "Adminssion"))";
-                    //window.location = url;
-                    //lplLoadingPanel.Hide();
-                    var model = {
-                        "IS_PASS": $("#IS_PASS").val(),
-                        "Stu_Empno": $("#Stu_Empno").val(),
-                    }
-                    $.ajax({
-                        url: url,
-                        data: JSON.stringify(model),
-                        dataType: 'json',
-                        method: 'post',
-                        success: function (result) {
-                            if (result.IsSuccess) {
-
-                                const download = (fileName, blob) => {
-                                    const link = document.createElement("a");
-                                    link.href = URL.createObjectURL(blob);
-                                    link.download = fileName;
-                                    link.click();
-                                    link.remove();
-                                    URL.revokeObjectURL(link.href);
-                                };
-                              //  $.blobDownload(result.FileName, myBlob);
-                                var myBlob = new Blob([result.data], { type: result.FileType });
-                                download(result.FileName, myBlob);
-
-                                //var newdata = JSON.parse(result.data);
-                                //const blob = new Blob([result.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  });//
-                                //const elink = document.createElement("a");
-                                //elink.download = "111";
-                                //elink.style.display = "none";
-                                //elink.href = URL.createObjectURL(blob);
-                                //document.body.appendChild(elink);
-                                //elink.click();
-                                //URL.revokeObjectURL(elink.href);
-                                //document.body.removeChild(elink);
-
-
-                            } else {
-                                __notification.show({ message: result.Msg }, 'error');
-                            }
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            //__notification.show({ message: xhr.responseText }, 'error');
-                        },
-                    });
-
+                    var IS_PASS = $("#IS_PASS").val();
+                    var Stu_Empno = $("#Stu_Empno").val();
+                    var url = "@(Url.Action("AdminissionExport", "Adminssion"))" + "?IS_PASS=" + IS_PASS + "&Stu_Empno=" + Stu_Empno;             
+                    window.location = url;
                 });
                
             });
