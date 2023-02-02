@@ -10,8 +10,7 @@
     <script src="~/static/js/jquery-3.4.1.min.js"></script>
     <script src="~/static/js/main.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
     <script src="~/static/js/rocket-loader.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
-
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link href="~/static/css/css2.css" rel="stylesheet">
@@ -36,8 +35,8 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0"><span id="Account"></span></h6>
+                        <span id="GroupName"></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -61,79 +60,17 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
+                    
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="~/static/picture/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="~/static/picture/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="~/static/picture/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <a class="nav-link">
                             <img class="rounded-circle me-lg-2" src="~/static/picture/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none d-lg-inline-flex" id="Account2"></span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link" id="logout">
+                            <span class="d-none d-lg-inline-flex">登出</span>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -146,8 +83,44 @@
             </div>
         </div>
     </div>
-    <script>
+</body>
+
+<script>
         $(function () {
+            var cookies = document.cookie;
+            const cookieMap = new Map();
+            document.cookie.split("; ").forEach((cookie) => {
+                const [key, value] = cookie.split("=");
+                cookieMap.set(key, value);
+            })
+            console.log(cookieMap.size);
+            console.log(cookieMap.get("Account"));
+            $("#Account").html(cookieMap.get("Account"));
+            $("#Account2").html(cookieMap.get("Account"));
+            $("#GroupName").html(cookieMap.get("GroupName"));
+            console.log(cookies);
+
+            $("#logout").on("click", function () {
+                @*var url = '@Url.Action("LoginIdex", "Login")';
+                window.location.href = url;*@
+                $.ajax({
+                url: "@(Url.Action("LoginOut", "Login"))",
+                type: "post",
+                dataType: "json",
+                success: function (result) {
+                    if (result.IsSuccess) {
+                         var url = '@Url.Action("LoginIndex", "Login")';
+                         window.location.href = url;
+                         
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+                });
+
+            });
+
             $(".Menu").on("click", "li", function () {
                 var sId = $(this).data("id");//获取data-id的值
                 window.location.hash = sId;
@@ -174,19 +147,19 @@
                         i = 0;
                         break;
                     case "#555":
-                        pathn = "@(Url.Action("TotaldataIndex", "Totaldata"))", 
+                        pathn = "@(Url.Action("TotaldataIndex", "Totaldata"))",
                         i = 0;
                         break;
                      case "#SignReport":
-                        pathn = "@(Url.Action("SignReportVw", "Report"))", 
+                        pathn = "@(Url.Action("SignReportVw", "Report"))",
                         i = 0;
                         break;
                     case "#SignCertificate":
-                        pathn = "@(Url.Action("SignCertificateVw", "Certificate"))", 
+                        pathn = "@(Url.Action("SignCertificateVw", "Certificate"))",
                         i = 0;
                         break;
                     case "#SignAdminission":
-                        pathn = "@(Url.Action("SignAdminissionVw", "Adminssion"))", 
+                        pathn = "@(Url.Action("SignAdminissionVw", "Adminssion"))",
                         i = 0;
                         break;
                     default:
@@ -201,6 +174,5 @@
             loacdInner(sId);
         });
 
-    </script>
-</body>
+</script>
 
