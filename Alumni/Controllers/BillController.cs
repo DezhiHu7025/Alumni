@@ -60,7 +60,7 @@ namespace Alumni.Controllers
                                                    WHERE b.shopForm_id = 'S0000001'");
                 if (!string.IsNullOrEmpty(model.Stu_Empno))
                 {
-                    querySql += " and a.stunum = 'H22080031' ";
+                    querySql += " and a.stunum = @Stu_Empno ";
                 }
                 if (!string.IsNullOrEmpty(model.Form_Name))
                 {

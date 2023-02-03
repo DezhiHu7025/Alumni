@@ -24,13 +24,13 @@
                         <p class="kuai">
                             <span class="title_bold">1.康桥学号  KCISEC Student Number&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                            <input ID="Stu_Empno" name="Stu_Empno" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                            <input ID="Stu_Empno" name="Stu_Empno" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
                         </p>
                         <br />
                         <p class="kuai">
                             <span class="title_bold">2.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                            <input ID="Stu_Name" name="Stu_Name"  runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                            <input ID="Stu_Name" name="Stu_Name"  runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
                         </p>
                         <br />
                         <p class="kuai">
@@ -102,6 +102,17 @@
         <script type="text/javascript">
 
             $(function () {
+
+                var cookies = document.cookie;
+                const cookieMap = new Map();
+                document.cookie.split("; ").forEach((cookie) => {
+                    const [key, value] = cookie.split("=");
+                    cookieMap.set(key, value);
+                });
+
+                $("#Stu_Empno").val(cookieMap.get("Account"));
+                $("#Stu_Name").val(cookieMap.get("cname")); 
+
                 $('#ff').on('submit', function (e) {
                     e.preventDefault();
                     var model = $('#ff').serialize();

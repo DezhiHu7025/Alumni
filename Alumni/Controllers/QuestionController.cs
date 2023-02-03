@@ -21,6 +21,14 @@ namespace Alumni.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(model.Stu_Empno) || string.IsNullOrEmpty(model.Stu_Name))
+                {
+                    return Json(new FlagTips
+                    {
+                        IsSuccess = false,
+                        Msg = "账号信息获取异常，请检查登录状态。Account information acquisition exception, please check login status"
+                    });
+                }
                 using (SchoolDb db = new SchoolDb())
                 {
                     model.QchSeqNo = "QUE" + Utils.Nmrandom();

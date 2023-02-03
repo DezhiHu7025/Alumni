@@ -37,6 +37,7 @@ namespace Alumni.Controllers
                     }
                     model.fullname = user.fullname;
                     model.DeptName = user.DeptName;
+                    model.Cname = user.Cname;
                     
                     //sourcetype='A' 是教职员行政，B是小学部 I是中学部，K是幼儿园
                     if (user.status == "N" && user.sourcetype !="A")//学生账号 失效后才可以登录
@@ -90,10 +91,12 @@ namespace Alumni.Controllers
                     Response.Cookies["DeptName"].Value = model.DeptName;
                     Response.Cookies["fullname"].Value = model.fullname;
                     Response.Cookies["GroupName"].Value = model.GroupName;
+                    Response.Cookies["cname"].Value = model.Cname;
                     Response.Cookies["Account"].Expires = DateTime.Now.AddMonths(1);
                     Response.Cookies["DeptName"].Expires = DateTime.Now.AddMonths(1);
                     Response.Cookies["GroupName"].Expires = DateTime.Now.AddMonths(1);
                     Response.Cookies["fullname"].Expires = DateTime.Now.AddMonths(1);
+                    Response.Cookies["cname"].Expires = DateTime.Now.AddMonths(1);
 
                 }
                 return Json(new FlagTips { IsSuccess = true, Msg = "" });
@@ -123,11 +126,13 @@ namespace Alumni.Controllers
             System.Web.HttpContext.Current.Response.Cookies.Remove("Account");//用这句cookies还在。
             System.Web.HttpContext.Current.Response.Cookies.Remove("DeptName");//用这句cookies还在。
             System.Web.HttpContext.Current.Response.Cookies.Remove("fullname");//用这句cookies还在。
+            System.Web.HttpContext.Current.Response.Cookies.Remove("cname");//用这句cookies还在。
             System.Web.HttpContext.Current.Response.Cookies.Remove("GroupName");//用这句cookies还在。
             System.Web.HttpContext.Current.Response.Cookies["Account"].Expires = DateTime.Now.AddDays(-1);
             System.Web.HttpContext.Current.Response.Cookies["DeptName"].Expires = DateTime.Now.AddDays(-1);
             System.Web.HttpContext.Current.Response.Cookies["fullname"].Expires = DateTime.Now.AddDays(-1);
             System.Web.HttpContext.Current.Response.Cookies["GroupName"].Expires = DateTime.Now.AddDays(-1);
+            System.Web.HttpContext.Current.Response.Cookies["cname"].Expires = DateTime.Now.AddDays(-1);
             return Json(new FlagTips { IsSuccess = true, Msg = "" });
         }
 

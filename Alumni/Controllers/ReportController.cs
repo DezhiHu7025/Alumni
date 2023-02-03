@@ -30,13 +30,21 @@ namespace Alumni.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(model.Stu_Empno) || string.IsNullOrEmpty(model.Stu_Name))
+                {
+                    return Json(new FlagTips
+                    {
+                        IsSuccess = false,
+                        Msg = "账号信息获取异常，请检查登录状态。Account information acquisition exception, please check login status"
+                    });
+                }
                 using (SchoolDb db = new SchoolDb())
                 {
                     string checkSql = string.Format(@" SELECT COUNT(*)
                                                    FROM [db_forminf].[dbo].[OldStudent_Onlin_List] a
                                                        LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
                                                            ON a.form_name = b.form_name
-                                                   WHERE b.shopForm_id = 'S0000001' and b.form_id = 'P0000003' is_pass='N'
+                                                   WHERE b.shopForm_id = 'S0000001' and b.form_id = 'P0000003'and is_pass='N'
                                                          AND (a.stunum = @Stu_Empno OR a.Phone = @txt_Cphone) ");
                     string cnt = db.Query<int>(checkSql, model).FirstOrDefault().ToString();
                     if (Convert.ToInt32(cnt) > 0)

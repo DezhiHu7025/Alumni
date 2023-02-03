@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "AdminssionApply";
+}
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <link href="~/static/css/DateComponent.css" rel="stylesheet" />
+
+    <script src="~/js/jquery1.min.js"></script>
+    <script src="~/static/js/DateComponent.js"></script>
+</head>
+
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="~/img/logo_XY2.png" />
+    </div>
+    <form id="ff">
+        <div>
+            <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</h3>
+            <br />
+
+            <div class="content1">
+                <div class="leftDiv">
+                    <p class="kuai">
+                        <span class="title_bold">1.填单教职员 Teacher Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="teacnerName" name="teacnerName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                        <input ID="teacherAD" name="teacherAD" type="hidden" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">2.填单教职员部门 Teacher Department&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                        <input ID="DeptName" name="DeptName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">校友学号 KCISEC Student Number &nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="alumnusEmp" name="alumnusEmp" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">4.校友中文名 SchoolFellow Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;||&nbsp;&nbsp;请填写</span><br />
+                        <input ID="alumnusName" name="alumnusName" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">5.校友离校班级 SchoolFellow Class &nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="LeaveClass" name="LeaveClass" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                </div>
+                <div class="rightDiv">
+                    <p class="kuai">
+                        <span class="title_bold" >6.校友入校日期 SchoolFellow Get Into Date&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui" id="select-date">Please Choose &nbsp;&nbsp;|&nbsp;请选择</span><br />
+                        <input ID="intoDate" name="intoDate" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                   
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">7.校友电话 SchoolFellow Telephone Number&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="alumnusPhone" name="alumnusPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">8..其他拜访师长姓名 Other Teacher Name &nbsp;&nbsp;</span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="teacnerName2" name="teacnerName2" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">9.其他需求或备注 Other Demand Or Remarks &nbsp;&nbsp;</span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="remarks" name="remarks" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                </div>
+
+            </div>
+
+
+            <div class="butom" style="text-align:center;">
+                <a href="../Home/Index" class="button">返回 Back</a>  |
+                <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
+            </div>
+
+        </div>
+    </form>
+</body>
+<script type="text/javascript">
+    $(function () {
+
+        var cookies = document.cookie;
+        const cookieMap = new Map();
+        document.cookie.split("; ").forEach((cookie) => {
+            const [key, value] = cookie.split("=");
+            cookieMap.set(key, value);
+        });
+
+        $("#teacnerName").val(cookieMap.get("fullname"));
+        $("#DeptName").val(cookieMap.get("DeptName")); 
+        $("#teacherAD").val(cookieMap.get("Account"));
+
+        var date = new Date()
+        var month = date.getMonth() + 1
+        //var monthForm = month < 10 ? '0' + month : month
+       // $('#date-label').html(date.getFullYear() + '/' + month + '/' + date.getDate())
+        $("#intoDate").click(function () {
+            //var date = new Date($('#date-label').html());
+            new DateComponent({
+                //defaultDate: date,
+                callback: function (year, month, date) {
+                    var monthCus = month + 1
+                    //var monthForm = monthCus < 10 ? '0' + monthCus : monthCus
+                   // $('#date-label').html(year + '/' + monthCus + '/' + date);
+                    $("#intoDate").val(year + '/' + monthCus + '/' + date);
+                }
+            });
+        });
+    
+        $('#ff').on('submit', function (e) {
+            e.preventDefault();
+            var model = $('#ff').serialize();
+            var len = document.getElementById('alumnusPhone').value;
+            console.log(len);
+           
+            if (len.length != 11) {
+                alert("手机号码应为11位 The mobile phone number should be 11 digits");
+                return false;
+            }
+            console.log(model);
+            $.ajax({
+                type: 'post',
+                url: 'AdminissionSave',
+                data: model,
+                beforeSend: function () {
+                    // 禁用按钮防止重复提交
+                    $("#submit").attr({ disabled: "disabled" });
+                },
+                success: function (result) {
+                    if (result.IsSuccess) {
+                        console.log("OKOKOK");
+                        alert('提交成功 Submitted successfully！');
+                        window.location.href = "@Url.Action("Index", "Home")";
+
+                    }
+                    else {
+                        alert(result.Msg);
+                    }
+                }
+            })
+
+        })        
+    });
+</script>
+

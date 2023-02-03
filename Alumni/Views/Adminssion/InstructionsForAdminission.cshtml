@@ -2,14 +2,13 @@
 @{
     ViewBag.Title = "InstructionsForAdminission";
 }
-
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
     <title>校友入校申请</title>
     <link href="~/css/list.css" rel="stylesheet" />
     <link href="~/css/new2.css" rel="stylesheet" />
+    <script src="~/js/jquery1.min.js"></script>
 </head>
 <body>
    
@@ -42,11 +41,35 @@
                     返回 Back
                 </a> |
                 @*<a href="~/Manager/ManagerIndex" class="button">教职员申请 Apply by faculty</a>*@
-                <a href="~/Login/LoginIndex" class="button">教职员申请 Apply by faculty</a>
+                <a  class="button"  id="btn_adminssion">教职员申请 Apply by faculty</a>
             </div>
 
 
         </div>
     </div>
 </body>
-</html>
+<script type="text/javascript">
+    $(function () {
+
+        var cookies = document.cookie;
+        const cookieMap = new Map();
+        document.cookie.split("; ").forEach((cookie) => {
+            const [key, value] = cookie.split("=");
+            cookieMap.set(key, value);
+        });
+
+        $("#btn_adminssion").on("click", function () {
+            var usergroup = cookieMap.get("GroupName");
+            $("#username").html(cookieMap.get("GroupName") + "&nbsp;&nbsp;&nbsp;&nbsp;" + cookieMap.get("fullname"));
+            console.log(cookies);
+            if (usergroup == "教职员") {
+                var url = '@Url.Action("AdminssionApply", "Adminssion")';
+                window.location.href = url;
+            } else if (usergroup == "校友") {
+                alert("由教职员填写，校友无需填写。To be filled in by faculty and staff, alumni need not fill in")
+            } else if (usergroup == null || usergroup == '') {
+                alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
+            }
+        });
+    });
+</script>

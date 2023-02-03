@@ -426,6 +426,7 @@
     <Content Include="Views\Certificate\SignCertificateVw.cshtml" />
     <Content Include="Views\Adminssion\SignAdminissionVw.cshtml" />
     <Content Include="Views\Login\LoginIndex.cshtml" />
+    <Content Include="Views\Adminssion\AdminssionApply.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

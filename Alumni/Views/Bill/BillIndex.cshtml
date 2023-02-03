@@ -16,9 +16,23 @@
             <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Association document query | 康桥校友会单据查询</h3>
             <br />
             <form id="qq">
-                @*<span class="item-title">表单名称</span><input id="Form_Name" name="Form_Name" type="text">
-                <span class="item-title">表单状态</span><input id="IS_PASS" name="IS_PASS" type="text">
-                <button id="btn_submit" name="btn_submit" type="submit" Font-Names="微軟正黑體" Height="28px" onclick="ButtonSearch_Click" Width="100px">查询 Query</button>*@
+                <input ID="Stu_Empno" type="hidden">
+                <span class="item-title">表单名称</span>
+                <select ID="Form_Name" name="Form_Name" runat="server">
+                    <option value="">---请选择---</option>
+                    <option value="P0000001">校友入校申请</option>
+                    <option value="P0000002">转出/在读证明</option>
+                    <option value="P0000003">成绩单申请</option>
+                </select>
+                <span class="item-title">表单状态</span>
+                <select ID="IS_PASS" name="IS_PASS" runat="server">
+                    <option value="">---请选择---</option>
+                    <option value="N">审核中</option>
+                    <option value="Y">已审核通过</option>
+                    <option value="D">审核不通过	</option>
+                </select>
+                <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
+                @*<button id="btn_submit" name="btn_submit" type="submit" Font-Names="微軟正黑體" Height="28px" onclick="ButtonSearch_Click" Width="100px">查询 Query</button>*@
                 <table id="tab" height="200" class="item-title"></table>
             </form>
             
@@ -31,10 +45,47 @@
 <script type="text/javascript">
 
     $(function () {
+
+        var account = cookieMap.get("Account");
+       // var PASS = document.getElementById("IS_PASS");
+        var PASS = $("#IS_PASS option:selected").attr('value');
+        var Sel = document.getElementById("IS_PASS");
+        var index = Sel.selectedIndex; // selectedIndex是所选中的项的index
+        var qq = document.getElementById("IS_PASS").options[index].value;
+        var rr=$("#IS_PASS").val()
+        var Form = "校友入校申请";
         const model = ({
-            Form_Name: '',
-            IS_PASS: 'N',
-            Stu_Empno:'H22080031',
+            Form_Name: qq,
+            IS_PASS: PASS,
+            Stu_Empno: account,
+        });
+        console.log(model);
+        console.log(Sel);
+        console.log(index);
+        console.log(rr);
+
+        $('#btn_search').click(function () {
+            alert(Sel + index);
+            $.ajax({
+                url: "query",
+                type: "post",
+                dataType: 'json',
+                data: model,
+                success: function (data) {
+                    $("#tab").find('tr').remove();
+                    var str = "";//定义用于拼接的字符串
+                    for (var i = 0; i < data.length; i++) {
+                        str = "<tr><td></tr></td><tr><td>" + "表单名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].Form_Name + "</td></tr><tr><td>"
+                            + data[i].TitleName + ":&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].SendAdress + "</td></tr></tr><td>"
+                            + "表单状态:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].IS_PASS + "</td></tr><tr><td><hr/></tr></td>";
+                        //追加到table中
+                        $("#tab").append(str);
+                    }
+                },
+                error: function (msg) {
+                    alert("查询失败" + msg);
+                }
+            });
         });
         //var formData = new FormData(qq);
         //formData.append('Form_Name', '成绩申请单');

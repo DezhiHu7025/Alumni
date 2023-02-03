@@ -27,13 +27,13 @@
                     <p class="kuai">
                         <span class="title_bold">1.康桥学号 KCISEC Student Number&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
                     </p>
                     <br />
                     <p class="kuai">
                         <span class="title_bold">2.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
                     </p>
                     <br />
                     <p class="kuai">
@@ -133,61 +133,10 @@
         </div>
     </form>
     <script type="text/javascript">
+         $(function () {
+            $("#Stu_Empno").val(cookieMap.get("fullname"));
+            $("#Stu_Name").val(cookieMap.get("cname")); 
 
-        
-        var small_img = document.querySelector('input[name=small_img]');
-        var img = document.querySelector('input[name=img]');
-        small_imgs = document.querySelector('#small_img');
-        imgs = document.querySelector('#img');
-        if (small_img) {
-            small_img.addEventListener('change', function () {
-                var file = this.files[0];
-                var reader = new FileReader();
-                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
-                reader.addEventListener("load", function () {
-                    small_imgs.src = reader.result;
-                }, false);
-                // 调用reader.readAsDataURL()方法，把图片转成base64
-                reader.readAsDataURL(file);
-                $("img").eq(0).css("display", "block");
-            }, false);
-        }
-        if (img) {
-            img.addEventListener('change', function () {
-                var file = this.files[0];
-                var reader = new FileReader();
-                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
-                reader.addEventListener("load", function () {
-                    imgs.src = reader.result;
-                }, false);
-                // 调用reader.readAsDataURL()方法，把图片转成base64
-                reader.readAsDataURL(file);
-                $("img").eq(1).css("display", "block");
-            }, false);
-        }
-
-        function preserve() {
-            var picture = new FormData();
-            var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
-            picture.append("img", img);
-            console.log(file);
-            console.log(img);
-            console.log(picture);
-            $.ajax({
-                type: "post",
-                url: "PictureSave",/*此处填写上传路径*/
-                processData: false,
-                contentType: false,
-                data: picture,
-                dataType: "json",
-                success: function (data) {
-
-                }
-            });
-        }
-
-
-            $(function () {
                 $('#ff').on('submit', function (e) {
                     e.preventDefault();
                     var model = $('#ff').serialize();
@@ -219,7 +168,61 @@
                         }
                     })
                 })
-            });
+        });
+        
+        //var small_img = document.querySelector('input[name=small_img]');
+        //var img = document.querySelector('input[name=img]');
+        //small_imgs = document.querySelector('#small_img');
+        //imgs = document.querySelector('#img');
+        //if (small_img) {
+        //    small_img.addEventListener('change', function () {
+        //        var file = this.files[0];
+        //        var reader = new FileReader();
+        //        // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+        //        reader.addEventListener("load", function () {
+        //            small_imgs.src = reader.result;
+        //        }, false);
+        //        // 调用reader.readAsDataURL()方法，把图片转成base64
+        //        reader.readAsDataURL(file);
+        //        $("img").eq(0).css("display", "block");
+        //    }, false);
+        //}
+        //if (img) {
+        //    img.addEventListener('change', function () {
+        //        var file = this.files[0];
+        //        var reader = new FileReader();
+        //        // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+        //        reader.addEventListener("load", function () {
+        //            imgs.src = reader.result;
+        //        }, false);
+        //        // 调用reader.readAsDataURL()方法，把图片转成base64
+        //        reader.readAsDataURL(file);
+        //        $("img").eq(1).css("display", "block");
+        //    }, false);
+        //}
+
+        //function preserve() {
+        //    var picture = new FormData();
+        //    var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
+        //    picture.append("img", img);
+        //    console.log(file);
+        //    console.log(img);
+        //    console.log(picture);
+        //    $.ajax({
+        //        type: "post",
+        //        url: "PictureSave",/*此处填写上传路径*/
+        //        processData: false,
+        //        contentType: false,
+        //        data: picture,
+        //        dataType: "json",
+        //        success: function (data) {
+
+        //        }
+        //    });
+        //}
+
+
+       
 
     </script>
 </body>

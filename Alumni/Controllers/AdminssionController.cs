@@ -29,6 +29,62 @@ namespace Alumni.Controllers
             return View();
         }
 
+        public ActionResult AdminssionApply()
+        {
+            return View();
+        }
+
+        public ActionResult AdminissionSave(AdminssionModel model)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(model.teacherAD)|| string.IsNullOrEmpty(model.teacnerName)|| string.IsNullOrEmpty(model.DeptName))
+                {
+                    return Json(new FlagTips
+                    {
+                        IsSuccess = false,
+                        Msg = "账号信息获取异常，请检查登录状态。Account information acquisition exception, please check login status"
+                    });
+                }
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string checkSql = string.Format(@" SELECT COUNT(*)
+                                                   FROM [db_forminf].[dbo].[OldStudent_Onlin_List] a
+                                                       LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+                                                           ON a.form_name = b.form_name
+                                                   WHERE b.shopForm_id = 'S0000001' and b.form_id = 'P0000001' and is_pass = 'N'
+                                                         AND (a.stunum = @alumnusEmp OR a.Phone = @alumnusPhone) ");
+                    string cnt = db.Query<int>(checkSql, model).FirstOrDefault().ToString();
+                    if (Convert.ToInt32(cnt) > 0)
+                    {
+                        return Json(new FlagTips
+                        {
+                            IsSuccess = false,
+                            Msg = "已递入校申请，请耐心等待审核；若长时间未审核通过，请洽询相关老师。The application for transfer out/reading certificate has been submitted, please wait patiently for review; If you fail to pass the review for a long time, please contact the relevant teachers."
+                        });
+                    }
+
+                    model.intoDate2 = Convert.ToDateTime(model.intoDate).ToShortDateString();
+                    model.RmchSeqNo = "RXD" + Utils.Nmrandom();
+                    model.AddTime = DateTime.Now;
+                    model.Form_Name = "校友入校申请";
+                    string insertSql = string.Format(@" insert into [db_forminf].[dbo].[EntryApply_indent](RmchSeqNo,form_name,teacnerName,teacherAD,DeptName,alumnusEmp,alumnusName,LeaveClass,intoDate,alumnusPhone,teacnerName2,remarks,is_pass,is_inner,addtime)
+                                                         values(@RmchSeqNo,@form_name,@teacnerName,@teacherAD,@DeptName,@alumnusEmp,@alumnusName,@LeaveClass,@intoDate2,@alumnusPhone,@teacnerName2,@remarks,'N','N',@addtime)");
+                    string insertSql2 = string.Format(@"insert into [db_forminf].[dbo].[OldStudent_Onlin_List](mchSeqNo,form_name,stunum,stuname,is_Mail,is_pass,EmailAdress,addtime,Phone)
+                                                       values(@RmchSeqNo,@Form_Name,@alumnusEmp,@alumnusName,'N','N',@LeaveClass,@AddTime,@alumnusPhone)");
+                    Dictionary<string, object> trans = new Dictionary<string, object>();
+                    trans.Add(insertSql, model);
+                    trans.Add(insertSql2, model);
+                    db.DoExtremeSpeedTransaction(trans);
+                }
+                return Json(new FlagTips { IsSuccess = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+        }
+
         /// <summary>
         /// 入校申请信息列表
         /// </summary>

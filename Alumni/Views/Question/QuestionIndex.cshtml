@@ -32,7 +32,8 @@
                     <p class="kuai">
                         <span class="title_bold">1.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" type="hidden">
                     </p>
                     <br />
                     <p class="kuai">
@@ -292,29 +293,41 @@
                         $("#DoctoralDepartmentName").removeAttr('required');
                     }
                 })
+                
+                $("#Stu_Name").val(cookieMap.get("cname")); 
+                $("#Stu_Empno").val(cookieMap.get("Account"));
 
                 $('#ff').on('submit', function (e) {
                     e.preventDefault();
                     var model = $('#ff').serialize();
                     console.log(model);
-                    $.ajax({
-                        type: 'post',
-                        url: 'QuestionSave',
-                        data: model,
-                        beforeSend: function () {
-                            // 禁用按钮防止重复提交
-                            $("#submit").attr({ disabled: "disabled" });
-                        },
-                        success: function (result) {
-                            if (result.IsSuccess) {
-                                alert('提交成功 Submitted successfully！');
-                                window.location.href = "@Url.Action("Index", "Home")";
+                    var usergroup = cookieMap.get("GroupName");
+                    if (usergroup == "教职员") {
+                        alert("校友填写，教职员无需填写。")
+                    } else if (usergroup == "校友") {
+                        $.ajax({
+                            type: 'post',
+                            url: 'QuestionSave',
+                            data: model,
+                            beforeSend: function () {
+                                // 禁用按钮防止重复提交   
+                                $("#submit").attr({ disabled: "disabled" });
+                            },
+                            success: function (result) {
+                                if (result.IsSuccess) {
+                                    console.log("OKOKOK");
+                                    alert('提交成功 Submitted successfully！');
+                                    window.location.href = "@Url.Action("Index", "Home")";
+                                }
+                                else {
+                                    alert(result.Msg);
+                                }
                             }
-                            else {
-                                alert(result.Msg);
-                            }
-                        }
-                    })
+                        });
+                    } else if (usergroup == null || usergroup == '') {
+                        alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
+                    }
+                    
                 })
             });
 
