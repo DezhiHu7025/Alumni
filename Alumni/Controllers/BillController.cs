@@ -23,13 +23,44 @@ namespace Alumni.Controllers
 
         public List<BillModel> queryBill(queryBillModel model)
         {
-            //var model = new queryBillModel();
-            //model.Form_Name = Form_Name;
-            //model.IS_PASS = IS_PASS;
             var list = new List<BillModel>();
             using (SchoolDb db = new SchoolDb())
             {
-                string querySql = string.Format(@"SELECT a.mchSeqNo SeqNo,
+                string querySql = null;
+                if (model.GroupName =="教职员")
+                {
+                    querySql = string.Format(@" SELECT a.RmchSeqNo SeqNo,
+       a.form_name,
+       a.teacherAD stunum,
+       a.is_pass,
+       ims.TEXT IS_PASS,
+       '入校时间' TitleName,
+       a.intoDate SendAdress,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[EntryApply_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.CODE = 'IS_PASS'
+           AND a.is_pass = ims.VALUE
+WHERE b.shopForm_id = 'S0000001'");
+
+                    if (!string.IsNullOrEmpty(model.Stu_Empno))
+                    {
+                        querySql += " and a.teacherAD = @Stu_Empno ";
+                    }
+                    if (!string.IsNullOrEmpty(model.Form_Name))
+                    {
+                        querySql += " and b.form_id = @Form_Name ";
+                    }
+                    if (!string.IsNullOrEmpty(model.IS_PASS))
+                    {
+                        querySql += " and a.is_pass = @IS_PASS ";
+                    }
+                }
+                else
+                {
+                     querySql = string.Format(@"SELECT a.mchSeqNo SeqNo,
                                                          a.form_name,
                                                          a.stunum,
                                                          a.is_pass,
@@ -58,18 +89,21 @@ namespace Alumni.Controllers
                                                            ON ims.code = 'IS_PASS'
                                                            AND a.is_pass = ims.value
                                                    WHERE b.shopForm_id = 'S0000001'");
-                if (!string.IsNullOrEmpty(model.Stu_Empno))
-                {
-                    querySql += " and a.stunum = @Stu_Empno ";
+
+                    if (!string.IsNullOrEmpty(model.Stu_Empno))
+                    {
+                        querySql += " and a.stunum = @Stu_Empno ";
+                    }
+                    if (!string.IsNullOrEmpty(model.Form_Name))
+                    {
+                        querySql += " and b.form_id = @Form_Name ";
+                    }
+                    if (!string.IsNullOrEmpty(model.IS_PASS))
+                    {
+                        querySql += " and a.is_pass = @IS_PASS ";
+                    }
                 }
-                if (!string.IsNullOrEmpty(model.Form_Name))
-                {
-                    querySql += " and a.form_name = @Form_Name ";
-                }
-                if (!string.IsNullOrEmpty(model.IS_PASS))
-                {
-                    querySql += " and a.is_pass = @IS_PASS ";
-                }
+                
                 list = db.Query<BillModel>(querySql, model).ToList();
             }
             return list;

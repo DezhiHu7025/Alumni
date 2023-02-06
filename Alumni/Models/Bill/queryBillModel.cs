@@ -21,5 +21,10 @@ namespace Alumni.Models.Bill
         /// 表单状态
         /// </summary>
         public string IS_PASS { get; set; }
+
+        /// <summary>
+        /// 权限分组
+        /// </summary>
+        public string GroupName { get; set; }
     }
 }

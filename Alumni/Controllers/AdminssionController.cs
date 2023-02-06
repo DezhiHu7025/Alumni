@@ -70,8 +70,8 @@ namespace Alumni.Controllers
                     model.Form_Name = "校友入校申请";
                     string insertSql = string.Format(@" insert into [db_forminf].[dbo].[EntryApply_indent](RmchSeqNo,form_name,teacnerName,teacherAD,DeptName,alumnusEmp,alumnusName,LeaveClass,intoDate,alumnusPhone,teacnerName2,remarks,is_pass,is_inner,addtime)
                                                          values(@RmchSeqNo,@form_name,@teacnerName,@teacherAD,@DeptName,@alumnusEmp,@alumnusName,@LeaveClass,@intoDate2,@alumnusPhone,@teacnerName2,@remarks,'N','N',@addtime)");
-                    string insertSql2 = string.Format(@"insert into [db_forminf].[dbo].[OldStudent_Onlin_List](mchSeqNo,form_name,stunum,stuname,is_Mail,is_pass,EmailAdress,addtime,Phone)
-                                                       values(@RmchSeqNo,@Form_Name,@alumnusEmp,@alumnusName,'N','N',@LeaveClass,@AddTime,@alumnusPhone)");
+                    string insertSql2 = string.Format(@"insert into [db_forminf].[dbo].[OldStudent_Onlin_List](mchSeqNo,form_name,stunum,stuname,is_Mail,is_pass,EmailAdress,addtime,Phone,intodate)
+                                                       values(@RmchSeqNo,@Form_Name,@alumnusEmp,@alumnusName,'N','N',@LeaveClass,@AddTime,@alumnusPhone,@intoDate2)");
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(insertSql, model);
                     trans.Add(insertSql2, model);
