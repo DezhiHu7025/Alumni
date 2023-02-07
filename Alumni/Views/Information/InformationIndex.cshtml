@@ -45,7 +45,7 @@
                     <p class="kuai">
                         <span class="title_bold"> 4.您是否在G12从康桥毕业？ <br /> &nbsp;&nbsp; Did you graduate from KCISEC in Year 12?&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="GraduationStatus" name="GraduationStatus" runat="server" Font-Size="14px" ForeColor="#666666" onchange="JavaScript:selectDpList(this)" class="form-control select-list" required="required">
+                        <select ID="GraduationStatus" name="GraduationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
                             <option value="Y">是，我从康桥高中毕业 Yes, I graduated High School from KCISEC.</option>
                             <option value="N">否，我并非从康桥高中毕业 No, I did not graduate High School from KCISEC.</option>
@@ -106,18 +106,11 @@
                             <div class="col-sm-10">
                                 <a class="file">
                                     选择文件
-                                    <input type="file" name="img" required>
+                                    <input type="file" name="img" onchange="uploadImage(this)" required>
                                 </a>
                                 <img id="img" height="100" src="">
                             </div>
                         </div>
-                        @*<div class="form-group row">
-                            <label class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-10">
-                                <button type="button" class="btn btn-primary" onclick="return preserve()">保存</button>
-                            </div>
-                        </div>*@
-                        @*<input ID="LatestPhoto" name="LatestPhoto" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">*@
                     </p>
                     <br />
                 </div>
@@ -127,14 +120,57 @@
 
             <div class="butom" style="text-align:center;">
                 @Html.ActionLink("返回 Back", "Index", "Home", new { area = "" }, new { @class = "button" })|
-                <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
+                <button id="btn_submit" name="btn_submit" type="submit" class="button" onclick="uploadImage(this)">提交 Submit</button>
             </div>
 
         </div>
     </form>
     <script type="text/javascript">
+        
+        var formData = new FormData();//创建FormData对象，以键值对的方式拼接form表单数据（multipart/form-data，图片媒体文件）
+        function uploadImage(obj) {
+           // var formData = new FormData();
+            //获取input中的文件列表信息
+            var files = $(obj).prop("files");
+            //拼接图片文件流信息
+            console.log(files[0]);
+            formData.append("file", files[0]);
+        }
+
+        
+        var small_img = document.querySelector('input[name=small_img]');
+        var img = document.querySelector('input[name=img]');
+        small_imgs = document.querySelector('#small_img');
+        imgs = document.querySelector('#img');
+        if (small_img) {
+            small_img.addEventListener('change', function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                reader.addEventListener("load", function () {
+                    small_imgs.src = reader.result;
+                }, false);
+                // 调用reader.readAsDataURL()方法，把图片转成base64
+                reader.readAsDataURL(file);
+                $("img").eq(0).css("display", "block");
+            }, false);
+        }
+        if (img) {
+            img.addEventListener('change', function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                reader.addEventListener("load", function () {
+                    imgs.src = reader.result;
+                }, false);
+                // 调用reader.readAsDataURL()方法，把图片转成base64
+                reader.readAsDataURL(file);
+                $("img").eq(1).css("display", "block");
+            }, false);
+        }
+
          $(function () {
-            $("#Stu_Empno").val(cookieMap.get("fullname"));
+            $("#Stu_Empno").val(cookieMap.get("Account"));
             $("#Stu_Name").val(cookieMap.get("cname")); 
 
                 $('#ff').on('submit', function (e) {
@@ -149,10 +185,27 @@
                         }
                     }
                     console.log(model);
+                   // formData.append("file", files[0]);
+                    formData.append('Stu_Empno', $("#Stu_Empno").val());
+                    formData.append('Stu_Name', $("#Stu_Name").val());
+                    formData.append('Stu_Eame', $("#Stu_Eame").val());
+                    formData.append('GraduationStatus', $("#GraduationStatus").val());
+                    formData.append('College', $("#College").val());
+                    formData.append('Email', $("#Email").val());
+                    formData.append('WeChat', $("#WeChat").val());
+                    formData.append('NewPhone', $("#NewPhone").val());
+                    formData.append('WillJoin', $("#WillJoin").val());
+                    console.log(formData);
                     $.ajax({
                         type: 'post',
                         url: 'InformationSave',
-                        data: model,
+                        data: formData,
+                        async: false,
+                        dataType: "json",
+                        // 告诉jQuery不要去处理发送的数据
+                        processData: false,
+                        // 告诉jQuery不要去设置Content-Type请求头
+                        contentType: false,
                         beforeSend: function () {
                             // 禁用按钮防止重复提交
                             $("#submit").attr({ disabled: "disabled" });
@@ -170,60 +223,6 @@
                 })
         });
         
-        //var small_img = document.querySelector('input[name=small_img]');
-        //var img = document.querySelector('input[name=img]');
-        //small_imgs = document.querySelector('#small_img');
-        //imgs = document.querySelector('#img');
-        //if (small_img) {
-        //    small_img.addEventListener('change', function () {
-        //        var file = this.files[0];
-        //        var reader = new FileReader();
-        //        // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
-        //        reader.addEventListener("load", function () {
-        //            small_imgs.src = reader.result;
-        //        }, false);
-        //        // 调用reader.readAsDataURL()方法，把图片转成base64
-        //        reader.readAsDataURL(file);
-        //        $("img").eq(0).css("display", "block");
-        //    }, false);
-        //}
-        //if (img) {
-        //    img.addEventListener('change', function () {
-        //        var file = this.files[0];
-        //        var reader = new FileReader();
-        //        // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
-        //        reader.addEventListener("load", function () {
-        //            imgs.src = reader.result;
-        //        }, false);
-        //        // 调用reader.readAsDataURL()方法，把图片转成base64
-        //        reader.readAsDataURL(file);
-        //        $("img").eq(1).css("display", "block");
-        //    }, false);
-        //}
-
-        //function preserve() {
-        //    var picture = new FormData();
-        //    var img = $("[name='img']").prop('files')[0];/*获取上传图片的信息*/
-        //    picture.append("img", img);
-        //    console.log(file);
-        //    console.log(img);
-        //    console.log(picture);
-        //    $.ajax({
-        //        type: "post",
-        //        url: "PictureSave",/*此处填写上传路径*/
-        //        processData: false,
-        //        contentType: false,
-        //        data: picture,
-        //        dataType: "json",
-        //        success: function (data) {
-
-        //        }
-        //    });
-        //}
-
-
-       
-
     </script>
 </body>
 

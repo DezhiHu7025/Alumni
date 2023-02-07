@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Alumni.Models.Information
 {
@@ -63,7 +64,7 @@ namespace Alumni.Models.Information
         public string WillJoin { get; set; }
 
         /// <summary>
-        /// 是否愿意加入康桥校友会
+        /// 近照
         /// </summary>
         public string LatestPhoto { get; set; }
 
@@ -71,5 +72,6 @@ namespace Alumni.Models.Information
         /// 填写时间
         /// </summary>
         public DateTime CreateTime { get; set; }
+        
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Alumni.Db;
 using Alumni.Models;
 using Alumni.Models.Information;
+using Alumni.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,6 +24,9 @@ namespace Alumni.Controllers
         {
             try
             {
+                HttpPostedFileBase httpPostedFileBase = Request.Files["file"];
+                ControllerContext.HttpContext.Request.ContentEncoding = Encoding.GetEncoding("UTF-8");
+                ControllerContext.HttpContext.Response.Charset = "UTF-8";
                 if (string.IsNullOrEmpty(model.Stu_Empno) || string.IsNullOrEmpty(model.Stu_Name))
                 {
                     return Json(new FlagTips
@@ -39,6 +45,16 @@ namespace Alumni.Controllers
                                                       NewPhone,WillJoin,LatestPhoto,CreateTime)
                                                     values(@InchSeqNo,@Form_Name,@Stu_Empno,@Stu_Name,@Stu_Eame,@GraduationStatus,@College,@Email,@WeChat,
                                                       @NewPhone,@WillJoin,@LatestPhoto,@CreateTime)");
+                    FileUploadService upfile = new FileUploadService();
+                    var uploadModel = upfile.FileLoad(httpPostedFileBase,model.Stu_Empno);
+                    if (uploadModel.IsSuccess == true)
+                    {
+                        model.LatestPhoto = uploadModel.Msg;
+                    }
+                    else
+                    {
+                        return Json(new FlagTips { IsSuccess = false,Msg = "照片上传失败 Photo upload failed" });
+                    }
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(insertSql, model);
                     db.DoExtremeSpeedTransaction(trans);
@@ -51,33 +67,5 @@ namespace Alumni.Controllers
             }
         }
 
-        public HttpPostedFileBase PictureSave(HttpPostedFileBase picture)
-        {
-            try
-            {
-                if (picture != null && picture.ContentLength > 0)
-                {
-                    if (!System.IO.Directory.Exists(Server.MapPath("~/picture")))
-                    {
-                        //无文件夹则先创建文件夹
-                        System.IO.Directory.CreateDirectory(Server.MapPath("~/picture"));
-                    }
-                    //获取扩展名
-                    string img = System.IO.Path.GetExtension(picture.FileName);
-                    //文件名 加时间防止重名
-                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "_" + img;
-                    //保存路径
-                    string filePath = Server.MapPath("~/picture") + fileName;
-                    picture.SaveAs(filePath);
-                }
-                return picture;
-                //return Json(new FlagTips { IsSuccess = true });
-            }
-            catch (Exception ex)
-            {
-                return picture;
-               // return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
-            }
-        }
     }
 }

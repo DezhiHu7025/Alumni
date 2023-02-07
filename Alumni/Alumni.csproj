@@ -399,6 +399,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BasicService.cs" />
     <Compile Include="Service\CommonService.cs" />
+    <Compile Include="Service\FileUploadService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +446,7 @@
     <Folder Include="Views\BasicService\" />
     <Folder Include="Views\CodeMstr\" />
     <Folder Include="Views\DDL\" />
+    <Folder Include="Views\FileUpload\" />
     <Folder Include="Views\IDbOperation\" />
     <Folder Include="Views\SchoolDb\" />
   </ItemGroup>
