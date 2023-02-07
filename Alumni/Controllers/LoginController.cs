@@ -164,5 +164,44 @@ where a.AccountID = @Account";
             }
             return user;
         }
+
+        public ActionResult findAccountIndex()
+        {
+            return View();
+        }
+        public ActionResult findAccount(UserModel model)
+        {
+            if (string.IsNullOrEmpty(model.Cname) || string.IsNullOrEmpty(model.password2))
+            {
+                string errorMsg = "请填写姓名和出生日期 Please fill in your name and date of birth";
+                return Json(new FlagTips { IsSuccess = false, Msg = errorMsg });
+            }
+            else
+            {
+                string account = null;
+                try
+                {
+                    using (SchoolDb db = new SchoolDb())
+                    {
+                        string findAccountSql = string.Format(@" select a.accountid account from [Common].[dbo].[kcis_account] a
+                                               where status = 'N' and  cname = @Cname and password2 = @password2");
+                        account = db.Query<string>(findAccountSql, model).FirstOrDefault();
+                    }
+                    if (!string.IsNullOrEmpty(account)) {
+
+                        return Json(new FlagTips { IsSuccess = true, Msg = account });
+                    }
+                    else
+                    {
+                        return Json(new FlagTips { IsSuccess = false, Msg = "学号未找到 Student number not found" });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+                }
+            }
+        }
+
     }
 }

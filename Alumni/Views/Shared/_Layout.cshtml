@@ -8,12 +8,10 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/static/js/jquery-3.4.1.min.js"></script>
-    <script src="~/static/js/bootstrap-datetimepicker.js"></script>
-    <script src="~/static/js/jquery.datetimepicker.js"></script>
     <style>
         .rt {
             float: right;
-            width: 250px;
+            width: 220px;
             color: white;
             margin-left: 700px;
             font-size: 18px;
@@ -35,7 +33,7 @@
                 @Html.ActionLink("线上校友专区", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <span id="username" class="rt" style="display:block"></span>
                 <a class="navbar-brand" id="logout">
-                    <span>登出</span>
+                    <span>登出/登入</span>
                 </a>
             </div>
             <div class="navbar-collapse collapse">
@@ -67,7 +65,11 @@
             const [key, value] = cookie.split("=");
             cookieMap.set(key, value);
         })
-        $("#username").html(cookieMap.get("GroupName") +"&nbsp;&nbsp;&nbsp;&nbsp;"+cookieMap.get("fullname"));
+        if (cookieMap.get("fullname") != null) {
+            $("#username").html(cookieMap.get("GroupName") + "&nbsp;&nbsp;&nbsp;&nbsp;" + cookieMap.get("fullname"));
+        } else {
+            $("#username").html("未登录")
+        }
         console.log(cookies);
 
         $("#logout").on("click", function () {

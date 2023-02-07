@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "findAccountIndex";
+}
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <title>校友入校申请</title>
+    <link href="~/css/list.css" rel="stylesheet" />
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <script src="~/js/jquery1.min.js"></script>
+</head>
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="~/img/logo_XY2.png" />
+    </div>
+    <div>
+        <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">Forgot account| 忘记账号 </h3>
+        <br />
+        <p>
+            If the student number cannot be retrieved normally, please contact the relevant teacher to find the information department for handling.
+            <br />
+            如不能正常找回学号，请联系相关老师找资讯部门处理。
+        </p>
+        <p class="kuai">
+            <span class="title_bold">校友姓名 SchoolFellow Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+            <br /><span class="hui">Please write in&nbsp;||&nbsp;&nbsp;请填写</span><br />
+            <input ID="Cname" name="Cname" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+        </p>
+        <br />
+        <p class="kuai">
+            <span class="title_bold">校友出生日期 Date of birth of alumni &nbsp;&nbsp;<span class="red">*</span></span>
+            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写 注意填写格式，例：20200101</span><br />
+            <input ID="password2" name="password2" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+        </p>
+        <br />
+        <p class="kuai">
+            <span class="title_bold">您的学号为 Your student number is &nbsp;&nbsp;</span>
+            <input ID="Account" name="Account" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" readonly>
+        </p>
+
+
+        <div class="butom" style="text-align:center;">
+            <a href="../Login/LoginIndex" class="button">返回登录 Back</a>  |
+            <button id="btn_find" name="btn_find" class="button">查找 Submit</button>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+    //查找 Submit
+        $("#btn_find").click(function () {
+            var model = {
+                Cname: $("#Cname").val(),
+                password2: $("#password2").val(),
+            }
+            if (Cname == null || password2 == null) {
+                alert("请填写姓名和出生日期 Please fill in your name and date of birth");
+                return false;
+            }
+            $.ajax({
+                url: "@(Url.Action("findAccount", "Login"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                    if (result.IsSuccess) {
+                        $("#Account").val(result.Msg);
+                    } else
+                    {
+                         alert(result.Msg);
+                    }
+                },
+                error: function (result){
+                    alert(result.Msg);
+                }
+            });
+        });
+    </script>
+</body>
+
+

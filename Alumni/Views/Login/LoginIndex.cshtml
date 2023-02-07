@@ -26,6 +26,13 @@
     </div>
     @*<button type="button" class="btn btn-primary" id="btn_save">确定</button>*@
     <button type="button" class="button" id="btn_login">登录 Login</button>
+    <button type="button" class="button" id="btn_find">忘记账号 Forgot account</button>
+    <br/><br /><br />
+    <p>
+        提示:账号为校友就读时的学号，密码为生日。（8位数字）
+        <br />
+        Prompt: The account number is the student number of the alumni when they study, and the password is the birthday. (8 digits)
+    </p>
 </div>
 <script type="text/javascript">
     $(function () {
@@ -67,9 +74,17 @@
                          alert(result.Msg);
                      }
                 }
-            });
+
+                });
             }
             
+        });
+
+        //确定 登录
+        $("#btn_find").click(function () {
+            var url = '@Url.Action("findAccountIndex", "Login")'
+            window.location.href = url;
+           // window.location.reload();
         });
     });
 </script>
