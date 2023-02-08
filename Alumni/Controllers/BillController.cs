@@ -11,6 +11,7 @@ namespace Alumni.Controllers
     public class BillController : Controller
     {
         // GET: Bill
+        [App_Start.AuthFilter]
         public ActionResult BillIndex()
         {
             return View();

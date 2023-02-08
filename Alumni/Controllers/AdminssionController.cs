@@ -19,16 +19,19 @@ namespace Alumni.Controllers
         /// 入校申请
         /// </summary>
         /// <returns></returns>
+        [App_Start.AuthFilter]
         public ActionResult InstructionsForAdminission()
         {
             return View();
         }
 
+        [App_Start.AuthFilter]
         public ActionResult TotalAdminissionIndex()
         {
             return View();
         }
 
+        [App_Start.AuthFilter]
         public ActionResult AdminssionApply()
         {
             return View();
@@ -228,6 +231,7 @@ WHERE b.shopForm_id = 'S0000001' ");
             }
         }
 
+        [App_Start.AuthFilter]
         public ActionResult SignAdminissionVw()
         {
             return View();

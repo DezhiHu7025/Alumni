@@ -19,6 +19,7 @@ namespace Alumni.Controllers
         /// 转出/在读证明
         /// </summary>
         /// <returns></returns>
+        [App_Start.AuthFilter]
         public ActionResult CertificateIndex()
         {
             return View();
@@ -81,6 +82,7 @@ namespace Alumni.Controllers
             }
         }
 
+        [App_Start.AuthFilter]
         public ActionResult TotalCertificateIndex()
         {
             return View();
@@ -139,6 +141,7 @@ WHERE b.shopForm_id = 'S0000001' ");
             return Json(list);
         }
 
+        [App_Start.AuthFilter]
         public ActionResult SignCertificateVw()
         {
             return View();

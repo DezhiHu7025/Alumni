@@ -15,6 +15,7 @@ namespace Alumni.Controllers
     public class InformationController : Controller
     {
         // GET: Information
+        [App_Start.AuthFilter]
         public ActionResult InformationIndex()
         {
             return View();

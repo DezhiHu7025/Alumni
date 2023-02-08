@@ -16,6 +16,7 @@ namespace Alumni.Controllers
     public class TotaldataController : Controller
     {
         // GET: Taotaldata
+        [App_Start.AuthFilter]
         public ActionResult TotaldataIndex()
         {
             return View();

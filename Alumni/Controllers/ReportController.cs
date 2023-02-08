@@ -16,6 +16,7 @@ namespace Alumni.Controllers
     public class ReportController : Controller
     {
         // GET: Report
+        [App_Start.AuthFilter]
         public ActionResult ReportIndex()
         {
             return View();
@@ -79,11 +80,13 @@ namespace Alumni.Controllers
             }
         }
 
+        [App_Start.AuthFilter]
         public ActionResult TotalReportIndex()
         {
             return View();
         }
 
+        [App_Start.AuthFilter]
         public ActionResult SignReportVw()
         {
             return View();

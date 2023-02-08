@@ -8,6 +8,8 @@ namespace Alumni.Controllers
 {
     public class HomeController: Controller
     {
+
+        [App_Start.AuthFilter]
         public ActionResult Index()
         {
             return View();

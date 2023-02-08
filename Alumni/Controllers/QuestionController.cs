@@ -12,6 +12,7 @@ namespace Alumni.Controllers
     public class QuestionController : Controller
     {
         // GET: Question
+        [App_Start.AuthFilter]
         public ActionResult QuestionIndex()
         {
             return View();

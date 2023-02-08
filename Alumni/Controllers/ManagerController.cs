@@ -8,12 +8,15 @@ namespace Alumni.Controllers
 {
     public class ManagerController : Controller
     {
+
+        [App_Start.AuthFilter]
         // GET: Manager
         public ActionResult ManagerIndex()
         {
             return View();
         }
 
+        [App_Start.AuthFilter]
         public ActionResult InstructionIndex()
         {
             return View();
