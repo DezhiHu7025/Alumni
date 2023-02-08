@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Alumni.Db;
+using Alumni.Models;
+using Alumni.Models.Manager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +23,37 @@ namespace Alumni.Controllers
         public ActionResult InstructionIndex()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 获取导航栏菜单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult getMenu(string account)
+        {
+            List<PermissionModel> permissionModel = new List<PermissionModel>();
+            string LiMsg = null;
+            try
+            {
+                using (SchoolDb db = new SchoolDb())
+                {
+                    string menuSql = string.Format(@"SELECT distinct LiMsg
+FROM [db_forminf].[dbo].[MenuGroup] a
+    LEFT JOIN [db_forminf].[dbo].[UserGroup] b
+        ON a.groupid = b.groupid
+		WHERE b.account = @account ");
+                    permissionModel = db.Query<PermissionModel>(menuSql, new { account }).ToList();
+                }
+                foreach (var t in permissionModel)
+                {
+                    LiMsg = LiMsg + t.LiMsg;
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
+            return Json(new FlagTips { IsSuccess = true, Msg = LiMsg });
         }
     }
 }

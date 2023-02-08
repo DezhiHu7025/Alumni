@@ -391,6 +391,7 @@
     <Compile Include="Models\FlagTips.cs" />
     <Compile Include="Models\IMS_CODEMSTRModel.cs" />
     <Compile Include="Models\Information\InformationModel.cs" />
+    <Compile Include="Models\Manager\PermissionModel.cs" />
     <Compile Include="Models\Question\QuestionModel.cs" />
     <Compile Include="Models\RecordModel.cs" />
     <Compile Include="Models\Report\ReportModel.cs" />
