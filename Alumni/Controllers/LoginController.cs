@@ -19,9 +19,9 @@ namespace Alumni.Controllers
 
         public ActionResult doLogin(UserModel model)
         {
-            if (string.IsNullOrEmpty(model.Account)|| string.IsNullOrEmpty(model.Password))
+            if (string.IsNullOrEmpty(model.Account) || string.IsNullOrEmpty(model.Password))
             {
-                string errorMsg ="【登录失败】「帐号」或[密码]栏未输入！";
+                string errorMsg = "【登录失败】「帐号」或[密码]栏未输入！";
                 return Json(new FlagTips { IsSuccess = false, Msg = errorMsg });
             }
             else
@@ -31,18 +31,18 @@ namespace Alumni.Controllers
                     //获取登入账号信息
                     LoginController con = new LoginController();
                     UserModel user = con.getEmpInfo(model.Account);
-                    if (user ==null)
+                    if (user == null)
                     {
                         return Json(new FlagTips { IsSuccess = false, Msg = "账号异常" });
                     }
                     model.fullname = user.fullname;
                     model.DeptName = user.DeptName;
                     model.Cname = user.Cname;
-                    
+
                     //sourcetype='A' 是教职员行政，B是小学部 I是中学部，K是幼儿园
-                    if (user.status == "N" && user.sourcetype !="A")//学生账号 失效后才可以登录
+                    if (user.status == "N" && user.sourcetype != "A")//学生账号 失效后才可以登录
                     {
-                        if(model.Password == user.password2)
+                        if (model.Password == user.password2)
                         {
                             model.GroupName = "校友";
                             return Json(new FlagTips { IsSuccess = true, Msg = "student" });
@@ -52,7 +52,7 @@ namespace Alumni.Controllers
                             return Json(new FlagTips { IsSuccess = false, Msg = "密码错误" });
                         }
                     }
-                    else if(user.status != "N" && user.sourcetype != "A")
+                    else if (user.status != "N" && user.sourcetype != "A")
                     {
                         return Json(new FlagTips { IsSuccess = false, Msg = "账号异常" });
                     }
@@ -61,7 +61,7 @@ namespace Alumni.Controllers
                     if (login.checkAccount("192.168.80.222", model.Account, model.Password))
                     {
                         //教职员登录
-                        if (user.sourcetype =="A")
+                        if (user.sourcetype == "A")
                         {
                             if (!string.IsNullOrEmpty(user.GroupId))
                             {
@@ -187,7 +187,8 @@ where a.AccountID = @Account";
                                                where status = 'N' and  cname = @Cname and password2 = @password2");
                         account = db.Query<string>(findAccountSql, model).FirstOrDefault();
                     }
-                    if (!string.IsNullOrEmpty(account)) {
+                    if (!string.IsNullOrEmpty(account))
+                    {
 
                         return Json(new FlagTips { IsSuccess = true, Msg = account });
                     }
@@ -195,6 +196,38 @@ where a.AccountID = @Account";
                     {
                         return Json(new FlagTips { IsSuccess = false, Msg = "学号未找到 Student number not found" });
                     }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+                }
+            }
+        }
+
+        /// <summary>
+        /// 检查是否填写问卷
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult checkQuestion(string Account)
+        {
+            if (string.IsNullOrEmpty(Account))
+            {
+                string errorMsg = "账号信息获取异常，请检查登录状态。Account information acquisition exception, please check login status";
+                return Json(new FlagTips { IsSuccess = false, Msg = errorMsg });
+            }
+            else
+            {
+                string count = "0";
+                try
+                {
+                    using (SchoolDb db = new SchoolDb())
+                    {
+                        string findAccountSql = string.Format(@"  SELECT COUNT(*) FROM  [db_forminf].[dbo].[Questionnaire _Investigation] 
+                                                             WHERE Stu_Empno =  @Account");
+                        count = db.Query<string>(findAccountSql, new { Account }).FirstOrDefault();
+                    }
+                    return Json(new FlagTips { IsSuccess = true, Msg = count });
                 }
                 catch (Exception ex)
                 {

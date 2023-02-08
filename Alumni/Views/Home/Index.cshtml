@@ -82,6 +82,39 @@
     </div>
 </body>
 <script type="text/javascript">
+
+    window.onload = function () {
+
+        var cookies = document.cookie;
+        const cookieMap = new Map();
+        document.cookie.split("; ").forEach((cookie) => {
+            const [key, value] = cookie.split("=");
+            cookieMap.set(key, value);
+        });
+        var usergroup = cookieMap.get("GroupName");
+        var Account = cookieMap.get("Account");
+        if (usergroup == "校友")
+        {
+            $.ajax({
+                type: 'post',
+                url: "@(Url.Action("checkQuestion", "Login"))",
+                data: { Account: Account },
+                success: function (result) {
+                    if (result.IsSuccess) {
+                        if (result.Msg == "0") {
+                            alert('您有一份问卷调查待填写 You have a questionnaire to fill in');
+                            window.location.href = "@Url.Action("QuestionIndex", "Question")";
+                        }                       
+                    }
+                    else {
+                        alert(result.Msg);
+                    }
+                }
+            });
+        }
+        
+    }
+
     $(function () {
 
         $("#btn_Certificate").on("click", function () {
