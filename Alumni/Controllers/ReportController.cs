@@ -2,6 +2,7 @@
 using Alumni.Models;
 using Alumni.Models.Bill;
 using Alumni.Models.Report;
+using Alumni.Service;
 using Aspose.Cells;
 using OfficeOpenXml;
 using System;
@@ -66,10 +67,16 @@ namespace Alumni.Controllers
                                                       @txt_yyyy,@txt_mm,@txt_UseFor,@txt_Copies,@txt_takeWay,@txt_SendAdress,@txt_Cphone,'N','N',@timenow)");
                     string insertSql2 = string.Format(@"insert into [db_forminf].[dbo].[OldStudent_Onlin_List](mchSeqNo,form_name,stunum,stuname,is_Mail,is_pass,EmailAdress,addtime,Phone)
                                                        values(@CmchSeqNo,@Form_Name,@Stu_Empno,@Stu_Name,'N','N',@txt_SendAdress,@timenow,@txt_Cphone)");
-                    Dictionary<string, object> trans = new Dictionary<string, object>();
-                    trans.Add(insertSql, model);
-                    trans.Add(insertSql2, model);
-                    db.DoExtremeSpeedTransaction(trans);
+                    SendMailService sendMailService = new SendMailService();
+                    bool mailFlag = sendMailService.doMail(model.Form_Name);
+                    if (mailFlag)
+                    {
+                        Dictionary<string, object> trans = new Dictionary<string, object>();
+                        trans.Add(insertSql, model);
+                        trans.Add(insertSql2, model);
+                        db.DoExtremeSpeedTransaction(trans);
+                    }
+                        
                 }
                 return Json(new FlagTips { IsSuccess = true });
 

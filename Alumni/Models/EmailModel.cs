@@ -8,9 +8,7 @@ namespace Alumni.Models
     public class EmailModel
     {
         public string pid { get; set; }
-
-        public string xxxx { get; set; }
-
+        
         public string emailid { get; set; }
 
         public string actiontype { get; set; }

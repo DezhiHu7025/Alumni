@@ -2,6 +2,7 @@
 using Alumni.Models;
 using Alumni.Models.Bill;
 using Alumni.Models.Certificate;
+using Alumni.Service;
 using Aspose.Cells;
 using OfficeOpenXml;
 using System;
@@ -69,10 +70,16 @@ namespace Alumni.Controllers
                                                       @Email,@NewPhone,'N','N',@timenow)");
                     string insertSql2 = string.Format(@"insert into [db_forminf].[dbo].[OldStudent_Onlin_List](mchSeqNo,form_name,stunum,stuname,is_Mail,is_pass,EmailAdress,addtime,Phone)
                                                        values(@KmchSeqNo,@Form_Name,@Stu_Empno,@Stu_Name,'N','N',@Adress,@timenow,@NewPhone)");
-                    Dictionary<string, object> trans = new Dictionary<string, object>();
-                    trans.Add(insertSql, model);
-                    trans.Add(insertSql2, model);
-                    db.DoExtremeSpeedTransaction(trans);
+
+                    SendMailService sendMailService = new SendMailService();
+                    bool mailFlag = sendMailService.doMail("在读/转出证明申请单");
+                    if (mailFlag)
+                    {
+                        Dictionary<string, object> trans = new Dictionary<string, object>();
+                        trans.Add(insertSql, model);
+                        trans.Add(insertSql2, model);
+                        db.DoExtremeSpeedTransaction(trans);
+                    }
                 }
                 return Json(new FlagTips { IsSuccess = true });
             }

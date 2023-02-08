@@ -2,6 +2,7 @@
 using Alumni.Models;
 using Alumni.Models.Adminssion;
 using Alumni.Models.Bill;
+using Alumni.Service;
 using Aspose.Cells;
 using OfficeOpenXml;
 using System;
@@ -75,10 +76,18 @@ namespace Alumni.Controllers
                                                          values(@RmchSeqNo,@form_name,@teacnerName,@teacherAD,@DeptName,@alumnusEmp,@alumnusName,@LeaveClass,@intoDate2,@alumnusPhone,@teacnerName2,@remarks,'N','N',@addtime)");
                     string insertSql2 = string.Format(@"insert into [db_forminf].[dbo].[OldStudent_Onlin_List](mchSeqNo,form_name,stunum,stuname,is_Mail,is_pass,EmailAdress,addtime,Phone,intodate)
                                                        values(@RmchSeqNo,@Form_Name,@alumnusEmp,@alumnusName,'N','N',@LeaveClass,@AddTime,@alumnusPhone,@intoDate2)");
-                    Dictionary<string, object> trans = new Dictionary<string, object>();
-                    trans.Add(insertSql, model);
-                    trans.Add(insertSql2, model);
-                    db.DoExtremeSpeedTransaction(trans);
+                    SendMailService sendMailService = new SendMailService();
+                    bool mailFlag = sendMailService.doMail(model.Form_Name);
+                    if (mailFlag)
+                    {
+                        Dictionary<string, object> trans = new Dictionary<string, object>();
+                        trans.Add(insertSql, model);
+                        trans.Add(insertSql2, model);
+                        db.DoExtremeSpeedTransaction(trans);
+                    }else{
+                        return Json(new FlagTips { IsSuccess = false, Msg = "邮件发送失败，提交失败 Mail sending failed, submission failed" });
+                    }
+                    
                 }
                 return Json(new FlagTips { IsSuccess = true });
             }

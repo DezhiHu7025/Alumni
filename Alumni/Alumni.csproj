@@ -401,6 +401,7 @@
     <Compile Include="Service\BasicService.cs" />
     <Compile Include="Service\CommonService.cs" />
     <Compile Include="Service\FileUploadService.cs" />
+    <Compile Include="Service\SendMailService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
