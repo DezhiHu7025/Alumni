@@ -37,11 +37,11 @@ namespace Alumni.Controllers
             {
                 using (SchoolDb db = new SchoolDb())
                 {
-                    string menuSql = string.Format(@"SELECT distinct LiMsg
+                    string menuSql = string.Format(@"SELECT distinct a.LiMsg,a.seq
 FROM [db_forminf].[dbo].[MenuGroup] a
     LEFT JOIN [db_forminf].[dbo].[UserGroup] b
         ON a.groupid = b.groupid
-		WHERE b.account = @account ");
+		WHERE b.account = @account order by a.seq asc ");
                     permissionModel = db.Query<PermissionModel>(menuSql, new { account }).ToList();
                 }
                 foreach (var t in permissionModel)
