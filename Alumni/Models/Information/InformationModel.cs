@@ -72,6 +72,8 @@ namespace Alumni.Models.Information
         /// 填写时间
         /// </summary>
         public DateTime CreateTime { get; set; }
-        
+
+        public string CreateTime2 { get; set; }
+
     }
 }
