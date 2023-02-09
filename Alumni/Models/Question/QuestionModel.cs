@@ -127,5 +127,7 @@ namespace Alumni.Models.Question
         /// </summary>
         public DateTime CreateTime { get; set; }
 
+        public string CreateTime2 { get; set; }
+
     }
 }

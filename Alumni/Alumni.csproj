@@ -432,6 +432,7 @@
     <Content Include="Views\Adminssion\AdminssionApply.cshtml" />
     <Content Include="Views\Login\findAccountIndex.cshtml" />
     <Content Include="Views\Information\TotalInformationIndex.cshtml" />
+    <Content Include="Views\Question\TotalQuestionIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

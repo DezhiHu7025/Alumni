@@ -188,7 +188,7 @@ where 1=1 ");
                     sheet.Cells[i + 1, 9].PutValue(dt[i].NewPhone);
                     sheet.Cells[i + 1, 10].PutValue(dt[i].WillJoin);
                     //sheet.Cells[i + 1, 11].PutValue(dt[i].CreateTime);
-                    sheet.Cells[i + 1, 11].PutValue(Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy-MM-dd H24:mi:ss"));                   
+                    sheet.Cells[i + 1, 11].PutValue(Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy-MM-dd HH:mm:ss"));                   
                 }
                 MemoryStream bookStream = new MemoryStream();//创建文件流
                 wb.Save(bookStream, new OoxmlSaveOptions(SaveFormat.Xlsx)); //文件写入流（向流中写入字节序列）

@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "TotalQuestionIndex";
+}
+
+<head>
+    <title>问卷调查</title>
+</head>
+<body>
+    <h2>问卷调查</h2><br />
+    <div>
+        <div class="d-flex mb-2">
+            <hr>
+            <span class="item-title">学生学号</span>
+            <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
+            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>
+        </div>
+        <table id="table"></table>
+    </div>
+</body>
+<script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script type="text/javascript">
+    $(function () {
+        var $table = $("#table");
+        $('#table').bootstrapTable('destroy');
+        $('#table').bootstrapTable({
+                    ajax: function (request) {
+                        var model = {
+                            "Stu_Empno": $("#Stu_Empno").val(),
+                        }
+                        request.data = model;
+                        $.ajax({
+                            type: "post",
+                            url:"@(Url.Action("GetQuestionData", "Question"))",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(request.data),
+                            dataType: "json",
+                            jsonp: 'callback',
+                            success: function (msg) {
+                                request.success({
+                                    rows: msg
+                                });
+                                $('#table').bootstrapTable('load', msg);
+                            },
+                            error: function () {
+                                alert("错误");
+                            }
+                        });
+                    },
+                    toolbar: '#toolbar',
+                    singleSelect: true,
+                    clickToSelect: true,
+                    sortName: "CreateTime",
+                    sortOrder: "desc",
+                    cache: false,
+                    striped: true,
+                    pageSize: 10,
+                    pageNumber: 1,
+                    pageList: "[15, 25, 50, 100, All]",
+                    showToggle: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    search: true,
+                    pagination: true,
+                    columns: [
+                    {
+                        field: "QchSeqNo",
+                        visible: false,
+                    },
+                    {
+                        field: 'Form_Name',
+                        title: '单据名称',
+                        switchable: true
+                    },{
+                        field: 'Stu_Empno',
+                        title: '学号',
+                        switchable: true
+                    }, {
+                        field: 'Stu_Name',
+                        title: '中文名',
+                        switchable: true,
+                        sortable: true
+                    },{
+                        field: 'Stu_Eame',
+                        title: '英文名',
+                        switchable: true,
+                        sortable: true
+                    },{
+                        field: 'GraduationYear',
+                        title: '康桥毕业年份',
+                        switchable: true
+                    },{
+                        field: 'CurrentDevelopment',
+                        title: '目前发展状况',
+                        switchable: true
+                    },{
+                        field: 'WorkUnitName',
+                        title: '工作单位名称',
+                        switchable: true
+                    },{
+                        field: 'JobTitle',
+                        title: '工作职称',
+                        switchable: true
+                    },{
+                        field: 'ContentOverview',
+                        title: '内容概述',
+                        switchable: true
+                    },{
+                        field: 'HighestEducation',
+                        title: '最高学历',
+                        switchable: true
+                    },{
+                        field: 'HighestEducationStatus',
+                        title: '最高学历状态',
+                        switchable: true
+                    },{
+                        field: 'UniversityName',
+                        title: '大学名称',
+                        switchable: true
+                    },{
+                        field: 'UniversityDepartmentName',
+                        title: '大学科系名称',
+                        switchable: true
+                    },{
+                        field: 'InstituteName',
+                        title: '研究所名称',
+                        switchable: true
+                    },{
+                        field: 'InstituteDepartmentName',
+                        title: '研究所科系名称',
+                        switchable: true
+                    },{
+                        field: 'DoctoralClassName',
+                        title: '博士班名称',
+                        switchable: true
+                    },{
+                        field: 'DoctoralDepartmentName',
+                        title: '博士班科系名称',
+                        switchable: true
+                    },{
+                        field: 'Transferred',
+                        title: '是否曾经转学',
+                        switchable: true
+                    },{
+                        field: 'OtherSupplements',
+                        title: '其他补充',
+                        switchable: true
+                    },{
+                        field: 'CreateTime2',
+                        title: '填写问卷时间',
+                        switchable: true
+                    }],
+        });
+        
+        $('#btn_export').click(function () {
+            var Stu_Empno = $("#Stu_Empno").val();
+            var url = "@(Url.Action("QuestionExport", "Question"))" + "?Stu_Empno=" + Stu_Empno;
+            window.location = url;
+        });
+
+        $('#btn_search').click(function () {
+            $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+        });
+
+    });
+</script>
+

@@ -5,9 +5,9 @@
     var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
     var action = ViewContext.RouteData.Values["action"].ToString().ToLower();
 
-    string[] lController = new string[] { "manager", "totaldata","report", "certificate", "adminssion", "information" };
+    string[] lController = new string[] { "manager", "totaldata","report", "certificate", "adminssion", "information","question" };
     string[] lAction = new string[] { "managerindex", "totaldataindex" , "totalreportindex", "instructionindex", "totalcertificateindex","totaladminissionindex",
-    "signreportvw","signcertificatevw","signadminissionvw","totalinformationindex"};
+    "signreportvw","signcertificatevw","signadminissionvw","totalinformationindex","totalquestionindex"};
 
 
     if (lController.Contains(controller))
