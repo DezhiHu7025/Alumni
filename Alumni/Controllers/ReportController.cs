@@ -54,7 +54,7 @@ namespace Alumni.Controllers
                         return Json(new FlagTips
                         {
                             IsSuccess = false,
-                            Msg = "已递交成绩单申请，请耐心等待审核；若长时间未审核通过，请洽询相关老师。 The transcript application has been submitted, please wait patiently for review; If it is not approved for a long time, please contact the relevant teacher."
+                            Msg = "请勿重复递交！若长时间未审核通过，请洽询相关老师。 The transcript application has been submitted, please wait patiently for review; If it is not approved for a long time, please contact the relevant teacher."
                         });
                     }
 
