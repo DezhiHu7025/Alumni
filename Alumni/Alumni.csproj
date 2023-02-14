@@ -359,6 +359,7 @@
     <Compile Include="Controllers\CertificateController.cs" />
     <Compile Include="Controllers\CodeMstrController.cs" />
     <Compile Include="Controllers\DDLController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -389,6 +390,8 @@
     <Compile Include="Models\Certificate\CertificateModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\FlagTips.cs" />
+    <Compile Include="Models\Group\queryGroup.cs" />
+    <Compile Include="Models\Group\UserGroupModel.cs" />
     <Compile Include="Models\IMS_CODEMSTRModel.cs" />
     <Compile Include="Models\Information\InformationModel.cs" />
     <Compile Include="Models\Manager\PermissionModel.cs" />
@@ -433,6 +436,8 @@
     <Content Include="Views\Login\findAccountIndex.cshtml" />
     <Content Include="Views\Information\TotalInformationIndex.cshtml" />
     <Content Include="Views\Question\TotalQuestionIndex.cshtml" />
+    <Content Include="Views\Group\GroupIndex.cshtml" />
+    <Content Include="Views\Group\AddGroupVw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

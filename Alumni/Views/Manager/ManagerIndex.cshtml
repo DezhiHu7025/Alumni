@@ -196,6 +196,14 @@
                         pathn = "@(Url.Action("TotalQuestionIndex", "Question"))",
                         i = 0;
                         break;
+                    case "#GroupUser": 
+                        pathn = "@(Url.Action("GroupIndex", "Group"))",
+                        i = 0;
+                        break;
+                    case "#AddGroup": 
+                        pathn = "@(Url.Action("AddGroupVw", "Group"))",
+                        i = 0;
+                        break;
                     default:
                         pathn = "@(Url.Action("InstructionIndex", "Manager"))",
                         i = 0;

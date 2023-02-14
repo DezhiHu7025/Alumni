@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "GroupIndex";
+}
+
+<head>
+    <title>群组信息</title>
+</head>
+<body>
+    <h2>群组信息</h2><br />
+    <div>
+        <div class="d-flex mb-2">
+            <hr>
+            <span class="item-title">群组</span>
+            <select ID="GroupId" name="GroupId" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+                <option value="">---请选择---</option>
+                <option value="admin">管理员</option>
+                <option value="registration">注册组</option>
+                <option value="moral">德育组</option>
+                <option value="report">成绩单组</option>
+                <option value="certificate">转出证明组</option>
+            </select>
+
+            <span class="item-title">账号</span>
+            <input ID="AccountName" name="AccountName" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
+
+            <span class="item-title">姓名</span>
+            <input ID="FullName" name="FullName" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
+
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
+            <button class="btn btn-warning ms-2" id="btn_add"><span class="glyphicon glyphicon-pencil"></span> 新增</button>
+            <button class="btn btn-danger ms-2" id="btn_delete"><span class="glyphicon glyphicon-pencil"></span> 删除</button>
+        </div>
+        <table id="table"></table>
+    </div>
+</body>
+<script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+<script type="text/javascript">
+    $(function () {
+        var $table = $("#table");
+        $('#table').bootstrapTable('destroy');
+        $('#table').bootstrapTable({
+                    ajax: function (request) {
+                        var model = {
+                            "GroupId": $("#GroupId").val(),
+                            "AccountName": $("#AccountName").val(),
+                            "FullName": $("#FullName").val(),
+                        }
+                        request.data = model;
+                        $.ajax({
+                            type: "post",
+                            url:"@(Url.Action("GetGroupUserList", "Group"))",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(request.data),
+                            dataType: "json",
+                            jsonp: 'callback',
+                            success: function (msg) {
+                                request.success({
+                                    rows: msg
+                                });
+                                $('#table').bootstrapTable('load', msg);
+                            },
+                            error: function () {
+                                alert("错误");
+                            }
+                        });
+                    },
+                    toolbar: '#toolbar',
+                    singleSelect: false,
+                    clickToSelect: true,
+                    sortOrder: "desc",
+                    cache: false,
+                    striped: true,
+                    pageSize: 10,
+                    pageNumber: 1,
+                    pageList: "[15, 25, 50, 100, All]",
+                    showToggle: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    search: true,
+                    pagination: true,
+                    columns: [{
+                        field: "id",
+                        checkbox: true,
+                        field:"selectItem",
+                    },
+                    {
+                        field: "GroupId",
+                        visible: false,
+                    },
+                    {
+                        field: 'GroupName',
+                        title: '分组名',
+                        switchable: true
+                    }, {
+                        field: 'AccountName',
+                        title: '账号',
+                        switchable: true
+                    }, {
+                        field: 'FullName',
+                        title: '姓名',
+                        switchable: true
+                    }, {
+                        field: 'DeptName',
+                        title: '部门名称',
+                        switchable: true,
+                        sortable: true
+                    }],
+        });
+
+        var $sign = $("#btn_delete");
+        $(function () {
+        $("button").popover()
+            $sign.click(function () {
+                var selected = $('#table').bootstrapTable('getSelections');
+                var arrays = new Array();
+
+                $(selected).each(function () {
+                    var newArr = {};
+                    newArr.GroupId = this.GroupId;
+                    newArr.AccountName = this.AccountName;
+                    arrays.push(newArr)
+                });
+
+                if (selected.length ==0 ) {
+                    alert("请选择数据");
+                } else {
+                    $.ajax({
+                        url: "@(Url.Action("DeleteGroupUser", "Group"))",
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        data: JSON.stringify(arrays),
+                        traditional: true,
+                        success: function (result) {
+                            if (result.IsSuccess) {
+                                alert('删除成功');
+                                $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+                            }
+                            else {
+                                alert(result.Msg);
+                            }
+                        },
+                        error: function (result) {
+                           alert("删除失败")
+                        }
+                    });
+
+                }
+            });
+        });
+
+        $('#btn_add').click(function () {
+            window.location.href = "#AddGroup";
+            window.location.reload();
+        });
+
+        $('#btn_search').click(function () {
+            $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+        });
+
+    });
+</script>
+

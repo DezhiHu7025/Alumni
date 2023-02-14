@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "AddGroupVw";
+}
+
+<head>
+    <script src="~/static/js/jquery.validate.min.js"></script>
+    <title>新增人员至群组</title>
+    <style>
+        .error{
+            color:red
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">新增人员至群组</h4>
+                </div>
+                <span style="color:red">输入完成工号或账号后，回车显示姓名与部门名称</span>
+                <hr>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="usergroup">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <input type="hidden" class="form-control" disabled="disabled" id="GroupId">
+
+                                <span class="col-sm-2 control-label">分组:</span>
+                                <select ID="GroupName" name="GroupName" onchange="sel2()" class="col-sm-3 control-label">
+                                    <option value="">---请选择---</option>
+                                    <option value="admin">管理员</option>
+                                    <option value="registration">注册组</option>
+                                    <option value="moral">德育组</option>
+                                    <option value="report">成绩单组</option>
+                                    <option value="certificate">转出证明组</option>
+                                </select>
+
+                                <span class="col-sm-2 control-label">
+                                    请输入工号或开机账号:
+                                </span>
+                                <input type="text" class="col-sm-4" id="AccountName" name="AccountName" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <span class="col-sm-2 control-label">姓名:&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" id="FullName" name="FullName" disabled readonly />
+
+                                <span class="col-sm-2 control-label">部门名称:&nbsp;&nbsp;&nbsp;</span>
+                                <input type="text" class="col-sm-4" id="DeptName" name="DeptName" disabled readonly />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    
+    const model = ({
+        GroupId: '',
+        GroupName: '',
+        AccountName: '',
+        FullName: '',
+        DeptName: '',
+    });
+
+    function sel2() {
+        var mySelect = document.getElementsByName("GroupName")[0];
+        var index = mySelect.selectedIndex;
+        model.GroupId = mySelect.options[index].value; 
+        model.GroupName = mySelect.options[index].text;
+    }
+
+    $(function () {
+
+        $("#usergroup").validate({
+            rules:
+            {
+                GroupName:
+                {
+                    required: true, // 设为必填项
+                },
+                AccountName:
+                {
+                    required: true, // 设为必填项
+                },
+                FullName:
+                {
+                    required: true, // 设为必填项
+                },
+                DeptName:
+                {
+                    required: true, // 设为必填项
+                }
+            },
+            messages: {
+                GroupName:
+                {
+                    required: "必选",
+                },
+                AccountName:
+                {
+                    required: "必填",
+                },
+                FullName:
+                {
+                    required: "必填",
+                },
+                DeptName:
+                {
+                    required: "必填",
+                }
+            },
+            
+            submitHandler: function (form) {
+                $(form).ajaxSubmit();
+            },
+
+        });
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#GroupUser";
+            window.location.reload();
+        });
+
+        $('#AccountName').on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                var AccountName = document.getElementById("AccountName").value;
+                $.ajax({
+                    url: "@(Url.Action("getEmpInfo", "Group"))",
+                    type: "post",
+                    dataType: "json",
+                    data: {AccountName},
+                    success: function (result) {
+                        $("#FullName").val(result.fullname);
+                        $("#DeptName").val(result.DeptName);
+                    }
+                });
+            }
+        });
+
+        //确定 提交审核状态
+        $("#btn_save").click(function () {
+
+            let flag = $("#usergroup").valid();
+            if (!flag) {
+                return;
+            }
+
+            model.AccountName = $("#AccountName").val();
+            model.FullName = $("#FullName").val();
+            model.DeptName = $("#DeptName").val();
+            
+            $.ajax({
+                url: "@(Url.Action("AddGroupUser", "Group"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('新增成功');
+                         window.location.href = "#GroupUser";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>
+
