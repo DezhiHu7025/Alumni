@@ -1,6 +1,7 @@
 ﻿using Alumni.Db;
 using Alumni.Models;
 using Alumni.Models.Group;
+using Alumni.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,6 +97,12 @@ namespace Alumni.Controllers
         {
             try
             {
+                BasicService ser = new BasicService();
+                var newmodel = ser.CkPri();
+                if (newmodel.DoDelete != "Y")
+                {
+                    return Json(new FlagTips { IsSuccess = false, Msg = "您没有删除权限" });
+                }
                 using (SchoolDb db = new SchoolDb())
                 {
                     var modelList = new List<UserGroupModel>();

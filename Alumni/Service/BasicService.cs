@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Alumni.Db;
+using Alumni.Models.Group;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,42 +11,19 @@ namespace Alumni.Service
     public class BasicService
     {
         public const string DEFAULTPARAMETER = "DEFAULTPARAMETER";
-
-
-        public static void CkPriAdd(string area, string ctrl, string action)
+        
+        public UserGroupModel CkPri()
         {
-            var pri = AspNetUtil.Authority.GetPrivilegeMVC(area, ctrl, action);
-            if (!pri.CanAdd)
-                throw new Exception("无权限操作");
-        }
-
-        public static void CkPriDel(string area, string ctrl, string action)
-        {
-            var pri = AspNetUtil.Authority.GetPrivilegeMVC(area, ctrl, action);
-            if (!pri.CanDelete)
-                throw new Exception("无权限操作");
-        }
-        public static void CkPriEdit(string area, string ctrl, string action)
-        {
-            var pri = AspNetUtil.Authority.GetPrivilegeMVC(area, ctrl, action);
-            if (!pri.CanEdit)
-                throw new Exception("无权限操作");
-        }
-        public static void CkPriQry(string area, string ctrl, string action)
-        {
-            var pri = AspNetUtil.Authority.GetPrivilegeMVC(area, ctrl, action);
-            if (!pri.CanQuery)
-                throw new Exception("无权限操作");
-        }
-
-        public static void GetPriQry(string area, string ctrl, string action, string workaction)
-        {
-            var pri = AspNetUtil.Authority.GetPrivilegeMVC(area, ctrl, action);
-            if (!pri.CanQuery)
+            string Account = HttpContext.Current.Request.Cookies["Account"].Value;
+            string GroupName = HttpContext.Current.Request.Cookies["GroupName"].Value;
+            UserGroupModel model = new UserGroupModel();
+            using (SchoolDb db = new SchoolDb())
             {
-                string str = string.Format("该用户组只能查询和下载{0}", workaction);
-                throw new Exception(str);
+                string sql = @"SELECT * FROM [db_forminf].[dbo].[UserGroup] WHERE account = @Account AND GroupName = @GroupName ";
+                model = db.Query<UserGroupModel>(sql, new { Account, GroupName }).FirstOrDefault();
             }
+            return model;
         }
+
     }
 }
