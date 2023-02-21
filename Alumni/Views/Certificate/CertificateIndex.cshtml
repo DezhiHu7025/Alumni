@@ -38,17 +38,10 @@
                         <p class="kuai">
                             <span class="title_bold">3.证件类型 Type Of ID&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please Choose&nbsp;&nbsp;|&nbsp;请选择</span><br />
-                            @*<select id="IDCard" name="IDCard" class="ant-input">
-                <option th:each="id=" IDCard":${id="IDCard" }" th:value="${id=" IDCard".value}" th:text="${id=" IDCard".text}"></option>
-            </select>*@
                             <select name="IDCard" id="IDCard" class="form-control select-list" required="required">
-                                @*<option th:each="IDCard:${list}" th:value="${IDCard.value}" th:text="${IDCard.text}"></option>*@
-                                <option value="">---请选择证件类型---</option>
-                                <option value="身份证">身份证</option>
-                                <option value="台胞证">台胞证</option>
-                                <option value="居住证">居住证</option>
+                                <option value="">------------请选择证件类型------------</option>
+                                <option th:each="IDCard:${list}" th:value="${IDCard.value}" th:text="${IDCard.text}" hidden></option>
                             </select>
-
                         </p>
                         <br />
                         <p class="kuai">
@@ -114,6 +107,20 @@
 
                 $("#Stu_Empno").val(cookieMap.get("Account"));
                 $("#Stu_Name").val(cookieMap.get("cname")); 
+
+                 $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    method: "post",
+                    url: "@(Url.Action("getIDCard", "DDL"))",
+                    data: "doaction=sectionList",
+                    success: function (result) {
+                        var len = result.length;
+                        for (i = 0; i < len; i++) {
+                            $("#IDCard").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                        }
+                    }
+                });
 
                 $('#ff').on('submit', function (e) {
                     e.preventDefault();

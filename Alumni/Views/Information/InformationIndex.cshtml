@@ -49,8 +49,7 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="GraduationStatus" name="GraduationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
-                            <option value="Y">是，我从康桥高中毕业 Yes, I graduated High School from KCISEC.</option>
-                            <option value="N">否，我并非从康桥高中毕业 No, I did not graduate High School from KCISEC.</option>
+                            <option th:each="GraduationStatus:${list}" th:value="${GraduationStatus.value}" th:text="${GraduationStatus.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -61,9 +60,7 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="College" name="College" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择就读院校---</option>
-                            <option value="HighSchool">高中 High School</option>
-                            <option value="College">学院／大学（本科）College/University (undergraduates)</option>
-                            <option value="JustGraduated">刚毕业 Recently graduated</option>
+                            <option th:each="College:${list}" th:value="${College.value}" th:text="${College.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -92,8 +89,7 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="WillJoin" name="WillJoin" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
                             <option value="">---请选择---</option>
-                            <option value="Y">是 Yes</option>
-                            <option value="N">否 No</option>
+                            <option th:each="WillJoin:${list}" th:value="${WillJoin.value}" th:text="${WillJoin.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -171,7 +167,52 @@
             }, false);
         }
 
-         $(function () {
+        $(function () {
+            //是否在G12从康桥毕业
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                method: "post",
+                url: "@(Url.Action("getGraduationStatus", "DDL"))",
+                data: "doaction=sectionList",
+                success: function (result) {
+                    var len = result.length;
+                    for (i = 0; i < len; i++) {
+                        $("#GraduationStatus").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                    }
+                }
+            });
+
+            //就读院校
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                method: "post",
+                url: "@(Url.Action("getCollege", "DDL"))",
+                data: "doaction=sectionList",
+                success: function (result) {
+                    var len = result.length;
+                    for (i = 0; i < len; i++) {
+                        $("#College").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                    }
+                }
+            });
+
+            //是否愿意加入康桥校友会
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                method: "post",
+                url: "@(Url.Action("getWillJoin", "DDL"))",
+                data: "doaction=sectionList",
+                success: function (result) {
+                    var len = result.length;
+                    for (i = 0; i < len; i++) {
+                        $("#WillJoin").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                    }
+                }
+            });
+
             $("#Stu_Empno").val(cookieMap.get("Account"));
             $("#Stu_Name").val(cookieMap.get("cname")); 
 

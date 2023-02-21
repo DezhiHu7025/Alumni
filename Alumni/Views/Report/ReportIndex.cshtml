@@ -44,10 +44,9 @@
                     <p class="kuai">
                         <span class="title_bold">4.成绩单类型 Transcript Type&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="ReportCard" name="ReportCard" runat="server" Font-Size="14px" ForeColor="#666666" onchange="JavaScript:selectDpList(this)" class="form-control select-list" required="required">
+                        <select ID="ReportCard" name="ReportCard" runat="server" Font-Size="14px" ForeColor="#666666"  class="form-control select-list" required="required">
                             <option value="">---请选择成绩单类型---</option>
-                            <option value="正式">正式</option>
-                            <option value="非正式">非正式</option>
+                            <option th:each="ReportCard:${list}" th:value="${ReportCard.value}" th:text="${ReportCard.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -56,23 +55,11 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="txt_yyyy" name="txt_yyyy" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择申请学年---</option>
-                            <option value="G6">G6</option>
-                            <option value="G7">G7</option>
-                            <option value="G8">G8</option>
-                            <option value="G9">G9</option>
-                            <option value="G10">G10</option>
-                            <option value="G11">G11</option>
-                            <option value="G12">G12</option>
+                            <option th:each="txt_yyyy:${list}" th:value="${txt_yyyy.value}" th:text="${txt_yyyy.text}" hidden></option>
                         </select>
                         <select ID="txt_mm" name="txt_mm" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择申请学年---</option>
-                            <option value="G6">G6</option>
-                            <option value="G7">G7</option>
-                            <option value="G8">G8</option>
-                            <option value="G9">G9</option>
-                            <option value="G10">G10</option>
-                            <option value="G11">G11</option>
-                            <option value="G12">G12</option>
+                            <option th:each="txt_mm:${list}" th:value="${txt_mm.value}" th:text="${txt_mm.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -83,10 +70,7 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="txt_UseFor" name="txt_UseFor" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择申请用途---</option>
-                            <option value="签证">签证</option>
-                            <option value="申请学校">申请学校</option>
-                            <option value="公正">公正</option>
-                            <option value="其他">其他</option>
+                            <option th:each="txt_UseFor:${list}" th:value="${txt_UseFor.value}" th:text="${txt_UseFor.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -95,22 +79,16 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="txt_Copies" name="txt_Copies" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择申请份数---</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option th:each="txt_Copies:${list}" th:value="${txt_Copies.value}" th:text="${txt_Copies.text}" hidden></option>
                         </select>
                     </p>
                     <br />
                     <p class="kuai">
                         <span class="title_bold">8.收取成绩单方式 Receiving Mode&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="txt_takeWay" name="txt_takeWay" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required"
-                                onchange="JavaScript:selectDpListWay(this)">
+                        <select ID="txt_takeWay" name="txt_takeWay" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择收取方式---</option>
-                            <option value="邮寄">邮寄</option>
-                            <option value="邮箱">邮箱</option>
+                            <option th:each="txt_takeWay:${list}" th:value="${txt_takeWay.value}" th:text="${txt_takeWay.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -142,6 +120,90 @@
 <script type="text/javascript">
 
     $(function () {
+        //成绩单类型
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getReportCard", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#ReportCard").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+        //申请学年
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getTxtyyyy", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#txt_yyyy").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+        //申请学期
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getTxtmm", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#txt_mm").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+        //申请用途
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getUseFor", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#txt_UseFor").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+         //申请份数
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getCopies", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#txt_Copies").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        }); 
+         //收取成绩单方式
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("gettakeWay", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#txt_takeWay").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        }); txt_takeWay
 
         $("#Stu_Name").val(cookieMap.get("cname"));
         $("#Stu_Empno").val(cookieMap.get("Account"));

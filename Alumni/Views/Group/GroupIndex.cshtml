@@ -14,11 +14,7 @@
             <span class="item-title">群组</span>
             <select ID="GroupId" name="GroupId" runat="server" class="col-sm-12 col-md-6 col-xl-2">
                 <option value="">---请选择---</option>
-                <option value="admin">管理员</option>
-                <option value="registration">注册组</option>
-                <option value="moral">德育组</option>
-                <option value="report">成绩单组</option>
-                <option value="certificate">转出证明组</option>
+                <option th:each="GroupId:${list}" th:value="${GroupId.value}" th:text="${GroupId.text}" hidden></option>
             </select>
 
             <span class="item-title">账号</span>
@@ -38,6 +34,21 @@
 <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
 <script type="text/javascript">
     $(function () {
+
+         //群组名称
+         $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getGroupName", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#GroupId").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
         var $table = $("#table");
         $('#table').bootstrapTable('destroy');
         $('#table').bootstrapTable({

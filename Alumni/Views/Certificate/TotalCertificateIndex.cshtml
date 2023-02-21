@@ -14,10 +14,8 @@
             <input ID="Stu_Empno" name="Stu_Empno" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
             <span class="item-title">审核状态</span>
             <select ID="IS_PASS" name="IS_PASS" runat="server" class="col-sm-12 col-md-6 col-xl-2">
-                <option value="">---请选择---</option>
-                <option value="N">审核中</option>
-                <option value="Y">已审核通过</option>
-                <option value="D">审核不通过	</option>
+                <option value="">------------请选择------------</option>
+                <option th:each="IS_PASS:${list}" th:value="${IS_PASS.value}" th:text="${IS_PASS.text}" hidden></option>
             </select>
             <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
             <button class="btn btn-primary ms-2" id="btn_sign"><span class="glyphicon glyphicon-pencil"></span> 审核</button>
@@ -30,6 +28,21 @@
 <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
 <script type="text/javascript">
     $(function () {
+
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getAuditState", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#IS_PASS").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+
         var $table = $("#table");
         $('#table').bootstrapTable('destroy');
         $('#table').bootstrapTable({

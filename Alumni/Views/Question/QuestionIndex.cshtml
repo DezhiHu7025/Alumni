@@ -49,14 +49,7 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="GraduationYear" name="GraduationYear" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
-                            <option value="2014">2014</option>
-                            <option value="2015">2015</option>
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
+                            <option th:each="GraduationYear:${list}" th:value="${GraduationYear.value}" th:text="${GraduationYear.text}" hidden></option>
                         </select>
                     </p>
                     <br />
@@ -67,9 +60,7 @@
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
                         <select ID="CurrentDevelopment" name="CurrentDevelopment" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
-                            <option value="就业中">就业中</option>
-                            <option value="升学中">升学中</option>
-                            <option value="其他">其他</option>
+                            <option th:each="CurrentDevelopment:${list}" th:value="${CurrentDevelopment.value}" th:text="${CurrentDevelopment.text}" hidden></option>
                         </select>
                         <div id="CurrentDevelopmentTextID">
                             <input ID="CurrentDevelopmentText" name="CurrentDevelopmentText" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
@@ -94,15 +85,11 @@
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
                         <select ID="HighestEducation" name="HighestEducation" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
-                            <option value="大学">大学</option>
-                            <option value="研究所">研究所</option>
-                            <option value="博士班">博士班</option>
+                            <option th:each="HighestEducation:${list}" th:value="${HighestEducation.value}" th:text="${HighestEducation.text}" hidden></option>
                         </select>
                         <select ID="HighestEducationStatus" name="HighestEducationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
-                            <option value="就读中">就读中</option>
-                            <option value="休学/退学">休学/退学</option>
-                            <option value="其他">其他</option>
+                            <option th:each="HighestEducationStatus:${list}" th:value="${HighestEducationStatus.value}" th:text="${HighestEducationStatus.text}" hidden></option>
                         </select>
                         <div id="HighestEducationTextID">
                             <input ID="HighestEducationText" name="HighestEducationText" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
@@ -145,8 +132,7 @@
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
                         <select ID="Transferred" name="Transferred" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
                             <option value="">---请选择---</option>
-                            <option value="是">是, 我曾就读</option>
-                            <option value="否">否</option>
+                            <option th:each="Transferred:${list}" th:value="${Transferred.value}" th:text="${Transferred.text}" hidden></option>
                         </select>
                         <div id="TransferredTextID">
                             <input ID="TransferredText" name="TransferredText" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
@@ -177,7 +163,83 @@
 </body>
 
 <script type="text/javascript">
-            $(function () {
+    $(function () {
+
+        //康桥毕业年份
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getGraduationYear", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#GraduationYear").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+
+         //目前发展状况
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getCurrentDevelopment", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#CurrentDevelopment").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+
+         //最高学历状态
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getHighestEducation", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#HighestEducation").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+
+         //最高学历状态
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getHighestEducationStatus", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#HighestEducationStatus").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        }); 
+
+        //是否曾经转学
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getTransferred", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#Transferred").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        }); 
+
                 //隐藏div UniversityInformation
 
                 $("#CurrentDevelopmentTextID").hide();

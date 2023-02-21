@@ -21,16 +21,12 @@
                 <span class="item-title">表单名称</span>
                 <select ID="Form_Name" name="Form_Name" onchange="sel2()">
                     <option value="">---请选择---</option>
-                    <option value="P0000001">校友入校申请</option>
-                    <option value="P0000002">转出/在读证明</option>
-                    <option value="P0000003">成绩单申请</option>
+                    <option th:each="Form_Name:${list}" th:value="${Form_Name.value}" th:text="${Form_Name.text}" hidden></option>
                 </select>
                 <span class="item-title">表单状态</span>
                 <select ID="IS_PASS" name="IS_PASS" onchange="sel()">
                     <option value="">---请选择---</option>
-                    <option value="N">审核中</option>
-                    <option value="Y">已审核通过</option>
-                    <option value="D">审核不通过	</option>
+                    <option th:each="IS_PASS:${list}" th:value="${IS_PASS.value}" th:text="${IS_PASS.text}" hidden></option>
                 </select>
                 <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
                 <table id="tab" height="200" class="item-title"></table>
@@ -64,7 +60,37 @@
     }
    
     $(function () {
-        
+
+         //表单名称
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getFormName", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#Form_Name").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        }); 
+
+         //审核状态
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getISPASS", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#IS_PASS").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        }); 
+
         model.Stu_Empno = cookieMap.get("Account");
         model.GroupName = cookieMap.get("GroupName")
         console.log(model)

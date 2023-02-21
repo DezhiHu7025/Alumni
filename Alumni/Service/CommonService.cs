@@ -15,7 +15,7 @@ namespace Alumni.Service
         {
             using (SchoolDb db = new SchoolDb())
             {
-                string sql = string.Format("select * from  [db_forminf].[dbo].[IMS_CODEMSTR] t where 1=1 {0} {1} order by text",
+                string sql = string.Format("select * from  [db_forminf].[dbo].[IMS_CODEMSTR] t where 1=1 {0} {1} order by id asc",
                     string.IsNullOrEmpty(code) ? "" : "and t.code = @code",
                     string.IsNullOrEmpty(keyWord) ? "" :
                     string.Format(

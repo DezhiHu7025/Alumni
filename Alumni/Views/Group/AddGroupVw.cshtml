@@ -29,15 +29,11 @@
                                 <input type="hidden" class="form-control" disabled="disabled" id="GroupId">
 
                                 <span class="col-sm-2 control-label">分组:</span>
-                                <select ID="GroupName" name="GroupName" onchange="sel2()" class="col-sm-3 control-label">
+                                <select ID="GroupName2" name="GroupName2"  onchange="sel2()" class="col-sm-3 control-label">
                                     <option value="">---请选择---</option>
-                                    <option value="admin">管理员</option>
-                                    <option value="registration">注册组</option>
-                                    <option value="moral">德育组</option>
-                                    <option value="report">成绩单组</option>
-                                    <option value="certificate">转出证明组</option>
+                                    <option th:each="GroupName2:${list}" th:value="${GroupName2.value}" th:text="${GroupName2.text}" hidden></option>
                                 </select>
-
+                               
                                 <span class="col-sm-2 control-label">
                                     请输入工号或开机账号:
                                 </span>
@@ -75,13 +71,28 @@
     });
 
     function sel2() {
-        var mySelect = document.getElementsByName("GroupName")[0];
+        var mySelect = document.getElementsByName("GroupName2")[0];
         var index = mySelect.selectedIndex;
         model.GroupId = mySelect.options[index].value; 
         model.GroupName = mySelect.options[index].text;
     }
 
     $(function () {
+
+        //群组名称
+         $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getGroupName", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#GroupName2").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
 
         $("#usergroup").validate({
             rules:
