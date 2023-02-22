@@ -77,11 +77,13 @@
                         title: '近照',
                         events: 'operateEvents',
                         formatter: function (value, row, index) {
-                            var url = "..";
-                            var s = '<a class="view">' +
-                                '<img style="width:80px;height:80px;"  src="'+ url + value + '" />' +
-                                '</a>';
-                            return s;
+                            if (value != null) {
+                                var url = "..";
+                                var s = '<a class="view">' +
+                                    '<img style="width:80px;height:80px;"  src="' + url + value + '" />' +
+                                    '</a>';
+                                return s;
+                            }
                         }
                     },{
                         field: 'Stu_Empno',

@@ -49,16 +49,20 @@ namespace Alumni.Controllers
                                                       NewPhone,WillJoin,LatestPhoto,CreateTime)
                                                     values(@InchSeqNo,@Form_Name,@Stu_Empno,@Stu_Name,@Stu_Eame,@GraduationStatus,@College,@Email,@WeChat,
                                                       @NewPhone,@WillJoin,@LatestPhoto,@CreateTime)");
-                    FileUploadService upfile = new FileUploadService();
-                    var uploadModel = upfile.FileLoad(httpPostedFileBase,model.Stu_Empno);
-                    if (uploadModel.IsSuccess == true)
+                    if (httpPostedFileBase != null)
                     {
-                        model.LatestPhoto = uploadModel.Msg;
+                        FileUploadService upfile = new FileUploadService();
+                        var uploadModel = upfile.FileLoad(httpPostedFileBase, model.Stu_Empno);
+                        if (uploadModel.IsSuccess == true)
+                        {
+                            model.LatestPhoto = uploadModel.Msg;
+                        }
+                        else
+                        {
+                            return Json(new FlagTips { IsSuccess = false, Msg = "照片上传失败 Photo upload failed" });
+                        }
                     }
-                    else
-                    {
-                        return Json(new FlagTips { IsSuccess = false,Msg = "照片上传失败 Photo upload failed" });
-                    }
+                    
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(insertSql, model);
                     db.DoExtremeSpeedTransaction(trans);
