@@ -42,10 +42,6 @@
                 <div class="navbar-nav w-100">
                     <ul class="Menu" style="list-style:none">
                         <li class="current" data-id="111"><a class="nav-item nav-link">校友系统后台说明</a></li>
-                        @*<li data-id="222"><a class="nav-item nav-link">入校申请查询</a></li>
-                        <li data-id="333"><a class="nav-item nav-link">在读/转出证明查询</a>
-                        <li data-id="444"><a class="nav-item nav-link">成绩单查询</a></li>
-                        <li data-id="555"><a class="nav-item nav-link">总数据查询</a></li>*@
                     </ul>
                 </div>
             </nav>
@@ -118,8 +114,6 @@
                 const [key, value] = cookie.split("=");
                 cookieMap.set(key, value);
             })
-            console.log(cookieMap.size);
-            console.log(cookieMap.get("Account"));
             $("#Account").html(cookieMap.get("Account"));
             $("#Account2").html(cookieMap.get("Account"));
             $("#GroupName").html(cookieMap.get("GroupName"));
@@ -201,6 +195,18 @@
                         break;
                     case "#AddGroup": 
                         pathn = "@(Url.Action("AddGroupVw", "Group"))",
+                        i = 0;
+                        break;
+                    case "#CodeMstr": 
+                        pathn = "@(Url.Action("Index", "CodeMstr"))",
+                        i = 0;
+                        break;
+                    case "#AddCodeMstr": 
+                        pathn = "@(Url.Action("AddCodeMstrVw", "CodeMstr"))",
+                        i = 0;
+                        break;
+                    case "#UpdateCodeMstr": 
+                        pathn = "@(Url.Action("UpdateCodeMstrVw", "CodeMstr"))",
                         i = 0;
                         break;
                     default:

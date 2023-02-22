@@ -30,16 +30,10 @@ namespace Alumni.Service
         {
             using (SchoolDb db = new SchoolDb())
             {
-                string sql = string.Format("select * from IMS_CODEMSTR t where 1=1 {0} {1} order by text",
-                    string.IsNullOrEmpty(code) ? "" : "and t.code = :code",
-                    string.IsNullOrEmpty(keyWord) ? "" :
-                    string.Format(
-                    "and ( lower(t.value) like '%{0}%' " +
-                    "or lower(t.text) like '%{0}%' " +
-                    "or lower(t.etd1) like '%{0}%' " +
-                    "or lower(t.etd3) like '%{0}%' )", keyWord.ToLower())
-                    );
-                var list = db.Query<IMS_CODEMSTRModel>(sql, new { code });
+                string sql = string.Format("select * from [db_forminf].[dbo].[IMS_CODEMSTR] t where 1=1 {0} {1} order by text",
+                    string.IsNullOrEmpty(code) ? "" : "and t.code = @code",
+                    string.IsNullOrEmpty(keyWord) ? "" : "and t.value = @keyWord");
+                var list = db.Query<IMS_CODEMSTRModel>(sql, new { code, keyWord });
                 return list;
             }
         }

@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "UpdateCodeMstrVw";
+}
+
+<head>
+    <title>修改参数信息</title>
+</head>
+<body>
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">修改参数信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="codemstr">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <input type="hidden" class="form-control" disabled="disabled" id="ID">
+
+                                <span class="col-sm-2 control-label">CODE:</span>
+                                <select ID="CodeMstr" name="CodeMstr" class="col-sm-4 control-label" disabled>
+                                </select>
+
+                                <span class="col-sm-2 control-label"> VALUE</span>
+                                <input type="text" class="col-sm-4" id="VALUE" name="VALUE" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> TEXT</span>
+                                <input type="text" class="col-sm-4" id="TEXT" name="TEXT" />
+
+                                <span class="col-sm-2 control-label"> ETD1</span>
+                                <input type="text" class="col-sm-4" id="ETD1" name="ETD1" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> ETD2</span>
+                                <input type="text" class="col-sm-4" id="ETD2" name="ETD2" />
+
+                                <span class="col-sm-2 control-label"> ETD3</span>
+                                <input type="text" class="col-sm-4" id="ETD3" name="ETD3" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-6" style="margin-left:40px;margin-right:0px">
+                                <span class="col-sm-2 control-label"> ETD4</span>
+                                <input type="text" class="col-sm-8" id="ETD4" name="ETD4" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+
+        var selectvalue = localStorage.getItem("CODE");
+        var selectTEXT = null; 
+        //群组名称
+         $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+             url: "@(Url.Action("getCodeMstrText", "DDL"))" + "?keyWord=" + selectvalue,
+            data: "doaction=sectionList",
+             success: function (result) {
+                 selectTEXT = result[0].TEXT;
+                 $("#CodeMstr").append(`<option value=${selectvalue}>${result[0].TEXT}</option>`);
+             }
+        });
+        $("#ID").val(localStorage.getItem("ID") == "null" ? '' : localStorage.getItem("ID"));
+        $("#VALUE").val(localStorage.getItem("VALUE") == "null" ? '' : localStorage.getItem("VALUE"));
+        $("#TEXT").val(localStorage.getItem("TEXT") == "null" ? '' : localStorage.getItem("TEXT"));
+        $("#ETD1").val(localStorage.getItem("ETD1") == "null" ? '' : localStorage.getItem("ETD1"));
+        $("#ETD2").val(localStorage.getItem("ETD2") == "null" ? '' : localStorage.getItem("ETD2"));
+        $("#ETD3").val(localStorage.getItem("ETD3") == "null" ? '' : localStorage.getItem("ETD3"));
+        $("#ETD4").val(localStorage.getItem("ETD4") == "null" ? '' : localStorage.getItem("ETD4"));
+        localStorage.clear();
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#CodeMstr";
+            window.location.reload();
+        });
+
+        //确定
+        $("#btn_save").click(function () {
+            var model = {
+                ID: $("#ID").val(),
+                CODE: $("#CodeMstr").val(),
+                VALUE: $("#VALUE").val(),
+                TEXT: $("#TEXT").val(),
+                ETD1: $("#ETD1").val(),
+                ETD2: $("#ETD2").val(),
+                ETD3: $("#ETD3").val(),
+                ETD4: $("#ETD4").val(),
+            }
+            $.ajax({
+                url: "@(Url.Action("AddCodeMstr", "CodeMstr"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('修改完成');
+                         window.location.href = "#CodeMstr";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>
+

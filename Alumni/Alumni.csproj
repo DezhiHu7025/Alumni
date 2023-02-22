@@ -392,7 +392,7 @@
     <Compile Include="Models\FlagTips.cs" />
     <Compile Include="Models\Group\queryGroup.cs" />
     <Compile Include="Models\Group\UserGroupModel.cs" />
-    <Compile Include="Models\IMS_CODEMSTRModel.cs" />
+    <Compile Include="Models\CodeMstr\IMS_CODEMSTRModel.cs" />
     <Compile Include="Models\Information\InformationModel.cs" />
     <Compile Include="Models\Manager\PermissionModel.cs" />
     <Compile Include="Models\Question\QuestionModel.cs" />
@@ -438,6 +438,9 @@
     <Content Include="Views\Question\TotalQuestionIndex.cshtml" />
     <Content Include="Views\Group\GroupIndex.cshtml" />
     <Content Include="Views\Group\AddGroupVw.cshtml" />
+    <Content Include="Views\CodeMstr\Index.cshtml" />
+    <Content Include="Views\CodeMstr\AddCodeMstrVw.cshtml" />
+    <Content Include="Views\CodeMstr\UpdateCodeMstrVw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -454,7 +457,6 @@
     <Folder Include="KCIS_Biz\KCIS_Biz\obj\Release\TempPE\" />
     <Folder Include="Service References\" />
     <Folder Include="Views\BasicService\" />
-    <Folder Include="Views\CodeMstr\" />
     <Folder Include="Views\DDL\" />
     <Folder Include="Views\FileUpload\" />
     <Folder Include="Views\IDbOperation\" />

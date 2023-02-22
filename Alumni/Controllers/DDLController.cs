@@ -275,5 +275,28 @@ namespace Alumni.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 参数类型
+        /// </summary>
+        /// <param name="keyWord"></param>
+        /// <returns></returns>
+        public ActionResult getCodeMstr(string keyWord)
+        {
+            SchoolDb db = new SchoolDb();
+            CommonService cms = new CommonService();
+            var list = cms.GetIMSCodeMstr("CodeMstr", keyWord);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getCodeMstrText(string keyWord)
+        {
+            SchoolDb db = new SchoolDb();
+            CommonService cms = new CommonService();
+            var list = cms.GetIMSCodeMstrI("CodeMstr", keyWord);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

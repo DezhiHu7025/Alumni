@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "AddCodeMstrVw";
+}
+
+<head>
+    <script src="~/static/js/jquery.validate.min.js"></script>
+    <title>新增参数</title>
+    <style>
+        .error {
+            color: red
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">新增参数</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="codemstr">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+                                <input type="hidden" class="form-control" disabled="disabled" id="GroupId">
+
+                                <span class="col-sm-2 control-label">CODE:</span>
+                                <select ID="CodeMstr" name="CodeMstr" onchange="sel2()" class="col-sm-4 control-label">
+                                    <option value="">------------请选择------------</option>
+                                    <option th:each="CodeMstr:${list}" th:value="${CodeMstr.value}" th:text="${CodeMstr.text}" hidden></option>
+                                </select>
+
+                                <span class="col-sm-2 control-label"> VALUE</span>
+                                <input type="text" class="col-sm-4" id="VALUE" name="VALUE" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> TEXT</span>
+                                <input type="text" class="col-sm-4" id="TEXT" name="TEXT" />
+
+                                <span class="col-sm-2 control-label"> ETD1</span>
+                                <input type="text" class="col-sm-4" id="ETD1" name="ETD1" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> ETD2</span>
+                                <input type="text" class="col-sm-4" id="ETD2" name="ETD2" />
+
+                                <span class="col-sm-2 control-label"> ETD3</span>
+                                <input type="text" class="col-sm-4" id="ETD3" name="ETD3" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-6" style="margin-left:40px;margin-right:0px">
+                                <span class="col-sm-2 control-label"> ETD4</span>
+                                <input type="text" class="col-sm-8" id="ETD4" name="ETD4" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    const model = ({
+        CODE: '',
+        VALUE: '',
+        TEXT: '',
+        ETD1: '',
+        ETD2: '',
+        ETD3: '',
+        ETD4:''
+    });
+
+    function sel2() {
+        var mySelect = document.getElementsByName("CodeMstr")[0];
+        var index = mySelect.selectedIndex;
+        model.CODE = mySelect.options[index].value;
+      //  model.GroupName = mySelect.options[index].text;
+    }
+
+    $(function () {
+
+        //参数类型
+         $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getCodeMstr", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#CodeMstr").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+
+        $("#codemstr").validate({
+            rules:
+            {
+                CodeMstr:
+                {
+                    required: true, // 设为必填项
+                },
+                VALUE:
+                {
+                    required: true, // 设为必填项
+                },
+                TEXT:
+                {
+                    required: true, // 设为必填项
+                }
+            },
+            messages: {
+                CodeMstr:
+                {
+                    required: "必选",
+                },
+                VALUE:
+                {
+                    required: "必填",
+                },
+                TEXT:
+                {
+                    required: "必填",
+                }
+            },
+
+            submitHandler: function (form) {
+                $(form).ajaxSubmit();
+            },
+
+        });
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#CodeMstr";
+            window.location.reload();
+        });
+        
+        //确定
+        $("#btn_save").click(function () {
+
+            let flag = $("#codemstr").valid();
+            if (!flag) {
+                return;
+            }
+
+            model.VALUE = $("#VALUE").val();
+            model.TEXT = $("#TEXT").val();
+            model.ETD1 = $("#ETD1").val();
+            model.ETD2 = $("#ETD2").val();
+            model.ETD3 = $("#ETD3").val();
+            model.ETD4 = $("#ETD4").val();
+
+            $.ajax({
+                url: "@(Url.Action("AddCodeMstr", "CodeMstr"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('新增成功');
+                         window.location.href = "#CodeMstr";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>
+
