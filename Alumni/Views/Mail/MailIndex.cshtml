@@ -1,37 +1,27 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "MailIndex";
 }
 
-
-@{
-    ViewBag.Title = "TotaldataIndex";
-}
 <head>
-    <title>参数设定</title>
+    <title>邮件设定</title>
 </head>
 <body>
-    <h2>参数设定</h2><br />
+    <h2>邮件设定</h2><br />
     <div>
         <div class="d-flex mb-2">
             <hr>
-            <span class="item-title">参数类型</span>
-            <select ID="CodeMstr" name="CodeMstr" runat="server" class="col-sm-12 col-md-6 col-xl-2">
+            <span class="item-title">邮件类型</span>
+            <select ID="MailType" name="Mailstr" runat="server" class="col-sm-12 col-md-6 col-xl-2">
                 <option value="">------------请选择------------</option>
-                <option th:each="CodeMstr:${list}" th:value="${CodeMstr.value}" th:text="${CodeMstr.text}" hidden></option>
+                <option th:each="MailType:${list}" th:value="${MailType.value}" th:text="${MailType.text}" hidden></option>
             </select>
-
-            <span class="item-title">VALUE</span>
-            <input ID="VALUE" name="VALUE" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
-
-            <span class="item-title">TEXT</span>
-            <input ID="TEXT" name="TEXT" runat="server" class="col-sm-12 col-md-6 col-xl-2" />
 
             <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
             <button class="btn btn-warning ms-2" id="btn_add"><span class="glyphicon glyphicon-pencil"></span> 新增</button>
             <button class="btn btn-success ms-2" id="btn_update"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
             <button class="btn btn-danger ms-2" id="btn_delete"><span class="glyphicon glyphicon-pencil"></span> 删除</button>
-            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>
+            @*<button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>*@
         </div>
         <table id="table"></table>
 
@@ -46,12 +36,12 @@
             type: "get",
             dataType: "json",
             method: "post",
-            url: "@(Url.Action("getCodeMstr", "DDL"))",
+            url: "@(Url.Action("getMailType", "DDL"))",
             data: "doaction=sectionList",
             success: function (result) {
                 var len = result.length;
                 for (i = 0; i < len; i++) {
-                    $("#CodeMstr").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                    $("#MailType").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
                 }
             }
         });
@@ -60,14 +50,12 @@
         $('#table').bootstrapTable({
             ajax: function (request) {
                 var model = {
-                    "CODE": $("#CodeMstr").val(),
-                    "VALUE": $("#VALUE").val(),
-                    "TEXT": $("#TEXT").val(),
+                    "subject": $("#MailType").val(),
                 }
                 request.data = model;
                 $.ajax({
                     type: "post",
-                    url: "@(Url.Action("getCodeMstrList", "CodeMstr"))",
+                    url: "@(Url.Action("getMailList", "Mail"))",
                     contentType: "application/json;charset=UTF-8",
                     data: JSON.stringify(request.data),
                     dataType: "json",
@@ -82,7 +70,7 @@
                         alert("错误");
                     }
                 });
-            },                    
+            },
             toolbar: '#toolbar',
             singleSelect: false,
             clickToSelect: true,
@@ -104,44 +92,41 @@
                     checkbox: true,
                     field: "selectItem",
                 },
+                //{
+                //    field: 'toaddr',
+                //    title: '收件人邮箱',
+                //    switchable: true
+                //},
                 {
-                    field: "ID",
-                    visible: false,
-                },
-                {
-                    field: 'CODE',
-                    title: 'CODE',
+                    field: 'toname',
+                    title: '收件人',
                     switchable: true
                 }, {
-                    field: 'VALUE',
-                    title: 'VALUE',
-                    switchable: true
-                }, {
-                    field: 'TEXT',
-                    title: 'TEXT',
-                    switchable: true
-                }, {
-                    field: 'ETD1',
-                    title: 'ETD1',
+                    field: 'strSystem',
+                    title: 'strSystem',
                     switchable: true,
                     sortable: true
                 }, {
-                    field: 'ETD2',
-                    title: 'ETD2',
+                    field: 'subject',
+                    title: 'subject',
                     switchable: true
                 }, {
-                    field: 'ETD3',
-                    title: 'ETD3',
+                    field: 'body',
+                    title: '邮件内容',
                     switchable: true
                 }, {
-                    field: 'ETD4',
-                    title: 'ETD4',
+                    field: 'updateuser',
+                    title: '修改人',
+                    switchable: true
+                }, {
+                    field: 'updatetime2',
+                    title: '修改时间',
                     switchable: true
                 }],
         });
 
         $('#btn_add').click(function () {
-            window.location.href = "#AddCodeMstr";
+            window.location.href = "#AddMail";
             window.location.reload();
         });
 
@@ -152,26 +137,27 @@
                 if (info.length != 1) {
                     alert("请选择一条数据修改");
                 } else {
-                    var ID = info[0].ID;
+                    var subject = info[0].subject;
                     $.ajax({
-                        url: "@(Url.Action("getCodeMstr", "CodeMstr"))",
+                        url: "@(Url.Action("getMail", "Mail"))",
                         type: "get",
                         dataType: "json",
-                        data: { ID: ID },
+                        data: { subject: subject },
                             success: function (res) {
                                 //取到的数据存储到localStorage
                                 localStorage.clear();
-                                localStorage.setItem("ID", res.ID);
-                                localStorage.setItem("CODE", res.CODE);
-                                localStorage.setItem("VALUE", res.VALUE);
-                                localStorage.setItem("TEXT", res.TEXT);
-                                localStorage.setItem("ETD1", res.ETD1);
-                                localStorage.setItem("ETD2", res.ETD2);
-                                localStorage.setItem("ETD3", res.ETD3);
-                                localStorage.setItem("ETD4", res.ETD4);
+                                localStorage.setItem("toaddr", res.toaddr);
+                                localStorage.setItem("toname", res.toname);
+                                localStorage.setItem("strSystem", res.strSystem);
+                                localStorage.setItem("subject", res.subject);
+                                localStorage.setItem("body", res.body);
+                                localStorage.setItem("attch", res.attch);
+                                localStorage.setItem("remark", res.remark);
+                                localStorage.setItem("updateuser", res.updateuser);
+                                localStorage.setItem("updatetime", res.updatetime2);
 
                                 //原窗口打开新页面
-                                window.location.href = "#UpdateCodeMstr";
+                                window.location.href = "#UpdateMail";
                                 window.location.reload();
                         },
                         error: function (res) {
@@ -179,7 +165,7 @@
 
                         }
                     });
-                   
+
                 }
             });
         });
@@ -192,7 +178,7 @@
 
                 $(selected).each(function () {
                     var newArr = {};
-                    newArr.ID = this.ID;
+                    newArr.subject = this.subject;
                     arrays.push(newArr)
                 });
 
@@ -200,7 +186,7 @@
                     alert("请选择数据");
                 } else {
                     $.ajax({
-                        url: "@(Url.Action("DeleteCodeMstr", "CodeMstr"))",
+                        url: "@(Url.Action("DeleteMail", "Mail"))",
                         type: "post",
                         dataType: "json",
                         contentType: "application/json;charset=UTF-8",
@@ -224,19 +210,10 @@
             });
         });
 
-        $('#btn_export').click(function () {
-            var CODE = $("#CodeMstr").val();
-            var VALUE = $("#VALUE").val();
-            var TEXT = $("#TEXT").val();
-            var url = "@(Url.Action("CodeMstrExport", "CodeMstr"))" + "?CODE=" + CODE + "&VALUE=" + VALUE + "&TEXT=" + TEXT;
-            window.location = url;
-        });
-
         $('#btn_search').click(function () {
             $('#table').bootstrapTable('refresh', { pageNumber: 1 });
         });
-               
+
     });
 </script>
-
 

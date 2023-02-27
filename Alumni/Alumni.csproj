@@ -363,6 +363,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -388,7 +389,7 @@
     <Compile Include="Models\Bill\BillModel.cs" />
     <Compile Include="Models\Bill\queryBillModel.cs" />
     <Compile Include="Models\Certificate\CertificateModel.cs" />
-    <Compile Include="Models\EmailModel.cs" />
+    <Compile Include="Models\Mail\EmailModel.cs" />
     <Compile Include="Models\FlagTips.cs" />
     <Compile Include="Models\Group\queryGroup.cs" />
     <Compile Include="Models\Group\UserGroupModel.cs" />
@@ -441,6 +442,9 @@
     <Content Include="Views\CodeMstr\Index.cshtml" />
     <Content Include="Views\CodeMstr\AddCodeMstrVw.cshtml" />
     <Content Include="Views\CodeMstr\UpdateCodeMstrVw.cshtml" />
+    <Content Include="Views\Mail\MailIndex.cshtml" />
+    <Content Include="Views\Mail\UpdateMailVw.cshtml" />
+    <Content Include="Views\Mail\AddMailVw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

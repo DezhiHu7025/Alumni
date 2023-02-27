@@ -290,11 +290,30 @@ namespace Alumni.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 参数类型
+        /// </summary>
+        /// <param name="keyWord"></param>
+        /// <returns></returns>
         public ActionResult getCodeMstrText(string keyWord)
         {
             SchoolDb db = new SchoolDb();
             CommonService cms = new CommonService();
             var list = cms.GetIMSCodeMstrI("CodeMstr", keyWord);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 邮件类型
+        /// </summary>
+        /// <param name="keyWord"></param>
+        /// <returns></returns>
+        public ActionResult getMailType(string keyWord)
+        {
+            SchoolDb db = new SchoolDb();
+            CommonService cms = new CommonService();
+            var list = cms.GetIMSCodeMstrI("MailType", keyWord);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

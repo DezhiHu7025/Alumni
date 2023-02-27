@@ -26,5 +26,13 @@ namespace Alumni.Models
         public string body { get; set; }
 
         public string attch { get; set; }
+
+        public string updateuser { get; set; }
+
+        public DateTime updatetime { get; set; }
+
+        public string updatetime2 { get; set; }
+
+        public string type { get; set; }
     }
 }

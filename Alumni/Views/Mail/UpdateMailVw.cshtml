@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "UpdateMailVw";
+}
+
+<head>
+    <title>修改邮件设定</title>
+</head>
+<body>
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">修改邮件设定</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="codemstr">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> strSystem</span>
+                                <input type="text" class="col-sm-4" id="strSystem" name="strSystem" disabled />
+
+                                <span class="col-sm-2 control-label"> subject</span>
+                                <input type="text" class="col-sm-4" id="subject" name="subject" disabled />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> 收件人邮箱</span>
+                                <input type="text" class="col-sm-4" id="toaddr" name="toaddr" />
+
+                                <span class="col-sm-2 control-label"> 收件人</span>
+                                <input type="text" class="col-sm-4" id="toname" name="toname" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> 邮件内容</span>
+                                <textarea type="text" class="col-sm-11" style="height:100px" id="bodytext" name="bodytext" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> attch</span>
+                                <input type="text" class="col-sm-4" id="attch" name="attch" />
+
+                                <span class="col-sm-2 control-label"> remark</span>
+                                <input type="text" class="col-sm-4" id="remark" name="remark" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> 修改时人</span>
+                                <input type="text" class="col-sm-4" id="updateuser" name="updateuser" disabled/>
+
+                                <span class="col-sm-2 control-label"> 修改时间</span>
+                                <input type="text" class="col-sm-4" id="updatetime" name="updatetime" disabled/>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#toaddr").val(localStorage.getItem("toaddr") == "null" ? '' : localStorage.getItem("toaddr"));
+        $("#toname").val(localStorage.getItem("toname") == "null" ? '' : localStorage.getItem("toname"));
+        $("#strSystem").val(localStorage.getItem("strSystem") == "null" ? '' : localStorage.getItem("strSystem"));
+        $("#subject").val(localStorage.getItem("subject") == "null" ? '' : localStorage.getItem("subject"));
+        $("#bodytext").val(localStorage.getItem("body") == "null" ? '' : localStorage.getItem("body"));
+        $("#attch").val(localStorage.getItem("attch") == "null" ? '' : localStorage.getItem("attch"));
+        $("#remark").val(localStorage.getItem("remark") == "null" ? '' : localStorage.getItem("remark"));
+        $("#updateuser").val(localStorage.getItem("updateuser") == "null" ? '' : localStorage.getItem("updateuser"));
+        $("#updatetime").val(localStorage.getItem("updatetime") == "null" ? '' : localStorage.getItem("updatetime"));
+        localStorage.clear();
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#Mail";
+            window.location.reload();
+        });
+
+        //确定
+        $("#btn_save").click(function () {
+
+            var cookies = document.cookie;
+            const cookieMap = new Map();
+            document.cookie.split("; ").forEach((cookie) => {
+                const [key, value] = cookie.split("=");
+                cookieMap.set(key, value);
+            })
+            var account = cookieMap.get("Account");
+            //处理html标签
+            //str.replace(/需要替换的字符串/g，“新字符串”)
+            //var newtext = $("#bodytext").val();
+            //alert(newtext);
+            //var tt = newtext.replace(/'/g, "sqm");
+            //var yy = tt.replace(/</g, "anchor");
+            //var uu = yy.replace(/>/g, "tail");
+            //alert(uu);
+            var model = {
+                strSystem: $("#strSystem").val(),
+                subject: $("#subject").val(),
+                toaddr: $("#toaddr").val(),
+                toname: $("#toname").val(),
+                body: newtext = $("#bodytext").val().replace(/'/g, "sqm").replace(/</g, "anchor").replace(/>/g, "tail"),
+                attch: $("#attch").val(),
+                remark: $("#remark").val(),
+                updateuser: account,
+                type:'update',
+            }
+            console.log(model)
+            $.ajax({
+                url: "@(Url.Action("SaveMail", "Mail"))",
+                type: "POST",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('修改完成');
+                         window.location.href = "#Mail";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>
+

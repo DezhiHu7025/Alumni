@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "AddMailVw";
+}
+
+<head>
+    <script src="~/static/js/jquery.validate.min.js"></script>
+    <title>新增邮件设定</title>
+    <style>
+        .error {
+            color: red
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bs-example-modal-lg" id="myModal">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">新增邮件设定</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="codemstr">
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> strSystem</span>
+                                <input type="text" class="col-sm-4" id="strSystem" name="strSystem" disabled />
+
+                                <span class="col-sm-2 control-label"> subject</span>
+                                <select ID="subject" name="subject" onchange="sel2()" class="col-sm-4 control-label">
+                                    <option value="">------------请选择------------</option>
+                                    <option th:each="subject:${list}" th:value="${subject.value}" th:text="${subject.text}" hidden disabled></option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> 收件人邮箱</span>
+                                <input type="text" class="col-sm-4" id="toaddr" name="toaddr" />
+
+                                <span class="col-sm-2 control-label"> 收件人</span>
+                                <input type="text" class="col-sm-4" id="toname" name="toname" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> 邮件内容</span>
+                                <textarea type="text" class="col-sm-11" style="height:100px" id="bodytext" name="bodytext"  placeholder="请用html语言书写……" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> attch</span>
+                                <input type="text" class="col-sm-4" id="attch" name="attch" />
+
+                                <span class="col-sm-2 control-label"> remark</span>
+                                <input type="text" class="col-sm-4" id="remark" name="remark" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-16">
+
+                                <span class="col-sm-2 control-label"> 修改时人</span>
+                                <input type="text" class="col-sm-4" id="updateuser" name="updateuser" disabled />
+
+                                <span class="col-sm-2 control-label"> 修改时间</span>
+                                <input type="text" class="col-sm-4" id="updatetime" name="updatetime" disabled />
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn_close" style="align-self:center">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    $("#strSystem").val("线上校友专区");
+
+    var cookies = document.cookie;
+    const cookieMap = new Map();
+    document.cookie.split("; ").forEach((cookie) => {
+        const [key, value] = cookie.split("=");
+        cookieMap.set(key, value);
+    })
+    var account = cookieMap.get("Account");
+
+    const model = ({
+        strSystem: '',
+        subject: '',
+        toaddr: '',
+        toname: '',
+        body: '',
+        attch: '',
+        remark: '',
+        updateuser: account,
+        type:'add'
+    });
+
+    function sel2() {
+        var mySelect = document.getElementsByName("subject")[0];
+        var index = mySelect.selectedIndex;
+        model.subject = mySelect.options[index].value;
+    }
+
+    $(function () {
+
+        //参数类型
+         $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getMailType", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#subject").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
+
+        $("#codemstr").validate({
+            rules:
+            {
+                subject:
+                {
+                    required: true, // 设为必填项
+                },
+                toaddr:
+                {
+                    required: true, // 设为必填项
+                },
+                toname:
+                {
+                    required: true, // 设为必填项
+                } ,
+                bodytext:
+                {
+                    required: true, // 设为必填项
+                }
+            },
+            messages: {
+                subject:
+                {
+                    required: "必选",
+                },
+                toaddr:
+                {
+                    required: "必填",
+                },
+                toname:
+                {
+                    required: "必填",
+                },
+                bodytext:
+                {
+                    required: "必填",
+                }
+            },
+
+            submitHandler: function (form) {
+                $(form).ajaxSubmit();
+            },
+
+        });
+
+        //关闭窗口返回上一级页面
+        $('#btn_close').click(function () {
+            window.location.href = "#Mail";
+            window.location.reload();
+        });
+
+        //确定
+        $("#btn_save").click(function () {
+
+            let flag = $("#codemstr").valid();
+            if (!flag) {
+                return;
+            }
+
+            model.strSystem = $("#strSystem").val();
+            model.subject = $("#subject").val();
+            model.toaddr = $("#toaddr").val();
+            model.toname = $("#toname").val();
+            model.body = $("#bodytext").val().replace(/'/g, "sqm").replace(/</g, "anchor").replace(/>/g, "tail"),
+            model.attch = $("#attch").val();
+            model.remark = $("#remark").val();
+
+            $.ajax({
+                url: "@(Url.Action("SaveMail", "Mail"))",
+                type: "post",
+                dataType: "json",
+                data: model,
+                success: function (result) {
+                     if (result.IsSuccess) {
+                         alert('新增成功');
+                         window.location.href = "#Mail";
+                         window.location.reload();
+                     } else
+                     {
+                         alert(result.Msg);
+                     }
+                }
+            });
+        });
+    });
+
+</script>

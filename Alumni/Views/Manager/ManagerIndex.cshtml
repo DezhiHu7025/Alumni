@@ -42,6 +42,7 @@
                 <div class="navbar-nav w-100">
                     <ul class="Menu" style="list-style:none">
                         <li class="current" data-id="111"><a class="nav-item nav-link">校友系统后台说明</a></li>
+                        <li class="current" data-id="Mail"><a class="nav-item nav-link">邮件设定</a></li>
                     </ul>
                 </div>
             </nav>
@@ -207,6 +208,18 @@
                         break;
                     case "#UpdateCodeMstr": 
                         pathn = "@(Url.Action("UpdateCodeMstrVw", "CodeMstr"))",
+                        i = 0;
+                        break;
+                    case "#Mail": 
+                        pathn = "@(Url.Action("MailIndex", "Mail"))",
+                        i = 0;
+                        break;
+                    case "#AddMail": 
+                        pathn = "@(Url.Action("AddMailVw", "Mail"))",
+                        i = 0;
+                        break;
+                    case "#UpdateMail": 
+                        pathn = "@(Url.Action("UpdateMailVw", "Mail"))",
                         i = 0;
                         break;
                     default:
