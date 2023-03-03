@@ -98,6 +98,12 @@ namespace Alumni.Controllers
                 using (SchoolDb db = new SchoolDb())
                 {
                     string sql = string.Format(@"SELECT a.*,
+       CASE a.GraduationYear
+           WHEN '其他' THEN
+               a.GraduationYear + '   ' + a.GraduationYearText
+           ELSE
+               a.GraduationYear
+       END AS GraduationYear,
        CONVERT(VARCHAR(100), a.CreateTime, 120) CreateTime2,
        CASE a.GraduationStatus
            WHEN '其他' THEN
@@ -149,6 +155,12 @@ where 1=1");
                 using (SchoolDb db = new SchoolDb())
                 {
                     string sql = string.Format(@"SELECT a.*,
+       CASE a.GraduationYear
+           WHEN '其他' THEN
+               a.GraduationYear + '   ' + a.GraduationYearText
+           ELSE
+               a.GraduationYear
+       END AS GraduationYear,
        CASE a.GraduationStatus
            WHEN '其他' THEN
                a.GraduationStatus + '   ' + a.GraduationYearText

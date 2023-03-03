@@ -7,7 +7,14 @@
     <title>问卷调查</title>
 </head>
 <body>
-    <h2>问卷调查</h2><br />
+    <h2>问卷调查</h2>
+    <br />
+    <div class="d-flex mb-2">
+        <span style="color:red;text-align:center">
+            由于信息太多，列表不一一展示。请下载后在Excel中查看问卷调查的所有信息
+            <br />
+        </span>
+    </div>
     <div>
         <div class="d-flex mb-2">
             <hr>
@@ -176,27 +183,29 @@
                         field: 'Email',
                         title: '邮箱地址',
                         switchable: true
-                    },{
-                        field: 'WeChat',
-                        title: '微信账号',
-                        switchable: true
-                    },{
-                        field: 'NewPhone',
-                        title: '电话号码',
-                        switchable: true
-                    },{
-                        field: 'WillJoin',
-                        title: '是否愿意加入康桥校友会',
-                        switchable: true
-                    },{
-                        field: 'OtherSupplements',
-                        title: '其他补充',
-                        switchable: true
-                    },{
-                        field: 'CreateTime2',
-                        title: '填写问卷时间',
-                        switchable: true
-                    }],
+                    },
+                    //{
+                    //    field: 'WeChat',
+                    //    title: '微信账号',
+                    //    switchable: true
+                    //},{
+                    //    field: 'NewPhone',
+                    //    title: '电话号码',
+                    //    switchable: true
+                    //},{
+                    //    field: 'WillJoin',
+                    //    title: '是否愿意加入康桥校友会',
+                    //    switchable: true
+                    //},{
+                    //    field: 'OtherSupplements',
+                    //    title: '其他补充',
+                    //    switchable: true
+                    //},{
+                    //    field: 'CreateTime2',
+                    //    title: '填写问卷时间',
+                    //    switchable: true
+                    //}
+                    ],
         });
         
         $('#btn_export').click(function () {
