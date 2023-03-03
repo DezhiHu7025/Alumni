@@ -10,6 +10,8 @@ using Alumni.Models.Bill;
 using OfficeOpenXml;
 using System.IO;
 using Aspose.Cells;
+using Alumni.Service;
+using System.Text;
 
 namespace Alumni.Controllers
 {
@@ -26,6 +28,9 @@ namespace Alumni.Controllers
         {
             try
             {
+                HttpPostedFileBase httpPostedFileBase = Request.Files["file"];
+                ControllerContext.HttpContext.Request.ContentEncoding = Encoding.GetEncoding("UTF-8");
+                ControllerContext.HttpContext.Response.Charset = "UTF-8";
                 if (string.IsNullOrEmpty(model.Stu_Empno) || string.IsNullOrEmpty(model.Stu_Name))
                 {
                     return Json(new FlagTips
@@ -42,10 +47,25 @@ namespace Alumni.Controllers
                     string insertSql2 = string.Format(@"INSERT INTO [db_forminf].[dbo].[Questionnaire _Investigation] 
                                                                (QchSeqNo,Form_Name,Stu_Empno,Stu_Name,Stu_Eame,GraduationYear,CurrentDevelopment,CurrentDevelopmentText,WorkUnitName,
                                                                JobTitle,ContentOverview,HighestEducation,HighestEducationStatus,HighestEducationText,UniversityName,UniversityDepartmentName,
-                                                               InstituteName,InstituteDepartmentName,DoctoralClassName,DoctoralDepartmentName,Transferred,TransferredText,OtherSupplements,CreateTime)
+                                                               InstituteName,InstituteDepartmentName,DoctoralClassName,DoctoralDepartmentName,Transferred,TransferredText,OtherSupplements,CreateTime,
+                                                               GraduationStatus,GraduationYearText,Email,WeChat,NewPhone,WillJoin,LatestPhoto)
                                                                 VALUES(@QchSeqNo,@Form_Name,@Stu_Empno,@Stu_Name,@Stu_Eame,@GraduationYear,@CurrentDevelopment,@CurrentDevelopmentText,@WorkUnitName,
                                                                @JobTitle,@ContentOverview,@HighestEducation,@HighestEducationStatus,@HighestEducationText,@UniversityName,@UniversityDepartmentName,
-                                                               @InstituteName,@InstituteDepartmentName,@DoctoralClassName,@DoctoralDepartmentName,@Transferred,@TransferredText,@OtherSupplements,@CreateTime)");
+                                                               @InstituteName,@InstituteDepartmentName,@DoctoralClassName,@DoctoralDepartmentName,@Transferred,@TransferredText,@OtherSupplements,@CreateTime,
+                                                               @GraduationStatus,@GraduationYearText,@Email,@WeChat,@NewPhone,@WillJoin,@LatestPhoto)");
+                    if (httpPostedFileBase != null)
+                    {
+                        FileUploadService upfile = new FileUploadService();
+                        var uploadModel = upfile.FileLoad(httpPostedFileBase, model.Stu_Empno);
+                        if (uploadModel.IsSuccess == true)
+                        {
+                            model.LatestPhoto = uploadModel.Msg;
+                        }
+                        else
+                        {
+                            return Json(new FlagTips { IsSuccess = false, Msg = "照片上传失败 Photo upload failed" });
+                        }
+                    }
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(insertSql2, model);
                     db.DoExtremeSpeedTransaction(trans);
@@ -79,6 +99,12 @@ namespace Alumni.Controllers
                 {
                     string sql = string.Format(@"SELECT a.*,
        CONVERT(VARCHAR(100), a.CreateTime, 120) CreateTime2,
+       CASE a.GraduationStatus
+           WHEN '其他' THEN
+               a.GraduationStatus + '   ' + a.GraduationYearText
+           ELSE
+               a.GraduationStatus
+       END AS GraduationStatus,
        CASE a.CurrentDevelopment
            WHEN '其他' THEN
                a.CurrentDevelopment + '   ' + a.CurrentDevelopmentText
@@ -123,6 +149,12 @@ where 1=1");
                 using (SchoolDb db = new SchoolDb())
                 {
                     string sql = string.Format(@"SELECT a.*,
+       CASE a.GraduationStatus
+           WHEN '其他' THEN
+               a.GraduationStatus + '   ' + a.GraduationYearText
+           ELSE
+               a.GraduationStatus
+       END AS GraduationStatus,
        CASE a.CurrentDevelopment
            WHEN '其他' THEN
                a.CurrentDevelopment + '   ' + a.CurrentDevelopmentText
@@ -196,22 +228,29 @@ where 1=1 ");
                     sheet.Cells[i + 1, 1].PutValue(dt[i].Stu_Empno);
                     sheet.Cells[i + 1, 2].PutValue(dt[i].Stu_Name);
                     sheet.Cells[i + 1, 3].PutValue(dt[i].Stu_Eame);
-                    sheet.Cells[i + 1, 4].PutValue(dt[i].GraduationYear);
-                    sheet.Cells[i + 1, 5].PutValue(dt[i].CurrentDevelopment);
-                    sheet.Cells[i + 1, 6].PutValue(dt[i].WorkUnitName);
-                    sheet.Cells[i + 1, 7].PutValue(dt[i].JobTitle);
-                    sheet.Cells[i + 1, 8].PutValue(dt[i].ContentOverview);
-                    sheet.Cells[i + 1, 9].PutValue(dt[i].HighestEducation);
-                    sheet.Cells[i + 1, 10].PutValue(dt[i].HighestEducationStatus); 
-                    sheet.Cells[i + 1, 11].PutValue(dt[i].UniversityName);
-                    sheet.Cells[i + 1, 12].PutValue(dt[i].UniversityDepartmentName);
-                    sheet.Cells[i + 1, 13].PutValue(dt[i].InstituteName);
-                    sheet.Cells[i + 1, 14].PutValue(dt[i].InstituteDepartmentName);
-                    sheet.Cells[i + 1, 15].PutValue(dt[i].DoctoralClassName);
-                    sheet.Cells[i + 1, 16].PutValue(dt[i].DoctoralDepartmentName);
-                    sheet.Cells[i + 1, 17].PutValue(dt[i].Transferred);
-                    sheet.Cells[i + 1, 18].PutValue(dt[i].OtherSupplements);
-                    sheet.Cells[i + 1, 19].PutValue(Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy-MM-dd HH:mm:ss"));
+                    sheet.Cells[i + 1, 4].PutValue(dt[i].GraduationStatus);
+                    sheet.Cells[i + 1, 5].PutValue(dt[i].GraduationYear);
+                    sheet.Cells[i + 1, 6].PutValue(dt[i].CurrentDevelopment);
+                    sheet.Cells[i + 1, 7].PutValue(dt[i].WorkUnitName);
+                    sheet.Cells[i + 1, 8].PutValue(dt[i].JobTitle);
+                    sheet.Cells[i + 1, 9].PutValue(dt[i].ContentOverview);
+
+                    sheet.Cells[i + 1, 10].PutValue(dt[i].HighestEducation);
+                    sheet.Cells[i + 1, 11].PutValue(dt[i].HighestEducationStatus); 
+                    sheet.Cells[i + 1, 12].PutValue(dt[i].UniversityName);
+                    sheet.Cells[i + 1, 13].PutValue(dt[i].UniversityDepartmentName);
+                    sheet.Cells[i + 1, 14].PutValue(dt[i].InstituteName);
+                    sheet.Cells[i + 1, 15].PutValue(dt[i].InstituteDepartmentName);
+                    sheet.Cells[i + 1, 16].PutValue(dt[i].DoctoralClassName);
+                    sheet.Cells[i + 1, 17].PutValue(dt[i].DoctoralDepartmentName);
+                    sheet.Cells[i + 1, 18].PutValue(dt[i].Transferred);
+                    sheet.Cells[i + 1, 19].PutValue(dt[i].Email);
+
+                    sheet.Cells[i + 1, 20].PutValue(dt[i].WeChat);
+                    sheet.Cells[i + 1, 21].PutValue(dt[i].NewPhone);
+                    sheet.Cells[i + 1, 22].PutValue(dt[i].WillJoin);
+                    sheet.Cells[i + 1, 23].PutValue(dt[i].OtherSupplements);
+                    sheet.Cells[i + 1, 24].PutValue(Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy/MM/dd") == "0001/01/01" ? "" : Convert.ToDateTime(dt[i].CreateTime).ToString("yyyy-MM-dd HH:mm:ss"));
                 }
                 MemoryStream bookStream = new MemoryStream();//创建文件流
                 wb.Save(bookStream, new OoxmlSaveOptions(SaveFormat.Xlsx)); //文件写入流（向流中写入字节序列）

@@ -38,6 +38,11 @@ namespace Alumni.Models.Question
         public string GraduationYear { get; set; }
 
         /// <summary>
+        /// 康桥毕业年份说明
+        /// </summary>
+        public string GraduationYearText { get; set; }
+
+        /// <summary>
         /// 目前发展状况
         /// </summary>
         public string CurrentDevelopment { get; set; }
@@ -128,6 +133,36 @@ namespace Alumni.Models.Question
         public DateTime CreateTime { get; set; }
 
         public string CreateTime2 { get; set; }
+
+        /// <summary>
+        /// 是否在G12从康桥毕业
+        /// </summary>
+        public string GraduationStatus { get; set; }
+
+        /// <summary>
+        /// 邮箱地址
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// 微信账号
+        /// </summary>
+        public string WeChat { get; set; }
+
+        /// <summary>
+        /// 电话号码
+        /// </summary>
+        public string NewPhone { get; set; }
+
+        /// <summary>
+        /// 是否愿意加入康桥校友会
+        /// </summary>
+        public string WillJoin { get; set; }
+
+        /// <summary>
+        /// 近照
+        /// </summary>
+        public string LatestPhoto { get; set; }
 
     }
 }

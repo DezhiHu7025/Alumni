@@ -70,10 +70,26 @@
                         visible: false,
                     },
                     {
-                        field: 'Form_Name',
-                        title: '单据名称',
-                        switchable: true
-                    },{
+                            field: 'LatestPhoto',
+                            title: '近照',
+                            events: 'operateEvents',
+                            formatter: function (value, row, index) {
+                                if (value != null) {
+                                    var url = "..";
+                                    var s = '<a class="view">' +
+                                        '<img style="width:80px;height:80px;"  src="' + url + value + '" />' +
+                                        '</a>';
+                                    return s;
+                                }
+                            }
+
+                    },
+                    //{
+                    //    field: 'Form_Name',
+                    //    title: '单据名称',
+                    //    switchable: true
+                    //},
+                    {
                         field: 'Stu_Empno',
                         title: '学号',
                         switchable: true
@@ -88,6 +104,11 @@
                         switchable: true,
                         sortable: true
                     },{
+                        field: 'GraduationStatus',
+                        title: '是否在G12从康桥毕业',
+                        switchable: true,
+                        sortable: true
+                    },    {
                         field: 'GraduationYear',
                         title: '康桥毕业年份',
                         switchable: true
@@ -95,19 +116,21 @@
                         field: 'CurrentDevelopment',
                         title: '目前发展状况',
                         switchable: true
-                    },{
-                        field: 'WorkUnitName',
-                        title: '工作单位名称',
-                        switchable: true
-                    },{
-                        field: 'JobTitle',
-                        title: '工作职称',
-                        switchable: true
-                    },{
-                        field: 'ContentOverview',
-                        title: '内容概述',
-                        switchable: true
-                    },{
+                     },
+                    //{
+                    //    field: 'WorkUnitName',
+                    //    title: '工作单位名称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'JobTitle',
+                    //    title: '工作职称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'ContentOverview',
+                    //    title: '内容概述',
+                    //    switchable: true
+                    //},
+                    {
                         field: 'HighestEducation',
                         title: '最高学历',
                         switchable: true
@@ -115,33 +138,55 @@
                         field: 'HighestEducationStatus',
                         title: '最高学历状态',
                         switchable: true
-                    },{
-                        field: 'UniversityName',
-                        title: '大学名称',
-                        switchable: true
-                    },{
-                        field: 'UniversityDepartmentName',
-                        title: '大学科系名称',
-                        switchable: true
-                    },{
-                        field: 'InstituteName',
-                        title: '研究所名称',
-                        switchable: true
-                    },{
-                        field: 'InstituteDepartmentName',
-                        title: '研究所科系名称',
-                        switchable: true
-                    },{
-                        field: 'DoctoralClassName',
-                        title: '博士班名称',
-                        switchable: true
-                    },{
-                        field: 'DoctoralDepartmentName',
-                        title: '博士班科系名称',
+                    },
+                    //{
+                    //    field: 'UniversityName',
+                    //    title: '大学名称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'UniversityDepartmentName',
+                    //    title: '大学科系名称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'InstituteName',
+                    //    title: '研究所名称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'InstituteDepartmentName',
+                    //    title: '研究所科系名称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'DoctoralClassName',
+                    //    title: '博士班名称',
+                    //    switchable: true
+                    //},{
+                    //    field: 'DoctoralDepartmentName',
+                    //    title: '博士班科系名称',
+                    //    switchable: true
+                    //},
+                    {
+                        field: 'Transferred',
+                        title: '是否曾经转学',
                         switchable: true
                     },{
                         field: 'Transferred',
                         title: '是否曾经转学',
+                        switchable: true
+                    },{
+                        field: 'Email',
+                        title: '邮箱地址',
+                        switchable: true
+                    },{
+                        field: 'WeChat',
+                        title: '微信账号',
+                        switchable: true
+                    },{
+                        field: 'NewPhone',
+                        title: '电话号码',
+                        switchable: true
+                    },{
+                        field: 'WillJoin',
+                        title: '是否愿意加入康桥校友会',
                         switchable: true
                     },{
                         field: 'OtherSupplements',

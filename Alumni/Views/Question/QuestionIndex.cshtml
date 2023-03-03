@@ -1,13 +1,23 @@
 ﻿
 @{
     ViewBag.Title = "QuestionIndex";
+    //Layout = null;
 }
 
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+
     <link href="~/css/new2.css" rel="stylesheet" />
-    <script src="~/js/jquery1.min.js"></script>
+    <script src="~/static/js/jquery-3.4.1.min.js"></script>
+    <script src="~/static/js/main.js" type="4bebc94b2db97a1f9680a39f-text/javascript"></script>
+    <script src="~/static/js/rocket-loader.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+    <script src="~/static/js/jquery.validate.min.js"></script>
+    <style>
+        .error {
+            color: red
+        }
+    </style>
 
     <title>KCISEC Alumni Association Questionnaire Investigation | 康桥校友会联络问卷调查</title>
 </head>
@@ -15,50 +25,60 @@
     <div id="banner" style="margin:0px;padding:0px;text-align:center">
         <img src="~/img/logo_XY2.png" />
     </div>
-    <form id="ff">
-        <div>
-            <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Association Questionnaire Investigation | 康桥校友会联络问卷调查</h3>
+    <div height="800px">
+        <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Association Questionnaire Investigation | 康桥校友会联络问卷调查</h3>
+        <br />
+        <p>
+            Dear alumni
+            In view of the development of many excellent alumni, I would like to investigate your current employment and schooling. Please take 2 minutes to fill in this questionnaire as a reference for school education, or invite you to return to school to share. Thank you!
+            If you have any questions, welcome to the private message. Thank you.
             <br />
-            <p>
-                Dear alumni
-                In view of the development of many excellent alumni, I would like to investigate your current employment and schooling. Please take 2 minutes to fill in this questionnaire as a reference for school education, or invite you to return to school to share. Thank you!
-                If you have any questions, welcome to the private message. Thank you.
-                <br />
-                亲爱的校友们好：
-                有鉴于许多优秀校友各有发展，在此想调查各位目前的就业就学情况。请大家花2分钟填答此问卷, 作为学校教育参考，或邀请返校分享等。谢谢各位！
-                有问题欢迎私讯胡薰匀Jessica组长，谢谢大家。
-            </p>
-
-            <div class="content2" >
-                <div class="leftDiv2" height="1600px">
+            亲爱的校友们好：
+            有鉴于许多优秀校友各有发展，在此想调查各位目前的就业就学情况。请大家花2分钟填答此问卷, 作为学校教育参考，或邀请返校分享等。谢谢各位！
+            有问题欢迎私讯胡薰匀Jessica组长，谢谢大家。
+        </p>
+        <form id="question">
+            <div id="one" class="content2" style="display:block">
+                <div class="leftDiv2">
                     <p class="kuai">
                         <span class="title_bold">1.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
-                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" type="hidden">
+                        <input ID="Stu_Name" name="Stu_Name" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" readonly>
+                        <input ID="Stu_Empno" name="Stu_Empno" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" type="hidden">
                     </p>
                     <br />
                     <p class="kuai">
                         <span class="title_bold">2.英文名 English Name&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in English&nbsp;&nbsp;|&nbsp;请用英文填写</span><br />
-                        <input ID="Stu_Eame" name="Stu_Eame" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        <input ID="Stu_Eame" name="Stu_Eame" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required>
                     </p>
                     <br />
                     <p class="kuai">
-                        <span class="title_bold"> 3.康桥毕业年份？&nbsp;&nbsp;KCISEC Graduation Year?&nbsp;&nbsp;<span class="red">*</span></span>
+                        <span class="title_bold"> 3.您是否在G12从康桥毕业？ <br /> &nbsp;&nbsp; Did you graduate from KCISEC in Year 12?&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="GraduationYear" name="GraduationYear" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                        <select ID="GraduationStatus" name="GraduationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
                             <option value="">---请选择---</option>
-                            <option th:each="GraduationYear:${list}" th:value="${GraduationYear.value}" th:text="${GraduationYear.text}" hidden></option>
+                            <option th:each="GraduationStatus:${list}" th:value="${GraduationStatus.value}" th:text="${GraduationStatus.text}" hidden></option>
                         </select>
                     </p>
                     <br />
                     <p class="kuai">
+                        <span class="title_bold"> 4.康桥毕业年份？&nbsp;&nbsp;KCISEC Graduation Year?&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="GraduationYear" name="GraduationYear" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                            <option value="">---请选择---</option>
+                            <option th:each="GraduationYear:${list}" th:value="${GraduationYear.value}" th:text="${GraduationYear.text}" hidden></option>
+                        </select>
+                        <div id="GraduationYearTextID">
+                            <input ID="GraduationYearText" name="GraduationYearText" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                        </div>
+                    </p>
+                    <p class="kuai">
                         <span class="title_bold">
-                            4.目前发展状况？&nbsp;&nbsp; Current development? &nbsp;&nbsp;<span class="red">*</span>
+                            5.目前发展状况？&nbsp;&nbsp; Current development? &nbsp;&nbsp;<span class="red">*</span>
                         </span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="CurrentDevelopment" name="CurrentDevelopment" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                        <select ID="CurrentDevelopment" name="CurrentDevelopment" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
                             <option value="">---请选择---</option>
                             <option th:each="CurrentDevelopment:${list}" th:value="${CurrentDevelopment.value}" th:text="${CurrentDevelopment.text}" hidden></option>
                         </select>
@@ -69,7 +89,7 @@
                     <br />
                     <div id="WorkInformation">
                         <p class="kuai">
-                            <span class="title_bold">5.工作资讯 Work information&nbsp;&nbsp;<span class="red">*</span></span>
+                            <span class="title_bold">6.工作资讯 Work information&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
                             <span class="hui2">工作单位名称 Work unit name&nbsp;&nbsp;<span class="red"></span></span>
                             <input ID="WorkUnitName" name="WorkUnitName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
@@ -77,17 +97,18 @@
                             <input ID="JobTitle" name="JobTitle" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
                             <span class="hui2">内容概述 Content overview&nbsp;&nbsp;<span class="red"></span></span>
                             <input ID="ContentOverview" name="ContentOverview" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
-
                         </p>
                     </div>
+                </div>
+                <div class="rightDiv2">
                     <p class="kuai">
-                        <span class="title_bold">6.最高学历状态  Highest education status&nbsp;&nbsp;<span class="red">*</span></span>
+                        <span class="title_bold">7.最高学历状态  Highest education status&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <select ID="HighestEducation" name="HighestEducation" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                        <select ID="HighestEducation" name="HighestEducation" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
                             <option value="">---请选择---</option>
                             <option th:each="HighestEducation:${list}" th:value="${HighestEducation.value}" th:text="${HighestEducation.text}" hidden></option>
                         </select>
-                        <select ID="HighestEducationStatus" name="HighestEducationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                        <select ID="HighestEducationStatus" name="HighestEducationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
                             <option value="">---请选择---</option>
                             <option th:each="HighestEducationStatus:${list}" th:value="${HighestEducationStatus.value}" th:text="${HighestEducationStatus.text}" hidden></option>
                         </select>
@@ -95,11 +116,9 @@
                             <input ID="HighestEducationText" name="HighestEducationText" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
                         </div>
                     </p>
-                </div>
-                <div class="rightDiv2">
                     <div id="UniversityInformation">
                         <p class="kuai">
-                            <span class="title_bold">7.大学资讯? University information&nbsp;&nbsp;<span class="red">*</span></span>
+                            <span class="title_bold">8.大学资讯? University information&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
                             <span class="hui2">大学名称 University name&nbsp;&nbsp;<span class="red"></span></span>
                             <input ID="UniversityName" name="UniversityName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
@@ -109,7 +128,7 @@
                     </div>
                     <div id="InstituteInformation">
                         <p class="kuai">
-                            <span class="title_bold">8.研究所资讯? Institute information&nbsp;&nbsp;<span class="red">*</span></span>
+                            <span class="title_bold">9.研究所资讯? Institute information&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
                             <span class="hui2">研究所名称 Institute name&nbsp;&nbsp;<span class="red"></span></span>
                             <input ID="InstituteName" name="InstituteName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
@@ -117,20 +136,26 @@
                             <input ID="InstituteDepartmentName" name="InstituteDepartmentName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" />
                         </p>
                     </div>
-                   <div id="DoctoralClassInformation">
-                       <p class="kuai">
-                           <span class="title_bold">9.博士班资讯? Doctoral class information&nbsp;&nbsp;<span class="red">*</span></span>
-                           <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                           <span class="hui2">博士班名称 Doctoral class name&nbsp;&nbsp;<span class="red"></span></span>
-                           <input ID="DoctoralClassName" name="DoctoralClassName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
-                           <span class="hui2">科系名称 Department name&nbsp;&nbsp;<span class="red"></span></span>
-                           <input ID="DoctoralDepartmentName" name="DoctoralDepartmentName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
-                       </p>
-                   </div>                    
+                    <div id="DoctoralClassInformation">
+                        <p class="kuai">
+                            <span class="title_bold">10.博士班资讯? Doctoral class information&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <span class="hui2">博士班名称 Doctoral class name&nbsp;&nbsp;<span class="red"></span></span>
+                            <input ID="DoctoralClassName" name="DoctoralClassName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                            <span class="hui2">科系名称 Department name&nbsp;&nbsp;<span class="red"></span></span>
+                            <input ID="DoctoralDepartmentName" name="DoctoralDepartmentName" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="question2">
+            <div id="two" class="content2" style="display:none">
+                <div class="leftDiv2" height="800px">
                     <p class="kuai">
-                        <span class="title_bold">10.大学是否曾经转学? Have you ever transferred&nbsp;&nbsp;<span class="red">*</span></span>
+                        <span class="title_bold">11.大学是否曾经转学? Have you ever transferred&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <select ID="Transferred" name="Transferred" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                        <select ID="Transferred" name="Transferred" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
                             <option value="">---请选择---</option>
                             <option th:each="Transferred:${list}" th:value="${Transferred.value}" th:text="${Transferred.text}" hidden></option>
                         </select>
@@ -141,29 +166,346 @@
                     </p>
                     <br />
                     <p class="kuai">
-                        <span class="title_bold">11.其他补充 Other supplements&nbsp;&nbsp;<span class="red"></span></span>
+                        <span class="title_bold">12.邮箱地址 Email Address&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="Email" name="Email" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">13.微信账号 WeChat ID&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="WeChat" name="WeChat" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">14.电话号码 Phone number&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                        <input ID="NewPhone" name="NewPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                    </p>
+                    <br />
+                </div>
+                <div class="rightDiv2" height="800px">
+                    <p class="kuai">
+                        <span class="title_bold">15.您是否愿意加入康桥校友会，以获取更多资讯？ <br /> &nbsp;&nbsp;  Would you like to join in the KCISEC Alumni Association for more information?&nbsp;&nbsp;<span class="red"></span></span>
+                        <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
+                        <select ID="WillJoin" name="WillJoin" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                            <option value="">---请选择---</option>
+                            <option th:each="WillJoin:${list}" th:value="${WillJoin.value}" th:text="${WillJoin.text}" hidden></option>
+                        </select>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">
+                            16.请上传您的近照。
+                            Please upload your recent photos.&nbsp;&nbsp;<span class="red"></span>
+                        </span>
+                        <br /><span class="hui">Please upload&nbsp;&nbsp;|&nbsp;请上传</span><br />
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">图片预览</label>
+                            <div class="col-sm-10">
+                                <a class="file">
+                                    选择文件
+                                    <input type="file" name="img" onchange="uploadImage(this)">
+                                </a>
+                                <img id="img" height="100" src="">
+                            </div>
+                        </div>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">17.其他补充 Other supplements&nbsp;&nbsp;<span class="red"></span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
                         <input ID="OtherSupplements" name="OtherSupplements" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
                     </p>
                     <br />
-                    <br />
-                    <br />
                 </div>
-
             </div>
-
-
-            <div class="butom" style="text-align:center;">
-                @Html.ActionLink("返回 Back", "Index", "Home", new { area = "" }, new { @class = "button" })|
-                <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
-            </div>
-
+        </form>
+        <div id="onebuttom" class="butom" style="text-align:center;display:block">
+            @Html.ActionLink("返回 Back", "Index", "Home", new { area = "" }, new { @class = "button" })|
+            @*<button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>*@
+            <button id="btn_next" name="btn_next" onclick="nextPage()" class="button" type="button">下一页 Next Page</button>
+            @*<button style="display:none" id="btn_last" name="btn_next" onclick="lastPage()" class="button">上一页 Last Page</button>*@
         </div>
-    </form>
+        <div id="twobuttom" class="butom" style="text-align:center;display:none">
+            <button id="btn_next" name="btn_next" onclick="LastPage()" class="button">上一页 Last Page</button>
+            <button type="button" class="button" id="btn_save">确定</button>
+            @*<button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>*@
+        </div>
+
+    </div>
 </body>
 
 <script type="text/javascript">
+    var formData = new FormData();//创建FormData对象，以键值对的方式拼接form表单数据（multipart/form-data，图片媒体文件）
+    function uploadImage(obj) {
+        // var formData = new FormData();
+        //获取input中的文件列表信息
+        var files = $(obj).prop("files");
+        //拼接图片文件流信息
+        console.log(files[0]);
+        formData.append("file", files[0]);
+    }
+
+
+    var small_img = document.querySelector('input[name=small_img]');
+    var img = document.querySelector('input[name=img]');
+    small_imgs = document.querySelector('#small_img');
+    imgs = document.querySelector('#img');
+    if (small_img) {
+        small_img.addEventListener('change', function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+            reader.addEventListener("load", function () {
+                small_imgs.src = reader.result;
+            }, false);
+            // 调用reader.readAsDataURL()方法，把图片转成base64
+            reader.readAsDataURL(file);
+            $("img").eq(0).css("display", "block");
+        }, false);
+    }
+    if (img) {
+        img.addEventListener('change', function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+            reader.addEventListener("load", function () {
+                imgs.src = reader.result;
+            }, false);
+            // 调用reader.readAsDataURL()方法，把图片转成base64
+            reader.readAsDataURL(file);
+            $("img").eq(1).css("display", "block");
+        }, false);
+    }
+
+    function nextPage() {
+        let flag = $("#question").valid();
+        if (!flag) {
+            return false;
+        }
+        var res = document.getElementById('one').style.display;
+        if (res == 'block') {
+            document.getElementById('one').style.display = 'none';
+            document.getElementById('two').style.display = 'block';
+
+            document.getElementById('onebuttom').style.display = 'none';
+            document.getElementById('twobuttom').style.display = 'block';
+
+        }
+    }
+
+    function LastPage() {
+        var res = document.getElementById('two').style.display;
+        if (res == 'block') {
+            document.getElementById('one').style.display = 'block';
+            document.getElementById('two').style.display = 'none';
+
+            document.getElementById('onebuttom').style.display = 'block';
+            document.getElementById('twobuttom').style.display = 'none';
+        }
+    }
+
     $(function () {
+
+        $("#question").validate({
+            rules:
+            {
+                Stu_Eame:
+                {
+                    required: true, // 设为必填项
+                },
+                GraduationStatus:
+                {
+                    required: true, // 设为必填项
+                },
+                GraduationYear:
+                {
+                    required: true, // 设为必填项
+                },
+                CurrentDevelopment:
+                {
+                    required: true, // 设为必填项
+                },
+                GraduationYearText:
+                {
+                    required: true,
+                },
+                HighestEducation:
+                {
+                    required: true,
+                },
+                HighestEducationText:
+                {
+                    required: true,
+                },
+                CurrentDevelopmentText:
+                {
+                    required: true,
+                },
+                WorkUnitName:
+                {
+                    required: true,
+                },
+                JobTitle:
+                {
+                    required: true,
+                },
+                ContentOverview:
+                {
+                    required: true,
+                },
+                UniversityName:
+                {
+                    required: true,
+                },
+                UniversityDepartmentName:
+                {
+                    required: true,
+                },
+                InstituteName:
+                {
+                    required: true,
+                },
+                InstituteDepartmentName:
+                {
+                    required: true,
+                },
+                DoctoralClassName:
+                {
+                    required: true,
+                },
+                DoctoralDepartmentName:
+                {
+                    required: true,
+                },
+                HighestEducationStatus:
+                {
+                    required: true,
+                }
+            },
+            messages: {
+                Stu_Eame:
+                {
+                    required: "必填 Required",
+                },
+                GraduationStatus:
+                {
+                    required: "必选 Mandatory",
+                },
+                GraduationYear:
+                {
+                    required: "必选 Mandatory",
+                },
+                CurrentDevelopment:
+                {
+                    required: "必选 Mandatory",
+                },
+                GraduationYearText:
+                {
+                    required: "必填 Required",
+                },
+                HighestEducation:
+                {
+                    required: "必选 Mandatory",
+                },
+                HighestEducationText:
+                {
+                    required: "必填 Required",
+                },
+                CurrentDevelopmentText:
+                {
+                    required: "必填 Required",
+                },
+                WorkUnitName:
+                {
+                    required: "必填 Required",
+                },
+                JobTitle:
+                {
+                    required: "必填 Required",
+                },
+                ContentOverview:
+                {
+                    required: "必填 Required",
+                },
+                UniversityName:
+                {
+                    required: "必填 Required",
+                },
+                UniversityDepartmentName:
+                {
+                    required: "必填 Required",
+                },
+                InstituteName:
+                {
+                    required: "必填 Required",
+                },
+                InstituteDepartmentName:
+                {
+                    required: "必填 Required",
+                },
+                DoctoralClassName:
+                {
+                    required: "必填 Required",
+                },
+                DoctoralDepartmentName:
+                {
+                    required: "必填 Required",
+                },
+                HighestEducationStatus:
+                {
+                    required: "必选 Mandatory",
+                }
+            },
+            
+        });
+
+        $("#question2").validate({
+            rules:
+            {
+                Transferred:
+                {
+                    required: true, // 设为必填项
+                },
+                TransferredText:
+                {
+                    required: true, // 设为必填项
+                },
+                Email:
+                {
+                    required: true, // 设为必填项
+                }
+            },
+            messages: {
+                Transferred:
+                {
+                    required: "必选 Mandatory",
+                },
+                TransferredText:
+                {
+                    required: "必填 Required",
+                },
+                Email:
+                {
+                    required: "必填 Required",
+                }
+            },
+        });
+        //是否在G12从康桥毕业
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            method: "post",
+            url: "@(Url.Action("getGraduationStatus", "DDL"))",
+            data: "doaction=sectionList",
+            success: function (result) {
+                var len = result.length;
+                for (i = 0; i < len; i++) {
+                    $("#GraduationStatus").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                }
+            }
+        });
 
         //康桥毕业年份
         $.ajax({
@@ -223,7 +565,7 @@
                     $("#HighestEducationStatus").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
                 }
             }
-        }); 
+        });
 
         //是否曾经转学
         $.ajax({
@@ -238,162 +580,304 @@
                     $("#Transferred").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
                 }
             }
-        }); 
+        });
 
-                //隐藏div UniversityInformation
-
-                $("#CurrentDevelopmentTextID").hide();
-                $("#TransferredTextID").hide();
-                $("#WorkInformation").hide();
-                $("#HighestEducationTextID").hide();
-                $("#UniversityInformation").hide();
-                $("#DoctoralClassInformation").hide();
-                $("#InstituteInformation").hide();
-                //给div添加change事件  目前发展状况
-                $("#CurrentDevelopment").change(function () {
-                    if ($(this).val() == "其他") {
-                        $("#CurrentDevelopmentTextID").show();
-                        $("#WorkInformation").hide(); 
-
-                        $("#WorkUnitName").removeAttr('required');
-                        $("#JobTitle").removeAttr('required');
-                        $("#ContentOverview").removeAttr('required');
-
-                        $('#CurrentDevelopmentText').attr('required', 'true')
+         //是否愿意加入康桥校友会
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                method: "post",
+                url: "@(Url.Action("getWillJoin", "DDL"))",
+                data: "doaction=sectionList",
+                success: function (result) {
+                    var len = result.length;
+                    for (i = 0; i < len; i++) {
+                        $("#WillJoin").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
                     }
-                    else if ($(this).val() == "就业中") {
-                        $("#CurrentDevelopmentTextID").hide(); 
-                        $("#WorkInformation").show();
-
-                        $("#CurrentDevelopmentText").removeAttr('required');
-
-                        $('#WorkUnitName').attr('required', 'true');
-                        $('#JobTitle').attr('required', 'true');
-                        $('#ContentOverview').attr('required', 'true');
-                    }
-                    else {
-                        $("#CurrentDevelopmentTextID").hide();
-                        $("#WorkInformation").hide();
-
-                        $("#WorkUnitName").removeAttr('required');
-                        $("#JobTitle").removeAttr('required');
-                        $("#ContentOverview").removeAttr('required');
-                        $("#CurrentDevelopmentText").removeAttr('required');
-                    }
-                });
-
-                //是否曾经转学
-                $("#Transferred").change(function () {
-                    if ($(this).val() == "是") {
-                        $("#TransferredTextID").show(); 
-                        $('#TransferredText').attr('required', 'true');
-                    }
-                    else {
-                        $("#TransferredText").hide();
-                        $("#TransferredText").removeAttr('required');
-                    }
-                });
-                //最高学历状态 
-                $("#HighestEducationStatus").change(function () {
-                    if ($(this).val() == "其他") {
-                        $("#HighestEducationTextID").show();
-                        $('#HighestEducationText').attr('required', 'true');
-                    }
-                    else {
-                        $("#HighestEducationTextID").hide();
-                        $("#HighestEducationText").removeAttr('required');
-                    }
-                });
-                //最高学历
-                $("#HighestEducation").change(function () {
-                    if ($(this).val() == "大学") {
-                        $("#UniversityInformation").show();
-                        $("#InstituteInformation").hide();
-                        $("#DoctoralClassInformation").hide(); 
-
-                        $('#UniversityName').attr('required', 'true'); 
-                        $('#UniversityDepartmentName').attr('required', 'true');
-
-                        $("#InstituteName").removeAttr('required');
-                        $("#InstituteDepartmentName").removeAttr('required');
-                        $("#DoctoralClassName").removeAttr('required');
-                        $("#DoctoralDepartmentName").removeAttr('required');
-                    }
-                    else if ($(this).val() == "研究所") {
-                        $("#UniversityInformation").show();
-                        $("#InstituteInformation").show();
-                        $("#DoctoralClassInformation").hide();
-
-                        $('#UniversityName').attr('required', 'true');
-                        $('#UniversityDepartmentName').attr('required', 'true');
-                        $('#InstituteName').attr('required', 'true');
-                        $('#InstituteDepartmentName').attr('required', 'true');
-
-                        $("#DoctoralClassName").removeAttr('required');
-                        $("#DoctoralDepartmentName").removeAttr('required');
-                    }
-                    else if ($(this).val() == "博士班") {
-                        $("#UniversityInformation").show();
-                        $("#InstituteInformation").show();
-                        $("#DoctoralClassInformation").show();
-
-                        $('#UniversityName').attr('required', 'true');
-                        $('#UniversityDepartmentName').attr('required', 'true');
-                        $('#InstituteName').attr('required', 'true');
-                        $('#InstituteDepartmentName').attr('required', 'true');
-                        $('#DoctoralClassName').attr('required', 'true');
-                        $('#DoctoralDepartmentName').attr('required', 'true');
-                    }
-                    else {
-                        $("#UniversityInformation").hide();
-                        $("#InstituteInformation").hide();
-                        $("#DoctoralClassInformation").hide();
-
-                        $("#UniversityName").removeAttr('required');
-                        $("#UniversityDepartmentName").removeAttr('required');
-                        $("#InstituteName").removeAttr('required');
-                        $("#InstituteDepartmentName").removeAttr('required');
-                        $("#DoctoralClassName").removeAttr('required');
-                        $("#DoctoralDepartmentName").removeAttr('required');
-                    }
-                })
-                
-                $("#Stu_Name").val(cookieMap.get("cname")); 
-                $("#Stu_Empno").val(cookieMap.get("Account"));
-
-                $('#ff').on('submit', function (e) {
-                    e.preventDefault();
-                    var model = $('#ff').serialize();
-                    console.log(model);
-                    var usergroup = cookieMap.get("GroupName");
-                    if (usergroup == "教职员") {
-                        alert("校友填写，教职员无需填写。")
-                    } else if (usergroup == "校友") {
-                        $.ajax({
-                            type: 'post',
-                            url: 'QuestionSave',
-                            data: model,
-                            beforeSend: function () {
-                                // 禁用按钮防止重复提交   
-                                $("#submit").attr({ disabled: "disabled" });
-                            },
-                            success: function (result) {
-                                if (result.IsSuccess) {
-                                    console.log("OKOKOK");
-                                    alert('提交成功 Submitted successfully！');
-                                    window.location.href = "@Url.Action("Index", "Home")";
-                                }
-                                else {
-                                    alert(result.Msg);
-                                }
-                            }
-                        });
-                    } else if (usergroup == null || usergroup == '') {
-                        alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
-                    }
-                    
-                })
+                }
             });
+
+        //隐藏div UniversityInformation
+
+        $("#CurrentDevelopmentTextID").hide();
+        $("#TransferredTextID").hide();
+        $("#WorkInformation").hide();
+        $("#HighestEducationTextID").hide();
+        $("#UniversityInformation").hide();
+        $("#DoctoralClassInformation").hide();
+        $("#InstituteInformation").hide();
+        $("#GraduationYearTextID").hide();
+
+
+        //给div添加change事件  目前发展状况
+        //是否曾经转学
+        $("#Transferred").change(function () {
+            if ($(this).val() == "是") {
+                $("#TransferredTextID").show();
+                $('#TransferredText').attr('required', 'true');
+            }
+            else {
+                $("#TransferredTextID").hide();
+                $("#TransferredText").removeAttr('required');
+                $('#TransferredText').val('');
+            }
+        });
+
+
+        $("#CurrentDevelopment").change(function () {
+            if ($(this).val() == "其他") {
+                $("#CurrentDevelopmentTextID").show();
+                $("#WorkInformation").hide();
+
+                $("#WorkUnitName").removeAttr('required');
+                $("#JobTitle").removeAttr('required');
+                $("#ContentOverview").removeAttr('required');
+
+                $('#CurrentDevelopmentText').attr('required', 'true')
+
+                //移除填写的工作内容信息
+                $('#WorkUnitName').val('');
+                $('#JobTitle').val('');
+                $('#ContentOverview').val('');
+            }
+            else if ($(this).val() == "就业中") {
+                $("#CurrentDevelopmentTextID").hide();
+                $("#WorkInformation").show();
+
+                $("#CurrentDevelopmentText").removeAttr('required');
+
+                $('#WorkUnitName').attr('required', 'true');
+                $('#JobTitle').attr('required', 'true');
+                $('#ContentOverview').attr('required', 'true');
+
+                //移除填写其他信息
+                $('#CurrentDevelopmentText').val('');
+            }
+            //升学中
+            else {
+                $("#CurrentDevelopmentTextID").hide();
+                $("#WorkInformation").hide();
+
+                $("#WorkUnitName").removeAttr('required');
+                $("#JobTitle").removeAttr('required');
+                $("#ContentOverview").removeAttr('required');
+                $("#CurrentDevelopmentText").removeAttr('required');
+
+                //移除填写的工作内容信息与其他信息
+                $('#WorkUnitName').val('');
+                $('#JobTitle').val('');
+                $('#ContentOverview').val('');
+                $('#CurrentDevelopmentText').val('');
+            }
+        });
+
+        //康桥毕业年份
+        $("#GraduationYear").change(function () {
+            if ($(this).val() == "其他") {
+                $("#GraduationYearTextID").show();
+                $('#GraduationYearText').attr('required', 'true');
+            }
+            else {
+                $("#GraduationYearTextID").hide();
+                $("#GraduationYearText").removeAttr('required');
+
+                $('#GraduationYearText').val('');
+            }
+        });
+        //最高学历状态
+        $("#HighestEducationStatus").change(function () {
+            if ($(this).val() == "其他") {
+                $("#HighestEducationTextID").show();
+                $('#HighestEducationText').attr('required', 'true');
+            }
+            else {
+                $("#HighestEducationTextID").hide();
+                $("#HighestEducationText").removeAttr('required');
+
+                $('#HighestEducationText').val('');
+            }
+        });
+
+        //最高学历
+        $("#HighestEducation").change(function () {
+            if ($(this).val() == "大学") {
+                $("#UniversityInformation").show();
+                $("#InstituteInformation").hide();
+                $("#DoctoralClassInformation").hide();
+
+                $('#UniversityName').attr('required', 'true');
+                $('#UniversityDepartmentName').attr('required', 'true');
+
+                $("#InstituteName").removeAttr('required');
+                $("#InstituteDepartmentName").removeAttr('required');
+                $("#DoctoralClassName").removeAttr('required');
+                $("#DoctoralDepartmentName").removeAttr('required');
+
+                //移除填写的研究生与博士班信息
+                $("#InstituteName").val('');
+                $("#InstituteDepartmentName").val('');
+                $("#DoctoralClassName").val('');
+                $("#DoctoralDepartmentName").val('');
+            }
+            else if ($(this).val() == "研究所") {
+                $("#UniversityInformation").show();
+                $("#InstituteInformation").show();
+                $("#DoctoralClassInformation").hide();
+
+                $('#UniversityName').attr('required', 'true');
+                $('#UniversityDepartmentName').attr('required', 'true');
+                $('#InstituteName').attr('required', 'true');
+                $('#InstituteDepartmentName').attr('required', 'true');
+
+                $("#DoctoralClassName").removeAttr('required');
+                $("#DoctoralDepartmentName").removeAttr('required');
+
+                 //移除填写的博士班信息
+                $("#DoctoralClassName").val('');
+                $("#DoctoralDepartmentName").val('');
+            }
+            else if ($(this).val() == "博士班") {
+                $("#UniversityInformation").show();
+                $("#InstituteInformation").show();
+                $("#DoctoralClassInformation").show();
+
+                $('#UniversityName').attr('required', 'true');
+                $('#UniversityDepartmentName').attr('required', 'true');
+                $('#InstituteName').attr('required', 'true');
+                $('#InstituteDepartmentName').attr('required', 'true');
+                $('#DoctoralClassName').attr('required', 'true');
+                $('#DoctoralDepartmentName').attr('required', 'true');
+            }
+            else {
+                $("#UniversityInformation").hide();
+                $("#InstituteInformation").hide();
+                $("#DoctoralClassInformation").hide();
+
+                $("#UniversityName").removeAttr('required');
+                $("#UniversityDepartmentName").removeAttr('required');
+                $("#InstituteName").removeAttr('required');
+                $("#InstituteDepartmentName").removeAttr('required');
+                $("#DoctoralClassName").removeAttr('required');
+                $("#DoctoralDepartmentName").removeAttr('required');
+
+                 //移除填写的信息
+                $("#UniversityName").val('');
+                $("#UniversityDepartmentName").val('');
+                $("#InstituteName").val('');
+                $("#InstituteDepartmentName").val('');
+                $("#DoctoralClassName").val('');
+                $("#DoctoralDepartmentName").val('');
+            }
+        });
+        
+        $("#Stu_Name").val(cookieMap.get("cname"));
+        $("#Stu_Empno").val(cookieMap.get("Account"));
+
+        $("#btn_save").click(function () {
+
+            let flag = $("#question2").valid();
+            if (!flag) {
+                return false;
+            }
+
+            formData.append("Stu_Name", $("#Stu_Name").val());
+            formData.append("Stu_Empno", $("#Stu_Empno").val());
+            formData.append("Stu_Eame", $("#Stu_Eame").val());
+            formData.append("GraduationStatus", $("#GraduationStatus").val());
+            formData.append("GraduationYear", $("#GraduationYear").val());
+            formData.append("GraduationYearText", $("#GraduationYearText").val());
+            formData.append("CurrentDevelopment", $("#CurrentDevelopment").val());
+            formData.append("CurrentDevelopmentText", $("#CurrentDevelopmentText").val());
+            formData.append("WorkUnitName", $("#WorkUnitName").val());
+            formData.append("JobTitle", $("#JobTitle").val());
+            formData.append("ContentOverview", $("#ContentOverview").val());
+            formData.append("HighestEducation", $("#HighestEducation").val());
+            formData.append("HighestEducationStatus", $("#HighestEducationStatus").val());
+            formData.append("HighestEducationText", $("#HighestEducationText").val());
+            formData.append("UniversityName", $("#UniversityName").val());
+            formData.append("UniversityDepartmentName", $("#UniversityDepartmentName").val());
+            formData.append("InstituteName", $("#InstituteName").val());
+            formData.append("InstituteDepartmentName", $("#InstituteDepartmentName").val());
+            formData.append("DoctoralClassName", $("#DoctoralClassName").val());
+            formData.append("DoctoralDepartmentName", $("#DoctoralDepartmentName").val());
+            formData.append("Transferred", $("#Transferred").val());
+            formData.append("TransferredText", $("#TransferredText").val());
+            formData.append("Email", $("#Email").val());
+            formData.append("WeChat", $("#WeChat").val());
+            formData.append("NewPhone", $("#NewPhone").val());
+            formData.append("WillJoin", $("#WillJoin").val());
+            formData.append("OtherSupplements", $("#OtherSupplements").val());
+           
+            console.log(formData);
+            var usergroup = cookieMap.get("GroupName");
+            if (usergroup == "教职员") {
+                alert("校友填写，教职员无需填写。")
+            } else if (usergroup == "校友") {
+                 $.ajax({
+                     type: 'post',
+                     url: 'QuestionSave',
+                     data: formData,
+                     async: false,
+                     dataType: "json",
+                     // 告诉jQuery不要去处理发送的数据
+                     processData: false,
+                     // 告诉jQuery不要去设置Content-Type请求头
+                     contentType: false,
+                     beforeSend: function () {
+                         // 禁用按钮防止重复提交
+                         $("#submit").attr({ disabled: "disabled" });
+                     },
+                     success: function (result) {
+                         if (result.IsSuccess) {
+                             console.log("OKOKOK");
+                             alert('提交成功 Submitted successfully！');
+                             window.location.href = "@Url.Action("Index", "Home")";
+                         }
+                         else {
+                             alert(result.Msg);
+                         }
+                     }
+                 });
+            } else if (usergroup == null || usergroup == '') {
+                alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
+            }
+        });
+
+        @*$('#ff').on('submit', function (e) {
+            alert("提交");
+             e.preventDefault();
+             var model = $('#ff').serialize();
+             console.log(model);
+             var usergroup = cookieMap.get("GroupName");
+             if (usergroup == "教职员") {
+                 alert("校友填写，教职员无需填写。")
+             } else if (usergroup == "校友") {
+                 $.ajax({
+                     type: 'post',
+                     url: 'QuestionSave',
+                     data: model,
+                     beforeSend: function () {
+                         // 禁用按钮防止重复提交
+                         $("#submit").attr({ disabled: "disabled" });
+                     },
+                     success: function (result) {
+                         if (result.IsSuccess) {
+                             console.log("OKOKOK");
+                             alert('提交成功 Submitted successfully！');
+                             window.location.href = "@Url.Action("Index", "Home")";
+                         }
+                         else {
+                             alert(result.Msg);
+                         }
+                     }
+                 });
+             } else if (usergroup == null || usergroup == '') {
+                 alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
+             }
+         })*@
+    });
+
+
 
 </script>
 
