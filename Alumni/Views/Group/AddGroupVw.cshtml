@@ -146,6 +146,8 @@
         });
 
         $('#AccountName').on('keyup', function (e) {
+            $("#FullName").val('');
+            $("#DeptName").val('');
             if (e.keyCode == 13) {
                 var AccountName = document.getElementById("AccountName").value;
                 $.ajax({

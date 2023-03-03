@@ -70,7 +70,7 @@ namespace Alumni.Controllers
                 {
                     string checkSql = @"select * from [db_forminf].[dbo].[UserGroup]  where groupid=@groupid and account = @accountname ";
                     var num = db.Query<UserGroupModel>(checkSql, model).ToList().Count();
-                    if(num != 0)
+                    if (num != 0)
                     {
                         return Json(new FlagTips { IsSuccess = false, Msg = "请勿重复新增" });
                     }
@@ -118,7 +118,7 @@ namespace Alumni.Controllers
                         trans.Add(sql, deleteModel);
                         db.DoExtremeSpeedTransaction(trans);
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -156,7 +156,8 @@ LEFT JOIN [Common].[dbo].[AFS_Dept] B
 ON a.deptid2 =b.DeptID_eip  
 LEFT JOIN [db_forminf].[dbo].[UserGroup] c
 ON a.AccountID = c.account
-where sourcetype='A' and status = 'Y' and  a.AccountID = @AccountName or a.fullname like '%" + AccountName + "%' ";
+where sourcetype='A' and status = 'Y'
+and ( a.Empno = '" + AccountName + "' or a.AccountID = '" + AccountName + "' or a.fullname like '%" + AccountName + "%')";
                     user = db.Query<UserModel>(userSql, new { AccountName }).FirstOrDefault();
 
                 }
