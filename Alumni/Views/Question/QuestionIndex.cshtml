@@ -475,6 +475,10 @@
                 Email:
                 {
                     required: true, // 设为必填项
+                },
+                NewPhone:
+                {
+                    rangelength: [11, 11],
                 }
             },
             messages: {
@@ -489,6 +493,10 @@
                 Email:
                 {
                     required: "必填 Required",
+                },
+                NewPhone:
+                {
+                    rangelength: "手机号码应为11位 The mobile phone number should be 11 digits",
                 }
             },
         });
@@ -808,7 +816,6 @@
             formData.append("WillJoin", $("#WillJoin").val());
             formData.append("OtherSupplements", $("#OtherSupplements").val());
            
-            console.log(formData);
             var usergroup = cookieMap.get("GroupName");
             if (usergroup == "教职员") {
                 alert("校友填写，教职员无需填写。")
