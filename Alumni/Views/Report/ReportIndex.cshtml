@@ -53,14 +53,20 @@
                     <p class="kuai">
                         <span class="title_bold">5.申请学年/学期 Apply School Year/Semester&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
-                        <select ID="txt_yyyy" name="txt_yyyy" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
+                        <div style="display:inline-block;">
+                            <select ID="txt_yyyy" name="txt_yyyy" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" style="width:200px" required="required">
                             <option value="">---请选择申请学年---</option>
                             <option th:each="txt_yyyy:${list}" th:value="${txt_yyyy.value}" th:text="${txt_yyyy.text}" hidden></option>
                         </select>
-                        <select ID="txt_mm" name="txt_mm" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" required="required">
-                            <option value="">---请选择申请学年---</option>
-                            <option th:each="txt_mm:${list}" th:value="${txt_mm.value}" th:text="${txt_mm.text}" hidden></option>
-                        </select>
+                        </div>
+                        <div style="display:inline-block;">
+                            <select ID="txt_mm" name="txt_mm" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" style="width:200px" required="required">
+                                <option value="">---请选择申请学年---</option>
+                                <option th:each="txt_mm:${list}" th:value="${txt_mm.value}" th:text="${txt_mm.text}" hidden></option>
+                            </select>
+                        </div>
+                        
+                        
                     </p>
                     <br />
                 </div>

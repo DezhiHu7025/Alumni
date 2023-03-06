@@ -104,15 +104,19 @@
                     <p class="kuai">
                         <span class="title_bold">7.最高学历状态  Highest education status&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <select ID="HighestEducation" name="HighestEducation" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
+                        <div style="display:inline-block;">
+                            <select ID="HighestEducation" name="HighestEducation" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" style="width:200px">
                             <option value="">---请选择---</option>
                             <option th:each="HighestEducation:${list}" th:value="${HighestEducation.value}" th:text="${HighestEducation.text}" hidden></option>
                         </select>
-                        <select ID="HighestEducationStatus" name="HighestEducationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list">
-                            <option value="">---请选择---</option>
-                            <option th:each="HighestEducationStatus:${list}" th:value="${HighestEducationStatus.value}" th:text="${HighestEducationStatus.text}" hidden></option>
-                        </select>
-                        <div id="HighestEducationTextID">
+                        </div>
+                        <div style="display:inline-block;">
+                            <select ID="HighestEducationStatus" name="HighestEducationStatus" runat="server" Font-Size="14px" ForeColor="#666666" class="form-control select-list" style="width:100px">
+                                <option value="">请选择</option>
+                                <option th:each="HighestEducationStatus:${list}" th:value="${HighestEducationStatus.value}" th:text="${HighestEducationStatus.text}" hidden></option>
+                            </select>
+                        </div>
+                        <div id="HighestEducationTextID" style="display:inline-block;">
                             <input ID="HighestEducationText" name="HighestEducationText" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
                         </div>
                     </p>
