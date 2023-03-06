@@ -16,22 +16,30 @@
     <br>
     <br>
     <br>
-    <div class="form-floating mb-3">
-        <span>账号（Account）:</span>
-        <input type="email" class="form-control" id="Account" placeholder="Account">
-    </div>
-    <div class="form-floating mb-4">
-        <span>密码 (Password):</span>
-        <input type="password" class="form-control" id="Password" placeholder="Password">
-    </div>
-    @*<button type="button" class="btn btn-primary" id="btn_save">确定</button>*@
-    <button type="button" class="button" id="btn_login">登录 Login</button>
-    <button type="button" class="button" id="btn_find">忘记账号 Forgot account</button>
-    <br/><br /><br />
-    <p>
-        提示:账号为校友就读时的学号，密码为生日。（8位数字）
+    <div style="margin-left:150px">
+        <div class="form-floating mb-3">
+            <span>账号（Account）:</span>
+            <input type="email" class="form-control" id="Account" placeholder="Account">
+        </div>
+        <div class="form-floating mb-4">
+            <span>密码 (Password):</span>
+            <input type="password" class="form-control" id="Password" placeholder="Password">
+        </div>
         <br />
-        Prompt: The account number is the student number of the alumni when they study, and the password is the birthday. (8 digits)
+        <button type="button" class="button" id="btn_login">登录 Login</button>
+        <button type="button" class="button" id="btn_find">忘记账号 Forgot account</button>
+        <br /><br /><br />
+    </div>
+    <p>
+        提示:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        校友登录：账号为校友就读时的学号，密码为生日。（8位数字）
+        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        教职员登录：开机账号密码。
+        <br />
+        Prompt: <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Alumni login:The account number is the student number of the alumni when they study, and the password is the birthday. (8 digits)
+        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Staff login:Power-on account password.
     </p>
 </div>
 <script type="text/javascript">
