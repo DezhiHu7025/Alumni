@@ -123,6 +123,11 @@ namespace Alumni.Models.Adminssion
         /// </summary>
         public string SignStatus { get; set; }
 
+        /// <summary>
+        /// 邮件发送状态
+        /// </summary>
+        public string MailStatus { get; set; }
+
     }
 
 }

@@ -853,39 +853,7 @@
                 alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
             }
         });
-
-        @*$('#ff').on('submit', function (e) {
-            alert("提交");
-             e.preventDefault();
-             var model = $('#ff').serialize();
-             console.log(model);
-             var usergroup = cookieMap.get("GroupName");
-             if (usergroup == "教职员") {
-                 alert("校友填写，教职员无需填写。")
-             } else if (usergroup == "校友") {
-                 $.ajax({
-                     type: 'post',
-                     url: 'QuestionSave',
-                     data: model,
-                     beforeSend: function () {
-                         // 禁用按钮防止重复提交
-                         $("#submit").attr({ disabled: "disabled" });
-                     },
-                     success: function (result) {
-                         if (result.IsSuccess) {
-                             console.log("OKOKOK");
-                             alert('提交成功 Submitted successfully！');
-                             window.location.href = "@Url.Action("Index", "Home")";
-                         }
-                         else {
-                             alert(result.Msg);
-                         }
-                     }
-                 });
-             } else if (usergroup == null || usergroup == '') {
-                 alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
-             }
-         })*@
+        
     });
 
 

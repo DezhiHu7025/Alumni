@@ -26,5 +26,7 @@ namespace Alumni.Models.Bill
         /// 权限分组
         /// </summary>
         public string GroupName { get; set; }
+
+        public string Account { get; set; }
     }
 }

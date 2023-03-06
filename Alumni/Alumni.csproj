@@ -445,6 +445,8 @@
     <Content Include="Views\Mail\MailIndex.cshtml" />
     <Content Include="Views\Mail\UpdateMailVw.cshtml" />
     <Content Include="Views\Mail\AddMailVw.cshtml" />
+    <Content Include="Views\Bill\BillQueryVw.cshtml" />
+    <Content Include="Views\Bill\BillDetailVw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

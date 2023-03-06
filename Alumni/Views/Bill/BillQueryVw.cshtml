@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "BillQueryVw";
+}
+<head>
+    <script src="~/static/js/bootstrap.min.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+    <script src="~/static/js/bootstrap-table.js" data-cf-settings="4bebc94b2db97a1f9680a39f-|49" defer=""></script>
+</head>
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="~/img/logo_XY2.png" />
+    </div>
+    <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Application query | 康桥校友入校申请查询</h3>
+    <br />
+    <h2 class="title" style="display: block;font-size: 0.97em;font-weight: bold;line-height: 0em;color:red">
+    仅供教职员查看自己填写的入校申请
+    </h2>
+    <div>
+        <div class="col-sm-12">
+            <hr>
+            <div style="display:inline-block;">
+                <span class="item-title">学生手机号/学生学号</span>
+                <input ID="Stu_Empno" name="Stu_Empno" runat="server"/>
+
+            </div>
+            <div style="display:inline-block;">
+                <span class="item-title">审核状态</span>
+                <select name="IS_PASS" id="IS_PASS">
+                    <option value="">------------请选择------------</option>
+                    <option th:each="IS_PASS:${list}" th:value="${IS_PASS.value}" th:text="${IS_PASS.text}" hidden></option>
+                </select>
+            </div>
+            <button id="btn_search" type="button" class="btn btn-primary ms-2">搜索</button>
+            <button class="btn btn-danger ms-2" id="btn_sign"><span class="glyphicon"></span> 查看</button>
+            <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>
+        </div>
+        <br/><br />
+        <table id="table"></table>
+        <script type="text/javascript">
+
+            $(function () {
+
+                 $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    method: "post",
+                    url: "@(Url.Action("getAuditState", "DDL"))",
+                    data: "doaction=sectionList",
+                    success: function (result) {
+                        var len = result.length;
+                        for (i = 0; i < len; i++) {
+                            $("#IS_PASS").append(`<option value="${result[i].VALUE}">${result[i].TEXT}</option>`);
+                        }
+                    }
+                });
+
+                var $table = $("#table");
+                $('#table').bootstrapTable('destroy');
+                $('#table').bootstrapTable({
+                    ajax: function (request) {
+                        var model = {
+                            "IS_PASS": $("#IS_PASS").val(),
+                            "Stu_Empno": $("#Stu_Empno").val(),
+                            "Account": cookieMap.get("Account"),
+                        }
+                        request.data = model;
+                        $.ajax({
+                            type: "post",
+                            url:"@(Url.Action("queryBillApply", "Bill"))",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(request.data),
+                            dataType: "json",
+                            jsonp: 'callback',
+                            success: function (msg) {
+                                request.success({
+                                    rows: msg
+                                });
+                                $('#table').bootstrapTable('load', msg);
+                            },
+                            error: function () {
+                                alert("错误");
+                            }
+                        });
+                    },
+                    toolbar: '#toolbar',
+                    singleSelect: true,
+                    clickToSelect: true,
+                    sortName: "AddTime",
+                    sortOrder: "desc",
+                    cache: false,
+                    striped: true,
+                    pageSize: 10,
+                    pageNumber: 1,
+                    pageList: "[15, 25, 50, 100, All]",
+                    showToggle: false,
+                    showRefresh: false,
+                    showColumns: false,
+                    search: false,
+                    pagination: true,
+                    showExport: true,
+                    commonSearch: false,
+                    columns: [
+                    {
+                        field: "id",
+                        checkbox: true,
+                    },{
+                        field: "RmchSeqNo",
+                        visible: false,
+                    },
+                    {
+                        field: 'Form_Name',
+                        title: '单据名称',
+                        switchable: true
+                    }, {
+                        field: 'IS_PASS',
+                        title: '审核状态',
+                        switchable: true
+                    }, {
+                            field: 'teacnerName',
+                            title: '教职员姓名',
+                        switchable: true
+                    }, {
+                            field: 'DeptName',
+                            title: '教职员部门',
+                        switchable: true,
+                        sortable: true
+                    }, {
+                            field: 'alumnusEmp',
+                            title: '校友学号',
+                        switchable: true
+                    }, {
+                            field: 'alumnusName',
+                            title: '校友姓名',
+                        switchable: true
+                    }, {
+                            field: 'LeaveClass',
+                            title: '校友离校班级',
+                        switchable: true
+                        }, {
+                            field: 'intoDate2',
+                            title: '校友入校日期',
+                            switchable: true
+                        }, {
+                            field: 'alumnusPhone',
+                            title: '校友电话',
+                            switchable: true
+                        }, {
+                            field: 'teacnerName2',
+                            title: '其他拜访师长姓名',
+                            switchable: true
+                        }, {
+                            field: 'remarks',
+                            title: '其他需求或备注',
+                            switchable: true
+                        }, {
+                            field: 'AddTime2',
+                            title: '提交时间',
+                            switchable: true
+                        }],
+                });
+
+        var $sign = $("#btn_sign");
+        $(function () {
+        $("button").popover()
+            $sign.click(function () {
+                var info = $table.bootstrapTable('getSelections')[0];
+                if (info == null) {
+                    alert("请选择数据");
+                } else {
+
+                    var RmchSeqNo = info.RmchSeqNo;
+                    var IS_PASS = info.IS_PASS;
+                    if (IS_PASS != "审核中") {
+                        alert("此单据已审核，请勿重复审核")
+                    }
+                    else
+                    {
+                        $.ajax({
+                        url: "@(Url.Action("GetAdminssion", "Adminssion"))",
+                        type: "get",
+                        dataType: "json",
+                        data: { RmchSeqNo: RmchSeqNo },
+                            success: function (res) {
+                            //取到的数据存储到localStorage
+                            localStorage.clear();
+                            localStorage.setItem("RmchSeqNo", res.RmchSeqNo);
+                            localStorage.setItem("Form_Name", res.Form_Name);
+                            localStorage.setItem("teacnerName", res.teacnerName);
+                            localStorage.setItem("DeptName", res.DeptName);
+                            localStorage.setItem("alumnusEmp", res.alumnusEmp);
+                            localStorage.setItem("alumnusName", res.alumnusName);
+                            localStorage.setItem("LeaveClass", res.LeaveClass);
+                            localStorage.setItem("intoDate2", res.intoDate2);
+                            localStorage.setItem("alumnusPhone", res.alumnusPhone);
+                            localStorage.setItem("teacnerName2", res.teacnerName2);
+                            localStorage.setItem("remarks", res.remarks);
+                            localStorage.setItem("AddTime2", res.AddTime2);
+                            localStorage.setItem("IS_PASS", res.IS_PASS);
+                            //原窗口打开新页面
+                            window.location.href = "@(Url.Action("BillDetailVw", "Bill"))";
+                        },
+                        error: function (res) {
+                           alert("error")
+                        }
+                    });
+                    }
+
+                }
+            });
+        });
+
+                $('#btn_search').click(function () {
+                    $('#table').bootstrapTable('refresh', { pageNumber: 1 });
+                });
+
+                $('#btn_export').click(function () {
+                    var IS_PASS = $("#IS_PASS").val();
+                    var Stu_Empno = $("#Stu_Empno").val();
+                    var url = "@(Url.Action("AdminissionExport", "Adminssion"))" + "?IS_PASS=" + IS_PASS + "&Stu_Empno=" + Stu_Empno;
+                    window.location = url;
+                });
+
+            });
+        </script>
+    </div>
+</body>
+

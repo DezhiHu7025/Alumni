@@ -1,4 +1,5 @@
 ﻿using Alumni.Db;
+using Alumni.Models.Adminssion;
 using Alumni.Models.Bill;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Alumni.Controllers
 
         public ActionResult query(queryBillModel model)
         {
-            return Json(queryBill(model).ToArray());
+            return Json(queryBill(model).ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         public List<BillModel> queryBill(queryBillModel model)
@@ -27,41 +28,7 @@ namespace Alumni.Controllers
             var list = new List<BillModel>();
             using (SchoolDb db = new SchoolDb())
             {
-                string querySql = null;
-                if (model.GroupName =="教职员")
-                {
-                    querySql = string.Format(@" SELECT a.RmchSeqNo SeqNo,
-       a.form_name,
-       a.teacherAD stunum,
-       a.is_pass,
-       ims.TEXT IS_PASS,
-       '入校时间' TitleName,
-       a.intoDate SendAdress,
-       b.form_id AS Bproduct_id
-FROM [db_forminf].[dbo].[EntryApply_indent] a
-    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
-        ON a.form_name = b.form_name
-    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
-        ON ims.CODE = 'IS_PASS'
-           AND a.is_pass = ims.VALUE
-WHERE b.shopForm_id = 'S0000001'");
-
-                    if (!string.IsNullOrEmpty(model.Stu_Empno))
-                    {
-                        querySql += " and a.teacherAD = @Stu_Empno ";
-                    }
-                    if (!string.IsNullOrEmpty(model.Form_Name))
-                    {
-                        querySql += " and b.form_id = @Form_Name ";
-                    }
-                    if (!string.IsNullOrEmpty(model.IS_PASS))
-                    {
-                        querySql += " and a.is_pass = @IS_PASS ";
-                    }
-                }
-                else
-                {
-                     querySql = string.Format(@"SELECT a.mchSeqNo SeqNo,
+                string querySql = string.Format(@"SELECT a.mchSeqNo SeqNo,
                                                          a.form_name,
                                                          a.stunum,
                                                          a.is_pass,
@@ -103,11 +70,58 @@ WHERE b.shopForm_id = 'S0000001'");
                     {
                         querySql += " and a.is_pass = @IS_PASS ";
                     }
-                }
-                
                 list = db.Query<BillModel>(querySql, model).ToList();
             }
             return list;
+        }
+
+        [App_Start.AuthFilter]
+        public ActionResult BillQueryVw()
+        {
+            return View();
+        }
+
+        public ActionResult queryBillApply(queryBillModel model)
+        {
+            var list = new List<AdminssionModel>();
+            using (SchoolDb db = new SchoolDb())
+            {
+                string sql = string.Format(@"SELECT a.*,
+       CONVERT(VARCHAR(100), a.addtime, 120) AddTime,
+	   a.intoDate intoDate2,
+	   a.addtime addtime2,
+	   ims.text is_pass,
+       b.form_id AS Bproduct_id
+FROM [db_forminf].[dbo].[EntryApply_indent] a
+    LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
+        ON a.form_name = b.form_name
+    LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
+        ON ims.code = 'AuditState'
+           AND a.is_pass = ims.value
+WHERE b.shopForm_id = 'S0000001' ");
+
+                if (!string.IsNullOrEmpty(model.Stu_Empno))
+                {
+                    sql += " and (a.alumnusEmp = @Stu_Empno or a.alumnusPhone = @Stu_Empno )";
+                }
+                if (!string.IsNullOrEmpty(model.IS_PASS))
+                {
+                    sql += " and a.is_pass = @IS_PASS ";
+                }
+                if (!string.IsNullOrEmpty(model.Account))
+                {
+                    sql += " and a.teacherAD = @Account ";
+                }
+                sql += " ORDER BY a.addtime DESC ";
+                list = db.Query<AdminssionModel>(sql, model).ToList();
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        [App_Start.AuthFilter]
+        public ActionResult BillDetailVw()
+        {
+            return View();
         }
     }
 }

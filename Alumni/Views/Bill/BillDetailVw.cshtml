@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "BillDetailVw";
+}
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <link href="~/css/new2.css" rel="stylesheet" />
+    <link href="~/static/css/DateComponent.css" rel="stylesheet" />
+
+    <script src="~/js/jquery1.min.js"></script>
+    <script src="~/static/js/DateComponent.js"></script>
+
+    <title>KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</title>
+</head>
+
+<body>
+    <div id="banner" style="margin:0px;padding:0px;text-align:center">
+        <img src="~/img/logo_XY2.png" />
+    </div>
+    <form id="ff">
+        <div>
+            <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">
+                KCISEC Alumni Application query | 康桥校友入校申请查询
+            </h3>
+            <br />
+
+            <div class="content1">
+                <div class="leftDiv">
+                    <p class="kuai">
+                        <span class="title_bold">1.填单教职员 Teacher Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <input ID="teacnerName" name="teacnerName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                        <input ID="teacherAD" name="teacherAD" type="hidden" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">2.填单教职员部门 Teacher Department&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please check&nbsp;&nbsp;|&nbsp;请查看</span><br />
+                        <input ID="DeptName" name="DeptName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">校友学号 KCISEC Student Number &nbsp;&nbsp;<span class="red">*</span></span>
+                        <input ID="alumnusEmp" name="alumnusEmp" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">4.校友中文名 SchoolFellow Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+                        <br /><span class="hui">Please check&nbsp;&nbsp;|&nbsp;请查看</span><br />
+                        <input ID="alumnusName" name="alumnusName" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">5.校友离校班级 SchoolFellow Class &nbsp;&nbsp;<span class="red">*</span></span>
+                        <input ID="LeaveClass" name="LeaveClass" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                </div>
+                <div class="rightDiv">
+                    <p class="kuai">
+                        <span class="title_bold">6.校友入校日期 SchoolFellow Get Into Date&nbsp;&nbsp;<span class="red">*</span></span>
+                        <input ID="intoDate" name="intoDate" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">7.校友电话 SchoolFellow Telephone Number&nbsp;&nbsp;<span class="red">*</span></span>
+                        <input ID="alumnusPhone" name="alumnusPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">8..其他拜访师长姓名 Other Teacher Name &nbsp;&nbsp;</span>
+                        <input ID="teacnerName2" name="teacnerName2" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" readonly>
+                    </p>
+                    <br />
+                    <p class="kuai">
+                        <span class="title_bold">9.其他需求或备注 Other Demand Or Remarks &nbsp;&nbsp;</span>
+                        <input ID="remarks" name="remarks" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" readonly>
+                    </p>
+                    <br />
+                </div>
+               
+                <div style="margin-top:350px">
+                    <hr />
+                    <p class="kuai">
+                        <span class="title_bold" style="color:red;font-size: 1.17em;font-weight: bold;line-height: 0em">10.提交时间 &nbsp;&nbsp;</span>
+                        <span ID="AddTime2" name="AddTime2" style="color:black;font-size: 1.17em;font-weight: bold;line-height: 0em" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" readonly></span>
+                        <span class="title_bold" style="color:red;font-size: 1.17em;font-weight: bold;line-height: 0em">11.审核状态 &nbsp;&nbsp;</span>
+                        <span ID="IS_PASS" name="IS_PASS" style="color:black;font-size: 1.17em;font-weight: bold;line-height: 0em" runat="server" BorderWidth="0px" Font-Size="14px" readonly></span>
+                    </p>
+                </div>
+                <div id="resenddiv" style="display:none">
+                    <span class="title_bold">提交入校申请超过十五天未审核，您可以点击右侧的稽催按钮，再次发送提醒审核邮件给相关老师。&nbsp;&nbsp;</span>
+                    <button id="btn_resend" type="button" class="btn btn-danger ms-2">稽催</button>
+                </div>
+            </div>
+
+            <div class="butom" style="text-align:center;">
+                <a href="../Bill/BillQueryVw" class="button">返回 Back</a>
+            </div>
+
+        </div>
+    </form>
+</body>
+<script type="text/javascript">
+    $(function () {
+        
+        $("#RmchSeqNo").val(localStorage.getItem("RmchSeqNo"));
+        $("#Form_Name").val(localStorage.getItem("Form_Name"));
+        $("#teacnerName").val(localStorage.getItem("teacnerName"));
+        $("#DeptName").val(localStorage.getItem("DeptName"));
+        $("#alumnusEmp").val(localStorage.getItem("alumnusEmp"));
+        $("#alumnusName").val(localStorage.getItem("alumnusName"));
+        $("#LeaveClass").val(localStorage.getItem("LeaveClass"));
+        $("#intoDate").val(localStorage.getItem("intoDate2"));
+        $("#alumnusPhone").val(localStorage.getItem("alumnusPhone"));
+        $("#teacnerName2").val(localStorage.getItem("teacnerName2"));
+        $("#remarks").val(localStorage.getItem("remarks"));
+        $("#AddTime2").val(localStorage.getItem("AddTime2"));
+        $("#IS_PASS").val(localStorage.getItem("IS_PASS"));
+        $("#AddTime2").html(localStorage.getItem("AddTime2"));
+        $("#IS_PASS").html(localStorage.getItem("IS_PASS"));
+        localStorage.clear();
+
+        var cookies = document.cookie;
+        const cookieMap = new Map();
+        document.cookie.split("; ").forEach((cookie) => {
+            const [key, value] = cookie.split("=");
+            cookieMap.set(key, value);
+        });
+
+        $("#teacnerName").val(cookieMap.get("fullname"));
+        $("#DeptName").val(cookieMap.get("DeptName"));
+        $("#teacherAD").val(cookieMap.get("Account"));
+
+        var date = new Date();
+        var month = date.getMonth() + 1
+        //var monthForm = month < 10 ? '0' + month : month
+        // $('#date-label').html(date.getFullYear() + '/' + month + '/' + date.getDate())
+        $("#intoDate").click(function () {
+            //var date = new Date($('#date-label').html());
+            new DateComponent({
+                //defaultDate: date,
+                callback: function (year, month, date) {
+                    var monthCus = month + 1
+                    //var monthForm = monthCus < 10 ? '0' + monthCus : monthCus
+                    // $('#date-label').html(year + '/' + monthCus + '/' + date);
+                    $("#intoDate").val(year + '/' + monthCus + '/' + date);
+                }
+            });
+        });
+
+        //提交入校申请时间超过15天  且申请入校时间小于今天显示稽催按钮
+        $("resenddiv").hide();
+        var commitdate2 = $("#AddTime2").val();
+        var comday = commitdate2.substr(0, commitdate2.lastIndexOf(" ") + 1, 8);
+        var today2 = new Date().toLocaleDateString();
+        var dateTime = new Date(today2);
+        dateTime = dateTime.setDate(dateTime.getDate()-14);
+        today = new Date(dateTime);
+        var commitdate = new Date(Date.parse(today2));       
+       // alert(today);
+        //alert(commitdate);
+
+        var nowday = new Date(new Date().toLocaleDateString());
+       // alert(nowday);
+        var intoDay = $("#intoDate").val();
+        intoDay = new Date(intoDay);
+        //alert(intoDay);
+        if (today < commitdate && intoDay > nowday) {
+            $('#resenddiv').removeAttr('style', 'display:none');
+            $('#resenddiv').attr('style', 'display:block');
+        } else {
+            $('#resenddiv').removeAttr('style', 'display:block');
+            $('#resenddiv').attr('style', 'display:none');
+        }
+        
+        $('#btn_resend').click(function () {
+            $.ajax({
+                url: "@(Url.Action("GetAdminssion", "Adminssion"))",
+                type: "get",
+                dataType: "json",
+                data: { RmchSeqNo: RmchSeqNo },
+                success: function (res) {
+
+                },
+                error: function (res) {
+                    alert("error")
+                }
+            });
+        });
+    });
+</script>
+

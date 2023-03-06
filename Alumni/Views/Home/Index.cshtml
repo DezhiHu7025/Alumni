@@ -65,7 +65,7 @@
                 </li>
 
                 <li style="float:left;width:160px;height:30px;margin:20px 0;">
-                    <a title=" 我的单据" href="~/Bill/BillIndex">
+                    <a title=" 我的单据" id="btn_bill">
                         <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_MagazineList.png" />
                         <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">My FormList<br />我的单据</p>
                     </a>
@@ -82,7 +82,7 @@
     </div>
 </body>
 <script type="text/javascript">
-
+    
     window.onload = function () {
 
         var cookies = document.cookie;
@@ -117,15 +117,27 @@
 
     $(function () {
 
+        var cookies = document.cookie;
+        const cookieMap = new Map();
+        document.cookie.split("; ").forEach((cookie) => {
+            const [key, value] = cookie.split("=");
+            cookieMap.set(key, value);
+        });
+        var usergroup = cookieMap.get("GroupName");
+        //确定 登录
+        $("#btn_bill").click(function () {
+            var url;
+            if (usergroup == "校友")
+            {
+                url = '@Url.Action("BillIndex", "Bill")';
+            } else if (usergroup == "教职员")
+            {
+                url = '@Url.Action("BillQueryVw", "Bill")';
+            }
+            window.location.href = url;
+        });
+
         $("#btn_Certificate").on("click", function () {
-            var cookies = document.cookie;
-            const cookieMap = new Map();
-            document.cookie.split("; ").forEach((cookie) => {
-                const [key, value] = cookie.split("=");
-                cookieMap.set(key, value);
-            });
-            var usergroup = cookieMap.get("GroupName");
-            console.log(cookies);
             if (usergroup == "校友") {
                 var url = '@Url.Action("CertificateIndex", "Certificate")';
                 window.location.href = url;
@@ -135,14 +147,6 @@
         });
 
         $("#btn_Report").on("click", function () {
-            var cookies = document.cookie;
-            const cookieMap = new Map();
-            document.cookie.split("; ").forEach((cookie) => {
-                const [key, value] = cookie.split("=");
-                cookieMap.set(key, value);
-            });
-            var usergroup = cookieMap.get("GroupName");
-            console.log(cookies);
             if (usergroup == "校友") {
                 var url = '@Url.Action("ReportIndex", "Report")';
                 window.location.href = url;
@@ -152,14 +156,6 @@
         });
 
         $("#btn_Information").on("click", function () {
-            var cookies = document.cookie;
-            const cookieMap = new Map();
-            document.cookie.split("; ").forEach((cookie) => {
-                const [key, value] = cookie.split("=");
-                cookieMap.set(key, value);
-            });
-            var usergroup = cookieMap.get("GroupName");
-            console.log(cookies);
             if (usergroup == "校友") {
                 var url = '@Url.Action("InformationIndex", "Information")';
                 window.location.href = url;
@@ -169,14 +165,6 @@
         });
 
         $("#btn_Question").on("click", function () {
-            var cookies = document.cookie;
-            const cookieMap = new Map();
-            document.cookie.split("; ").forEach((cookie) => {
-                const [key, value] = cookie.split("=");
-                cookieMap.set(key, value);
-            });
-            var usergroup = cookieMap.get("GroupName");
-            console.log(cookies);
             if (usergroup == "校友") {
                 var url = '@Url.Action("QuestionIndex", "Question")';
                 window.location.href = url;

@@ -103,6 +103,10 @@
                 data: model,
                 success: function (data) {
                     $("#tab").find('tr').remove();
+                    if (data.length == 0)
+                    {
+                        alert("未找到您的单据 Your document was not found");
+                    }
                     var str = "";//定义用于拼接的字符串
                     for (var i = 0; i < data.length; i++) {
                         str = "<tr><td></tr></td><tr><td>" + "表单名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data[i].Form_Name + "</td></tr><tr><td>"
