@@ -178,12 +178,11 @@
         
         $('#btn_resend').click(function () {
             $.ajax({
-                url: "@(Url.Action("GetAdminssion", "Adminssion"))",
-                type: "get",
+                url: "@(Url.Action("ReSendMail", "Bill"))",
+                type: "post",
                 dataType: "json",
-                data: { RmchSeqNo: RmchSeqNo },
                 success: function (res) {
-
+                    alert(res.Msg);
                 },
                 error: function (res) {
                     alert("error")

@@ -1,6 +1,8 @@
 ﻿using Alumni.Db;
+using Alumni.Models;
 using Alumni.Models.Adminssion;
 using Alumni.Models.Bill;
+using Alumni.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,6 +124,27 @@ WHERE b.shopForm_id = 'S0000001' ");
         public ActionResult BillDetailVw()
         {
             return View();
+        }
+
+        public ActionResult ReSendMail()
+        {
+            SendMailService sendMailService = new SendMailService();
+            bool mailFlag = sendMailService.doMail("入校申请稽催邮件");
+            try
+            {
+                if (mailFlag)
+                {
+                    return Json(new FlagTips { IsSuccess = true, Msg = "已发送稽催邮件" });
+                }
+                else
+                {
+                    return Json(new FlagTips { IsSuccess = false, Msg = "邮件发送失败" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new FlagTips { IsSuccess = false, Msg = ex.Message });
+            }
         }
     }
 }
