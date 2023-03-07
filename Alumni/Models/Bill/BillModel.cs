@@ -36,5 +36,10 @@ namespace Alumni.Models.Bill
         /// 第二行数据标题
         /// </summary>
         public string TitleName { get; set; }
+
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string Comments { get; set; }
     }
 }

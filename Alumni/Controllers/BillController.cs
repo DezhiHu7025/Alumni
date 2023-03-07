@@ -51,13 +51,15 @@ namespace Alumni.Controllers
                                                              ELSE
                                                                  a.EmailAdress
                                                          END AS SendAdress,
-                                                         b.form_id AS Bproduct_id
+                                                         b.form_id AS Bproduct_id,c.Comments
                                                    FROM [db_forminf].[dbo].[OldStudent_Onlin_List] a
                                                        LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
                                                            ON a.form_name = b.form_name
                                                        LEFT JOIN [db_forminf].[dbo].[IMS_CODEMSTR] ims
                                                            ON ims.code = 'IS_PASS'
                                                            AND a.is_pass = ims.value
+                                                       LEFT JOIN [db_forminf].[dbo].[Record] c
+                                                           ON a.mchSeqNo = c.ChSeqNo
                                                    WHERE b.shopForm_id = 'S0000001'");
 
                     if (!string.IsNullOrEmpty(model.Stu_Empno))
