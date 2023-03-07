@@ -50,6 +50,12 @@ namespace Alumni.Controllers
                         Msg = "账号信息获取异常，请检查登录状态。Account information acquisition exception, please check login status"
                     });
                 }
+                DateTime today = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                if (model.intoDate < today)
+                {
+                    string tipday = DateTime.Now.ToString("yyyy/MM/dd");
+                    return Json(new FlagTips { IsSuccess = false, Msg = string.Format( "校友入校日期不得早于当前日期{0}", tipday) });
+                }
                 using (SchoolDb db = new SchoolDb())
                 {
                     string checkSql = string.Format(@" SELECT COUNT(*)
@@ -57,6 +63,7 @@ namespace Alumni.Controllers
                                                        LEFT JOIN [db_forminf].[dbo].[OldStudentOnlin] b
                                                            ON a.form_name = b.form_name
                                                    WHERE b.shopForm_id = 'S0000001' and b.form_id = 'P0000001' and is_pass = 'N'
+                                                          AND  DATEDIFF (day, convert(nvarchar(10),getdate(),120), convert(date, a.intoDate))  >= 0
                                                          AND (a.stunum = @alumnusEmp OR a.Phone = @alumnusPhone) ");
                     string cnt = db.Query<int>(checkSql, model).FirstOrDefault().ToString();
                     if (Convert.ToInt32(cnt) > 0)

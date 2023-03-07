@@ -1,6 +1,6 @@
 #dateBoardTitle tr td{padding: 10px 0px}
 #dateBoard tr td{padding:3px 0px}
-#date-view{background-color:white;position:absolute;bottom:350px;left:770px;right:630px;}
+#date-view{background-color:white;position:absolute;bottom:270px;left:690px;right:540px;}
 #dateBoard tr td div{ width: 34px; height:34px;padding:7px 0px}
 .date-selected{color:white;background-color:red;border-radius:17px;}
 .date-mask{position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 10500;background-color:rgba(0, 0, 0, 0.7);display:none}
