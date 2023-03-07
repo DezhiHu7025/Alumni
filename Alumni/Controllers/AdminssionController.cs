@@ -313,6 +313,11 @@ WHERE b.shopForm_id = 'S0000001' and a.RmchSeqNo = @RmchSeqNo ");
                     record.IS_PASS = model.SignStatus;
 
                     model.IS_PASS = model.SignStatus;
+                    DateTime today = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    if (model.intoDate < today && model.IS_PASS == "Y")
+                    {
+                        return Json(new FlagTips { IsSuccess = false, Msg = string.Format("入校日期已过期，不可审核通过") });
+                    }
 
                     string sql1 = @"update  [db_forminf].[dbo].[EntryApply_indent] set is_pass =@IS_PASS where form_name=@Form_Name and  (Is_inner ='Z' OR Is_inner = 'N') AND is_pass = 'N' and RmchSeqNo =@RmchSeqNo ";
                     string sql2 = @"update  [db_forminf].[dbo].[OldStudent_Onlin_List] set is_pass =@IS_PASS where form_name=@Form_Name and  is_pass = 'N'  and mchSeqNo =@RmchSeqNo ";

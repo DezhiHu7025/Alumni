@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="bs-example-modal-lg" id="myModal">
-        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document">
+        <div class="modal-lg" tabindex="-1" data-keyboard="true" role="document"   style="width:1000px;margin-left:0px;margin-right:0px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">请审入校申请单据信息</h4>
@@ -141,6 +141,7 @@
                 RmchSeqNo: $("#RmchSeqNo").val(),
                 Comments: $("#Comments").val(),
                 Form_Name: $("#Form_Name").val(),
+                intoDate: $("#intoDate2").val(),
                 SignStatus: signvalue
             }
             if (signvalue == "D" && model.Comments == '') {
