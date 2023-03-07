@@ -7,11 +7,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
     <link href="~/css/new2.css" rel="stylesheet" />
-    <link href="~/static/css/DateComponent.css" rel="stylesheet" />
-
-    <script src="~/js/jquery1.min.js"></script>
-    <script src="~/static/js/DateComponent.js"></script>
-
     <title>KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</title>
 </head>
 
@@ -36,7 +31,6 @@
                     <br />
                     <p class="kuai">
                         <span class="title_bold">2.填单教职员部门 Teacher Department&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please check&nbsp;&nbsp;|&nbsp;请查看</span><br />
                         <input ID="DeptName" name="DeptName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
                     </p>
                     <br />
@@ -47,7 +41,6 @@
                     <br />
                     <p class="kuai">
                         <span class="title_bold">4.校友中文名 SchoolFellow Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please check&nbsp;&nbsp;|&nbsp;请查看</span><br />
                         <input ID="alumnusName" name="alumnusName" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
                     </p>
                     <br />
@@ -115,8 +108,8 @@
         $("#LeaveClass").val(localStorage.getItem("LeaveClass"));
         $("#intoDate").val(localStorage.getItem("intoDate2"));
         $("#alumnusPhone").val(localStorage.getItem("alumnusPhone"));
-        $("#teacnerName2").val(localStorage.getItem("teacnerName2"));
-        $("#remarks").val(localStorage.getItem("remarks"));
+        $("#teacnerName2").val(localStorage.getItem("teacnerName2") == "null" ? '' : localStorage.getItem("teacnerName2"));
+        $("#remarks").val(localStorage.getItem("remarks") == "null" ? '' : localStorage.getItem("remarks"));
         $("#AddTime2").val(localStorage.getItem("AddTime2"));
         $("#IS_PASS").val(localStorage.getItem("IS_PASS"));
         $("#AddTime2").html(localStorage.getItem("AddTime2"));

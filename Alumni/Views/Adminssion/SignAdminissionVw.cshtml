@@ -122,8 +122,8 @@
         $("#LeaveClass").val(localStorage.getItem("LeaveClass"));
         $("#intoDate2").val(localStorage.getItem("intoDate2"));
         $("#alumnusPhone").val(localStorage.getItem("alumnusPhone"));
-        $("#teacnerName2").val(localStorage.getItem("teacnerName2"));
-        $("#remarks").val(localStorage.getItem("remarks"));
+        $("#teacnerName2").val(localStorage.getItem("teacnerName2") == "null" ? '' : localStorage.getItem("teacnerName2"));
+        $("#remarks").val(localStorage.getItem("remarks") == "null" ? '' : localStorage.getItem("remarks"));
         $("#AddTime2").val(localStorage.getItem("AddTime2"));
         $("#IS_PASS").val(localStorage.getItem("IS_PASS"));
         localStorage.clear();

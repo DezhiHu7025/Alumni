@@ -121,9 +121,9 @@
         $("#IDCard").val(localStorage.getItem("IDCard"));
         $("#IDcard_Number").val(localStorage.getItem("IDcard_Number"));
         $("#Hcountry").val(localStorage.getItem("Hcountry"));
-        $("#Adress").val(localStorage.getItem("Adress"));
+        $("#Adress").val(localStorage.getItem("Adress") == "null" ? '' : localStorage.getItem("Adress"));
         $("#Email").val(localStorage.getItem("Email"));
-        $("#NewPhone").val(localStorage.getItem("NewPhone")); 
+        $("#NewPhone").val(localStorage.getItem("NewPhone") == "null" ? '' : localStorage.getItem("NewPhone"));
         $("#AddTime").val(localStorage.getItem("AddTime")); 
         $("#IS_PASS").val(localStorage.getItem("IS_PASS"));
         localStorage.clear();
