@@ -170,12 +170,8 @@
 
                     var RmchSeqNo = info.RmchSeqNo;
                     var IS_PASS = info.IS_PASS;
-                    if (IS_PASS != "审核中") {
-                        alert("此单据已审核，请勿重复审核")
-                    }
-                    else
-                    {
-                        $.ajax({
+
+                    $.ajax({
                         url: "@(Url.Action("GetAdminssion", "Adminssion"))",
                         type: "get",
                         dataType: "json",
@@ -203,7 +199,6 @@
                            alert("error")
                         }
                     });
-                    }
 
                 }
             });

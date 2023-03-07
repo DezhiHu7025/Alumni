@@ -160,18 +160,20 @@
         dateTime = dateTime.setDate(dateTime.getDate()-14);
         today = new Date(dateTime);
         var commitdate = new Date(Date.parse(today2));       
-       // alert(today);
-        //alert(commitdate);
+       //alert(today);
+       // alert(commitdate);
 
         var nowday = new Date(new Date().toLocaleDateString());
        // alert(nowday);
         var intoDay = $("#intoDate").val();
         intoDay = new Date(intoDay);
         //alert(intoDay);
-        if (today < commitdate && intoDay > nowday) {
+        if (today < commitdate && intoDay > nowday && $("#IS_PASS").val() == "审核中") {
+            //alert("111")
             $('#resenddiv').removeAttr('style', 'display:none');
             $('#resenddiv').attr('style', 'display:block');
         } else {
+            //alert("22")
             $('#resenddiv').removeAttr('style', 'display:block');
             $('#resenddiv').attr('style', 'display:none');
         }
