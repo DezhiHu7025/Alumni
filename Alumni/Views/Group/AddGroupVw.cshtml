@@ -156,6 +156,7 @@
                     dataType: "json",
                     data: {AccountName},
                     success: function (result) {
+                        $("#AccountName").val(result.Account);
                         $("#FullName").val(result.fullname);
                         $("#DeptName").val(result.DeptName);
                     }
