@@ -19,83 +19,87 @@
     <div id="banner" style="margin:0px;padding:0px;text-align:center">
         <img src="~/img/logo_XY2.png" />
     </div>
-    <form id="ff">
-        <div>
-            <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</h3>
-            <br />
+    <div class="container-fluid">
+        <form id="ff">
+            <div>
+                <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</h3>
+                <br />
 
-            <div class="content1">
-                <div class="leftDiv">
-                    <p class="kuai">
-                        <span class="title_bold">1.填单教职员 Teacher Name&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="teacnerName" name="teacnerName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
-                        <input ID="teacherAD" name="teacherAD" type="hidden" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">2.填单教职员部门 Teacher Department&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
-                        <input ID="DeptName" name="DeptName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">校友学号 KCISEC Student Number &nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="alumnusEmp" name="alumnusEmp" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">4.校友中文名 SchoolFellow Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please write in&nbsp;||&nbsp;&nbsp;请填写</span><br />
-                        <input ID="alumnusName" name="alumnusName" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">5.校友离校班级 SchoolFellow Class &nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="LeaveClass" name="LeaveClass" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
-                    </p>
-                    <br />
+                <div class="content1">
+                    <div class="leftDiv">
+                        <p class="kuai">
+                            <span class="title_bold">1.填单教职员 Teacher Name&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="teacnerName" name="teacnerName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                            <input ID="teacherAD" name="teacherAD" type="hidden" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">2.填单教职员部门 Teacher Department&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
+                            <input ID="DeptName" name="DeptName" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required" readonly>
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">校友学号 KCISEC Student Number &nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="alumnusEmp" name="alumnusEmp" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">4.校友中文名 SchoolFellow Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;||&nbsp;&nbsp;请填写</span><br />
+                            <input ID="alumnusName" name="alumnusName" runat="server" Width="50%" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">5.校友离校班级 SchoolFellow Class &nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="LeaveClass" name="LeaveClass" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                    </div>
+                    <div class="rightDiv">
+                        <p class="kuai">
+                            <span class="title_bold">6.校友入校日期 SchoolFellow Get Into Date&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui" id="select-date">Please Choose &nbsp;&nbsp;|&nbsp;请选择</span><br />
+                            <input ID="intoDate" name="intoDate" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">7.校友电话 SchoolFellow Telephone Number&nbsp;&nbsp;<span class="red">*</span></span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="alumnusPhone" name="alumnusPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">8..其他拜访师长姓名 Other Teacher Name &nbsp;&nbsp;</span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="teacnerName2" name="teacnerName2" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                        </p>
+                        <br />
+                        <p class="kuai">
+                            <span class="title_bold">9.其他需求或备注 Other Demand Or Remarks &nbsp;&nbsp;</span>
+                            <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
+                            <input ID="remarks" name="remarks" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
+                        </p>
+                        <br />
+                    </div>
+
                 </div>
-                <div class="rightDiv">
-                    <p class="kuai">
-                        <span class="title_bold" >6.校友入校日期 SchoolFellow Get Into Date&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui" id="select-date">Please Choose &nbsp;&nbsp;|&nbsp;请选择</span><br />
-                        <input ID="intoDate" name="intoDate" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
-                   
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">7.校友电话 SchoolFellow Telephone Number&nbsp;&nbsp;<span class="red">*</span></span>
-                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="alumnusPhone" name="alumnusPhone" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list" required="required">
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">8..其他拜访师长姓名 Other Teacher Name &nbsp;&nbsp;</span>
-                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="teacnerName2" name="teacnerName2" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
-                    </p>
-                    <br />
-                    <p class="kuai">
-                        <span class="title_bold">9.其他需求或备注 Other Demand Or Remarks &nbsp;&nbsp;</span>
-                        <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
-                        <input ID="remarks" name="remarks" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" class="form-control select-list">
-                    </p>
-                    <br />
+
+
+                <div class="butom" style="text-align:center;">
+                    <a href="../Adminssion/InstructionsForAdminission" class="button">返回 Back</a>  |
+                    <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
                 </div>
 
             </div>
+        </form>
+    </div>
 
-
-            <div class="butom" style="text-align:center;">
-                <a href="../Adminssion/InstructionsForAdminission" class="button">返回 Back</a>  |
-                <button id="btn_submit" name="btn_submit" type="submit" class="button">提交 Submit</button>
-            </div>
-
-        </div>
-    </form>
+   
 </body>
 <script type="text/javascript">
     $(function () {
