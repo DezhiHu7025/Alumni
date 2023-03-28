@@ -21,8 +21,8 @@
                         <h3 style="display: block;font-size: 1.17em;font-weight: bold">KCISEC SchoolFellow  IN / Transfer Out Certificate Application Page| 康桥校友在读/转出证明申请页面</h3>
                         <br />
 
-                <div class="content1">
-                    <div class="leftDiv">
+                <div id="main">
+                    <div id="one">
                         <p class="kuai">
                             <span class="title_bold">1.康桥学号  KCISEC Student Number&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
@@ -57,7 +57,7 @@
                         </p>
                         <br />
                     </div>
-                    <div class="rightDiv">
+                    <div id="two">
                         <p class="kuai">
                             <span class="title_bold">6.户籍地 Registered Residence&nbsp;&nbsp;<span class="red">*</span></span>
                             <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
@@ -97,6 +97,20 @@
         <script type="text/javascript">
 
             $(function () {
+
+                var divMain = document.getElementById('main');
+                var divOne = document.getElementById('one');
+                var divTwo = document.getElementById('two');
+                //判断是否是PC端
+                if (!(navigator.userAgent.match(/(phone|pad|pod|mobile|ios|android|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|symbian|transcoder)/i))) {
+                    divMain.setAttribute("class", "content1");
+                    divOne.setAttribute("class", "leftDiv");
+                    divTwo.setAttribute("class", "rightDiv");
+                } else {
+                    divMain.setAttribute("class", "contentmobile");
+                    divOne.setAttribute("class", "topDiv");
+                    divTwo.setAttribute("class", "buttomDiv");
+                }
 
                 var cookies = document.cookie;
                 const cookieMap = new Map();

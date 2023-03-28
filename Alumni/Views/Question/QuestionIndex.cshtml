@@ -38,8 +38,8 @@
             有问题欢迎私讯胡薰匀Jessica组长，谢谢大家。
         </p>
         <form id="question">
-            <div id="one" class="content2" style="display:block">
-                <div class="leftDiv2">
+            <div id="one" style="display:block">
+                <div id="first">
                     <p class="kuai">
                         <span class="title_bold">1.中文名 Chinese Name&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in Chinese&nbsp;Chinese&nbsp;|&nbsp;请用中文填写</span><br />
@@ -100,7 +100,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="rightDiv2">
+                <div id="second">
                     <p class="kuai">
                         <span class="title_bold">7.最高学历状态  Highest education status&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
@@ -154,8 +154,8 @@
             </div>
         </form>
         <form id="question2">
-            <div id="two" class="content2" style="display:none">
-                <div class="leftDiv2" height="800px">
+            <div id="two" style="display:none">
+                <div id="first2" height="800px">
                     <p class="kuai">
                         <span class="title_bold">11.大学是否曾经转学? Have you ever transferred&nbsp;&nbsp;<span class="red">*</span></span>
                         <br /><span class="hui">Please write in&nbsp;&nbsp;|&nbsp;请填写</span><br />
@@ -188,7 +188,7 @@
                     </p>
                     <br />
                 </div>
-                <div class="rightDiv2" height="800px">
+                <div id="second2" height="800px">
                     <p class="kuai">
                         <span class="title_bold">15.您是否愿意加入康桥校友会，以获取更多资讯？ <br /> &nbsp;&nbsp;  Would you like to join in the KCISEC Alumni Association for more information?&nbsp;&nbsp;<span class="red"></span></span>
                         <br /><span class="hui">Please &nbsp;chose&nbsp;|&nbsp;请选择</span><br />
@@ -311,6 +311,29 @@
     }
 
     $(function () {
+
+        var divMain = document.getElementById('one');
+        var divMain2 = document.getElementById('two');
+        var divFirst = document.getElementById('first');
+        var divSecond = document.getElementById('second');
+        var divFirst2 = document.getElementById('first2');
+        var divSecond2 = document.getElementById('second2');
+        //判断是否是PC端
+        if (!(navigator.userAgent.match(/(phone|pad|pod|mobile|ios|android|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|symbian|transcoder)/i))) {
+            divMain.setAttribute("class", "content2");
+            divMain2.setAttribute("class", "content2");
+            divFirst.setAttribute("class", "leftDiv2");
+            divSecond.setAttribute("class", "rightDiv2");
+            divFirst2.setAttribute("class", "leftDiv2");
+            divSecond2.setAttribute("class", "rightDiv2");
+        } else {
+            divMain.setAttribute("class", "contentmobile2");
+            divMain2.setAttribute("class", "contentmobile2");
+            divFirst.setAttribute("class", "topDiv2");
+            divSecond.setAttribute("class", "buttomDiv2");
+            divFirst2.setAttribute("class", "topDiv2");
+            divSecond2.setAttribute("class", "buttomDiv2");
+        }
 
         $("#question").validate({
             rules:

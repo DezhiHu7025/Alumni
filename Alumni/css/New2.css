@@ -37,6 +37,21 @@
 			height:100px;
 			margin-left:500px;
 }
+.contentmobile{
+			width:1140px;
+			height:1100px;
+			margin:0 auto;
+}
+.topDiv{
+	width:1140px;
+	height:550px;
+			
+}		
+}
+.buttomDiv{
+	width:1140px;
+	height:550px;
+}
 .form-control{
 	display:block;
 	width: 300px;
@@ -131,5 +146,19 @@
 	width:640px;
 	height:430px;
 	margin:0 auto;
+}
+.contentmobile2{
+			width:1140px;
+			height:1600px;
+			margin:0 auto;
+}
+.topDiv2{
+	width:1140px;
+	height:800px;
+			
+}
+.buttomDiv2{
+	width:1140px;
+	height:800px;
 }
          

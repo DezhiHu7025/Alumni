@@ -20,10 +20,12 @@ namespace Alumni.Service
             {
                 try
                 {
-                    string fileName = Path.GetFileName(httpPostedFileBase.FileName);//原始文件名称
+                    string fileType = Path.GetExtension(httpPostedFileBase.FileName);//原始文件名称
+                    string fileName = string.Format(Stu_Empno + "_{0}." + fileType, DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+
 
                     byte[] fileData = ReadFileBytes(httpPostedFileBase);//文件流转化为二进制字节
-
+                    string fileName2 = Path.GetFileName(httpPostedFileBase.FileName);//原始文件名称
                     string result = SaveFile(Stu_Empno, fileData, fileName);//文件保存
                     if (string.IsNullOrEmpty(result))
                     {
