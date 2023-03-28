@@ -109,7 +109,7 @@
                 const [key, value] = cookie.split("=");
                 cookieMap.set(key, value);
             })
-            var account = cookieMap.get("Account");
+            var account = decodeURIComponent(cookieMap.get("Account")); 
             //处理html标签
             //str.replace(/需要替换的字符串/g，“新字符串”)
             //var newtext = $("#bodytext").val();

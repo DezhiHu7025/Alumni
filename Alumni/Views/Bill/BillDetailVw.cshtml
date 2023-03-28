@@ -16,7 +16,7 @@
     </div>
     <form id="ff">
         <div>
-            <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">
+            <h3 style="display: block;font-size: 1.17em;font-weight: bold">
                 KCISEC Alumni Application query | 康桥校友入校申请查询
             </h3>
             <br />
@@ -77,10 +77,10 @@
                 <div style="margin-top:350px">
                     <hr />
                     <p class="kuai">
-                        <span class="title_bold" style="color:red;font-size: 1.17em;font-weight: bold;line-height: 0em">10.提交时间 &nbsp;&nbsp;</span>
-                        <span ID="AddTime2" name="AddTime2" style="color:black;font-size: 1.17em;font-weight: bold;line-height: 0em" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" readonly></span>
-                        <span class="title_bold" style="color:red;font-size: 1.17em;font-weight: bold;line-height: 0em">11.审核状态 &nbsp;&nbsp;</span>
-                        <span ID="IS_PASS" name="IS_PASS" style="color:black;font-size: 1.17em;font-weight: bold;line-height: 0em" runat="server" BorderWidth="0px" Font-Size="14px" readonly></span>
+                        <span class="title_bold" style="color:red;font-size: 1.17em;font-weight: bold">10.提交时间 &nbsp;&nbsp;</span>
+                        <span ID="AddTime2" name="AddTime2" style="color:black;font-size: 1.17em;font-weight: bold" runat="server" BorderWidth="0px" Font-Size="14px" ForeColor="Gray" readonly></span>
+                        <span class="title_bold" style="color:red;font-size: 1.17em;font-weight: bold">11.审核状态 &nbsp;&nbsp;</span>
+                        <span ID="IS_PASS" name="IS_PASS" style="color:black;font-size: 1.17em;font-weight: bold" runat="server" BorderWidth="0px" Font-Size="14px" readonly></span>
                     </p>
                 </div>
                 <div id="resenddiv" style="display:none">
@@ -123,9 +123,9 @@
             cookieMap.set(key, value);
         });
 
-        $("#teacnerName").val(cookieMap.get("fullname"));
-        $("#DeptName").val(cookieMap.get("DeptName"));
-        $("#teacherAD").val(cookieMap.get("Account"));
+        $("#teacnerName").val(decodeURIComponent(cookieMap.get("fullname")));
+        $("#DeptName").val(decodeURIComponent(cookieMap.get("DeptName")));
+        $("#teacherAD").val(decodeURIComponent(cookieMap.get("Account")));
 
         var date = new Date();
         var month = date.getMonth() + 1

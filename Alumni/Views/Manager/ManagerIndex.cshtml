@@ -91,8 +91,8 @@
             const [key, value] = cookie.split("=");
             cookieMap.set(key, value);
         });
-        var usergroup = cookieMap.get("GroupName");
-        var Account = cookieMap.get("Account");
+        var usergroup = decodeURIComponent(cookieMap.get("GroupName")); 
+        var Account = decodeURIComponent(cookieMap.get("Account"));
         $.ajax({
             type: 'post',
             url: "@(Url.Action("getMenu", "Manager"))",
@@ -115,9 +115,9 @@
                 const [key, value] = cookie.split("=");
                 cookieMap.set(key, value);
             })
-            $("#Account").html(cookieMap.get("Account"));
-            $("#Account2").html(cookieMap.get("Account"));
-            $("#GroupName").html(cookieMap.get("GroupName"));
+            $("#Account").html(decodeURIComponent(cookieMap.get("Account"))); 
+            $("#Account2").html(decodeURIComponent(cookieMap.get("Account")));
+            $("#GroupName").html(decodeURIComponent(cookieMap.get("GroupName")));
             console.log(cookies);
 
             $("#logout").on("click", function () {

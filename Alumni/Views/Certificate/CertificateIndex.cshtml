@@ -18,7 +18,7 @@
     </div>
         <form id="ff">
             <div>
-                        <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">KCISEC SchoolFellow  IN / Transfer Out Certificate Application Page| 康桥校友在读/转出证明申请页面</h3>
+                        <h3 style="display: block;font-size: 1.17em;font-weight: bold">KCISEC SchoolFellow  IN / Transfer Out Certificate Application Page| 康桥校友在读/转出证明申请页面</h3>
                         <br />
 
                 <div class="content1">
@@ -104,9 +104,9 @@
                     const [key, value] = cookie.split("=");
                     cookieMap.set(key, value);
                 });
-
-                $("#Stu_Empno").val(cookieMap.get("Account"));
-                $("#Stu_Name").val(cookieMap.get("cname")); 
+                
+                $("#Stu_Empno").val(decodeURIComponent(cookieMap.get("Account")));
+                $("#Stu_Name").val(decodeURIComponent(cookieMap.get("cname"))); 
 
                  $.ajax({
                     type: "get",

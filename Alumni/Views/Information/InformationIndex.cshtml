@@ -16,7 +16,7 @@
     </div>
     <form id="ff">
         <div>
-            <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;" >KCISEC Alumni Association contact details update | 康桥校友会联络信息更新</h3>
+            <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;" >KCISEC Alumni Association contact details update | 康桥校友会联络信息更新</h3>
             <br />
             <p>
                 Please provide your most recent contact details so that the KCISEC Alumni Association can stay in touch.
@@ -212,9 +212,8 @@
                     }
                 }
             });
-
-            $("#Stu_Empno").val(cookieMap.get("Account"));
-            $("#Stu_Name").val(cookieMap.get("cname")); 
+            $("#Stu_Empno").val(decodeURIComponent(cookieMap.get("Account")));
+            $("#Stu_Name").val(decodeURIComponent(cookieMap.get("cname"))); 
 
                 $('#ff').on('submit', function (e) {
                     e.preventDefault();

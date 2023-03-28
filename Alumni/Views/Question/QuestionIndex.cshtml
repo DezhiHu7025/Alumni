@@ -26,7 +26,7 @@
         <img src="~/img/logo_XY2.png" />
     </div>
     <div height="800px">
-        <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Association Questionnaire Investigation | 康桥校友会联络问卷调查</h3>
+        <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold">KCISEC Alumni Association Questionnaire Investigation | 康桥校友会联络问卷调查</h3>
         <br />
         <p>
             Dear alumni
@@ -782,8 +782,8 @@
             }
         });
         
-        $("#Stu_Name").val(cookieMap.get("cname"));
-        $("#Stu_Empno").val(cookieMap.get("Account"));
+        $("#Stu_Name").val(decodeURIComponent(cookieMap.get("cname"))); 
+        $("#Stu_Empno").val(decodeURIComponent(cookieMap.get("Account")));
 
         $("#btn_save").click(function () {
 
@@ -820,10 +820,10 @@
             formData.append("WillJoin", $("#WillJoin").val());
             formData.append("OtherSupplements", $("#OtherSupplements").val());
            
-            var usergroup = cookieMap.get("GroupName");
-            if (usergroup == "教职员") {
+            var usergroup = decodeURIComponent(cookieMap.get("GroupName")); 
+            if (usergroup == "teacher") {
                 alert("校友填写，教职员无需填写。")
-            } else if (usergroup == "校友") {
+            } else if (usergroup == "alumni") {
                  $.ajax({
                      type: 'post',
                      url: 'QuestionSave',

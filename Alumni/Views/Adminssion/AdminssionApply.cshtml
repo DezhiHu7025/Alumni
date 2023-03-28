@@ -6,12 +6,13 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link href="~/css/new2.css" rel="stylesheet" />
     <link href="~/static/css/DateComponent.css" rel="stylesheet" />
 
     <script src="~/js/jquery1.min.js"></script>
     <script src="~/static/js/DateComponent.js"></script>
-       
+
     <title>KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</title>
 </head>
 
@@ -22,7 +23,7 @@
     <div class="container-fluid">
         <form id="ff">
             <div>
-                <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em">KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</h3>
+                <h3 style="display: block;font-size: 1.17em;font-weight: bold">KCISEC SchoolFellow Applicat Page Of Get Into School| 康桥校友入校申请页面</h3>
                 <br />
 
                 <div class="content1">
@@ -110,10 +111,10 @@
             const [key, value] = cookie.split("=");
             cookieMap.set(key, value);
         });
-
-        $("#teacnerName").val(cookieMap.get("fullname"));
-        $("#DeptName").val(cookieMap.get("DeptName")); 
-        $("#teacherAD").val(cookieMap.get("Account"));
+        
+        $("#teacnerName").val(decodeURIComponent(cookieMap.get("fullname")));
+        $("#DeptName").val(decodeURIComponent(cookieMap.get("DeptName"))); 
+        $("#teacherAD").val(decodeURIComponent(cookieMap.get("Account")));
 
         var date = new Date()
         var month = date.getMonth() + 1

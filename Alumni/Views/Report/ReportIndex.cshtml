@@ -211,8 +211,8 @@
             }
         }); txt_takeWay
 
-        $("#Stu_Name").val(cookieMap.get("cname"));
-        $("#Stu_Empno").val(cookieMap.get("Account"));
+        $("#Stu_Name").val(decodeURIComponent(cookieMap.get("cname")));
+        $("#Stu_Empno").val(decodeURIComponent(cookieMap.get("Account")));
                 $('#ff').on('submit', function (e) {
                     e.preventDefault();
                     var model = $('#ff').serialize();
@@ -223,12 +223,12 @@
                         return false;
                     }
                     console.log(model);
-                    var usergroup = cookieMap.get("GroupName");
+                    var usergroup = decodeURIComponent(cookieMap.get("GroupName")); 
 
                     console.log(cookies);
-                    if (usergroup == "教职员") {
+                    if (usergroup == "teacher") {
                         alert("校友填写，教职员无需填写。")
-                    } else if (usergroup == "校友") {
+                    } else if (usergroup == "alumni") {
                         $.ajax({
                             type: 'post',
                             url: 'ReportSave',

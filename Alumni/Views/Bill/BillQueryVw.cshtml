@@ -10,9 +10,9 @@
     <div id="banner" style="margin:0px;padding:0px;text-align:center">
         <img src="~/img/logo_XY2.png" />
     </div>
-    <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0em;">KCISEC Alumni Application query | 康桥校友入校申请查询</h3>
+    <h3 class="title" style="display: block;font-size: 1.17em;font-weight: bold">KCISEC Alumni Application query | 康桥校友入校申请查询</h3>
     <br />
-    <h2 class="title" style="display: block;font-size: 0.97em;font-weight: bold;line-height: 0em;color:red">
+    <h2 class="title" style="display: block;font-size: 0.97em;font-weight: bold;color:red">
     仅供教职员查看自己填写的入校申请
     </h2>
     <div>
@@ -20,7 +20,7 @@
             <hr>
             <div style="display:inline-block;">
                 <span class="item-title">学生手机号/学生学号</span>
-                <input ID="Stu_Empno" name="Stu_Empno" runat="server"/>
+                <input ID="Stu_Empno" name="Stu_Empno" runat="server" />
 
             </div>
             <div style="display:inline-block;">
@@ -34,8 +34,11 @@
             <button class="btn btn-danger ms-2" id="btn_sign"><span class="glyphicon"></span> 查看</button>
             <button id="btn_export" class="btn btn-info ms-2" data-table="#table" type="button">下载汇出</button>
         </div>
-        <br/><br />
+        <br /><br />
         <table id="table"></table>
+        <div class="butom" style="text-align:center;">
+            @Html.ActionLink("返回 Back", "Index", "Home", new { area = "" }, new { @class = "button" })
+        </div>
         <script type="text/javascript">
 
             $(function () {
@@ -61,7 +64,7 @@
                         var model = {
                             "IS_PASS": $("#IS_PASS").val(),
                             "Stu_Empno": $("#Stu_Empno").val(),
-                            "Account": cookieMap.get("Account"),
+                            "Account": decodeURIComponent(cookieMap.get("Account")),
                         }
                         request.data = model;
                         $.ajax({

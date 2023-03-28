@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="~/img/logo1213.png" type="image/x-icon">
     <title>线上校友专区</title>
@@ -32,8 +34,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("线上校友专区", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <span id="username" class="rt" style="display:block"></span>
+                @*@Html.ActionLink("线上校友专区", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <a class="navbar-brand"><span id="username" style="display:block"></span></a>
                 <a class="navbar-brand" id="logout">
                     <span>登出/登入</span>
                 </a>
@@ -67,8 +69,11 @@
             const [key, value] = cookie.split("=");
             cookieMap.set(key, value);
         })
-        if (cookieMap.get("fullname") != null) {
-            $("#username").html(cookieMap.get("GroupName") + "&nbsp;&nbsp;&nbsp;&nbsp;" + cookieMap.get("fullname"));
+        var group = decodeURIComponent(cookieMap.get("GroupName"));
+        var name = decodeURIComponent(cookieMap.get("fullname"));
+        if (name != null) {
+            $("#username").html(name);
+          //  $("#username").html(cookieMap.get("GroupName") + "&nbsp;&nbsp;&nbsp;&nbsp;" + cookieMap.get("fullname"));
         } else {
             $("#username").html("未登录")
         }

@@ -3,8 +3,11 @@
     ViewBag.Title = "Index";
 }
 <head runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
+    <link href="~/css/index.css" rel="stylesheet" type="text/css" media="screen" />
     <!--  opacity: 0.5; 设置半透明度-->
     <style type="text/css">
         .img1 {
@@ -19,33 +22,33 @@
 <body>
     <div style="text-align:center;align-content:center;width:100%;">
         <!-- 康桥学校图书馆 logo -->
-        <div style="margin:0px;padding:0px">
+        <div>
             <img alt="康桥学校线上校友专区 :: 昆山校区" src="~/img/logo_XY2.png" />
         </div>
     </div>
-    <div style="text-align:left;align-content:center;width:100%;">
-        <div id="banner" style="margin:0px;padding:0px">
+    <div id="banner" style="margin:0px;padding:0px">
 
-            <img src="~/img/KS-XY-02.jpg" class="img1" />
+        <img src="~/img/KS-XY-02.jpg" class="img1" />
 
-        </div>
-        <div>
-            <ul style="text-align:center;list-style:none;">
-                <li style="float:left;width:160px;height:30px;margin:20px 0;">
+    </div>
+    <div style="margin:0px;padding:0px;text-align:center">
+        <div id="hot-service" style="margin-top:5px;padding:0px;text-align:center">
+            <ul class="remove-text-nodes" style="text-align:center">
+                <li>
                     <a title=" 校友入校申请" href="~/Adminssion/InstructionsForAdminission">
                         <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_search.png" />
                         <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">Admission Apply<br />校友入校申请</p>
                     </a>
                 </li>
 
-                <li style="float:left;width:230px;height:30px;margin:20px 0;">
+                <li>
                     <a title=" 转出/在读证明" id="btn_Certificate">
                         <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_e-Resources.png" />
                         <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">Reading/Transfer out/<br />At school certificate<br />转出/在读证明</p>
                     </a>
                 </li>
 
-                <li style="float:left;width:200px;height:30px;margin:20px 0;">
+                <li>
                     <a title="成绩单申请" id="btn_Report">
                         <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_account.png" />
                         <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">Transcript Application<br />成绩单申请</p>
@@ -53,20 +56,20 @@
                 </li>
 
                 @*<li style="float:left;width:180px;height:30px;margin:20px 0;">
-                    <a title=" 校友联络信息更新" id="btn_Information">
-                        <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_GoodReads.png" />
-                        <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">Alumni Information<br />校友联络信息更新</p>
-                    </a>
-                </li>*@
+                        <a title=" 校友联络信息更新" id="btn_Information">
+                            <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_GoodReads.png" />
+                            <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">Alumni Information<br />校友联络信息更新</p>
+                        </a>
+                    </li>*@
 
-                <li style="float:left;width:160px;height:30px;margin:20px 0;">
+                <li>
                     <a title=" 问卷调查" id="btn_Question">
                         <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Link_qi.png" />
                         <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">Questionnaire Investigation<br />问卷调查</p>
                     </a>
                 </li>
 
-                <li style="float:left;width:160px;height:30px;margin:20px 0;">
+                <li>
                     <a title=" 我的单据" id="btn_bill">
                         <img style="width:60px;height:60px;align-items:center;text-align:center" src="~/img/Links_MagazineList.png" />
                         <p style="color: #5d5d5d; margin-top: 10px;margin-left: 0px; font-size:18px">My FormList<br />我的单据</p>
@@ -81,6 +84,7 @@
 
             </ul>
         </div>
+
     </div>
 </body>
 <script type="text/javascript">
@@ -93,9 +97,9 @@
             const [key, value] = cookie.split("=");
             cookieMap.set(key, value);
         });
-        var usergroup = cookieMap.get("GroupName");
-        var Account = cookieMap.get("Account");
-        if (usergroup == "校友")
+        var usergroup = decodeURIComponent(cookieMap.get("GroupName"));
+        var Account = decodeURIComponent(cookieMap.get("Account"));
+        if (usergroup == "alumni")
         {
             $.ajax({
                 type: 'post',
@@ -125,14 +129,14 @@
             const [key, value] = cookie.split("=");
             cookieMap.set(key, value);
         });
-        var usergroup = cookieMap.get("GroupName");
+        var usergroup = decodeURIComponent(cookieMap.get("GroupName"));
         //确定 登录
         $("#btn_bill").click(function () {
             var url;
-            if (usergroup == "校友")
+            if (usergroup == "alumni")
             {
                 url = '@Url.Action("BillIndex", "Bill")';
-            } else if (usergroup == "教职员")
+            } else if (usergroup == "teacher")
             {
                 url = '@Url.Action("BillQueryVw", "Bill")';
             }
@@ -140,7 +144,7 @@
         });
 
         $("#btn_Certificate").on("click", function () {
-            if (usergroup == "校友") {
+            if (usergroup == "alumni") {
                 var url = '@Url.Action("CertificateIndex", "Certificate")';
                 window.location.href = url;
             } else {
@@ -149,7 +153,7 @@
         });
 
         $("#btn_Report").on("click", function () {
-            if (usergroup == "校友") {
+            if (usergroup == "alumni") {
                 var url = '@Url.Action("ReportIndex", "Report")';
                 window.location.href = url;
             } else {
@@ -158,7 +162,7 @@
         });
 
         $("#btn_Information").on("click", function () {
-            if (usergroup == "校友") {
+            if (usergroup == "alumni") {
                 var url = '@Url.Action("InformationIndex", "Information")';
                 window.location.href = url;
             } else {
@@ -167,7 +171,7 @@
         });
 
         $("#btn_Question").on("click", function () {
-            if (usergroup == "校友") {
+            if (usergroup == "alumni") {
                 var url = '@Url.Action("QuestionIndex", "Question")';
                 window.location.href = url;
             } else {

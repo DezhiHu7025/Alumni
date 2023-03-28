@@ -100,7 +100,7 @@
         const [key, value] = cookie.split("=");
         cookieMap.set(key, value);
     })
-    var account = cookieMap.get("Account");
+    var account = decodeURIComponent(cookieMap.get("Account")); 
 
     const model = ({
         strSystem: '',

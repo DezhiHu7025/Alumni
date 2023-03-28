@@ -44,7 +44,7 @@ namespace Alumni.Controllers
                     {
                         if (model.Password == user.password2)
                         {
-                            model.GroupName = "校友";
+                            model.GroupName = "alumni";
                             return Json(new FlagTips { IsSuccess = true, Msg = "student" });
                         }
                         else
@@ -70,7 +70,7 @@ namespace Alumni.Controllers
                             }
                             else
                             {
-                                model.GroupName = "教职员";
+                                model.GroupName = "teacher";
                                 return Json(new FlagTips { IsSuccess = true, Msg = "teacher" });
                             }
                         }
@@ -86,11 +86,10 @@ namespace Alumni.Controllers
                 }
                 finally
                 {
-
-                    Response.Cookies["Account"].Value = model.Account;
-                    Response.Cookies["DeptName"].Value = model.DeptName;
-                    Response.Cookies["fullname"].Value = model.fullname;
-                    Response.Cookies["GroupName"].Value = model.GroupName;
+                    Response.Cookies["Account"].Value = HttpUtility.UrlEncode(model.Account);
+                    Response.Cookies["DeptName"].Value = HttpUtility.UrlEncode(model.DeptName);
+                    Response.Cookies["fullname"].Value = HttpUtility.UrlEncode(model.fullname);
+                    Response.Cookies["GroupName"].Value = HttpUtility.UrlEncode(model.GroupName);
                     Response.Cookies["cname"].Value = model.Cname;
                     Response.Cookies["Account"].Expires = DateTime.Now.AddMonths(1);
                     Response.Cookies["DeptName"].Expires = DateTime.Now.AddMonths(1);

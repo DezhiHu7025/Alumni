@@ -5,6 +5,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <title>KCISEC Alumni entering school notice | 康桥校友入校申请须知</title>
     <link href="~/css/list.css" rel="stylesheet" />
     <link href="~/css/new2.css" rel="stylesheet" />
@@ -17,7 +18,7 @@
             <img src="~/img/logo_XY2.png"/>
         </div>
         <div>
-            <h3 style="display: block;font-size: 1.17em;font-weight: bold;line-height: 0.3em;">KCISEC Alumni entering school notice | 康桥校友入校申请须知</h3>
+            <h3 style="display: block;font-size: 1.17em;font-weight: bold">KCISEC Alumni entering school notice | 康桥校友入校申请须知</h3>
             <br />
 
             <b style="color:red;font: 14px;line-height: 2em;">[校友入校注意事项][Notes for alumni entering the school] </b><br />
@@ -59,13 +60,13 @@
         });
 
         $("#btn_adminssion").on("click", function () {
-            var usergroup = cookieMap.get("GroupName");
-            $("#username").html(cookieMap.get("GroupName") + "&nbsp;&nbsp;&nbsp;&nbsp;" + cookieMap.get("fullname"));
+            var usergroup = decodeURIComponent(cookieMap.get("GroupName"));
+            $("#username").html(decodeURIComponent(cookieMap.get("GroupName")) + "&nbsp;&nbsp;&nbsp;&nbsp;" + decodeURIComponent(cookieMap.get("fullname")));
             console.log(cookies);
-            if (usergroup == "教职员") {
+            if (usergroup == "teacher") {
                 var url = '@Url.Action("AdminssionApply", "Adminssion")';
                 window.location.href = url;
-            } else if (usergroup == "校友") {
+            } else if (usergroup == "alumni") {
                 alert("由教职员填写，校友无需填写。To be filled in by faculty and staff, alumni need not fill in")
             } else if (usergroup == null || usergroup == '') {
                 alert("登录状态异常，请重新登录。Login status is abnormal, please log in again")
