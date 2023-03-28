@@ -71,7 +71,7 @@
         })
         var group = decodeURIComponent(cookieMap.get("GroupName"));
         var name = decodeURIComponent(cookieMap.get("fullname"));
-        if (name != null) {
+        if (cookieMap.get("fullname") != null) {
             $("#username").html(name);
           //  $("#username").html(cookieMap.get("GroupName") + "&nbsp;&nbsp;&nbsp;&nbsp;" + cookieMap.get("fullname"));
         } else {

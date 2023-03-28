@@ -90,7 +90,7 @@ namespace Alumni.Controllers
                     Response.Cookies["DeptName"].Value = HttpUtility.UrlEncode(model.DeptName);
                     Response.Cookies["fullname"].Value = HttpUtility.UrlEncode(model.fullname);
                     Response.Cookies["GroupName"].Value = HttpUtility.UrlEncode(model.GroupName);
-                    Response.Cookies["cname"].Value = model.Cname;
+                    Response.Cookies["cname"].Value = HttpUtility.UrlEncode(model.Cname);
                     Response.Cookies["Account"].Expires = DateTime.Now.AddMonths(1);
                     Response.Cookies["DeptName"].Expires = DateTime.Now.AddMonths(1);
                     Response.Cookies["GroupName"].Expires = DateTime.Now.AddMonths(1);
