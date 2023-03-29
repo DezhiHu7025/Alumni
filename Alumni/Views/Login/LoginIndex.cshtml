@@ -69,16 +69,20 @@
                          var url = '@Url.Action("Index", "Home")';
                          if (result.Msg == "student") {
                              url = '@Url.Action("Index", "Home")';
+                             window.location.href = url;
                          } else if (result.Msg == "manager")
                          {
-                             url= '@Url.Action("ManagerIndex", "Manager")';
+                             //判断是否是PC端
+                             if (!(navigator.userAgent.match(/(phone|pad|pod|mobile|ios|android|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|symbian|transcoder)/i))) {
+                                 url = '@Url.Action("ManagerIndex", "Manager")';
+                                 window.location.href = url;
+                             } else {
+                                 alert("教职员请PC端登录操作");
+                             }
                          } else if (result.Msg == "teacher") {
-                             url= '@Url.Action("Index", "Home")';
+                             url = '@Url.Action("Index", "Home")';
+                             window.location.href = url;
                          }
-                         
-                         window.location.href = url;
-                         //window.location.reload();
-                         //window.open(url)
                      } else
                      {
                          alert(result.Msg);
