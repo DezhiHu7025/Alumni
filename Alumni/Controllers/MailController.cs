@@ -113,7 +113,7 @@ namespace Alumni.Controllers
                     if (model.type == "update")
                     {
                         sql = string.Format(@" update [db_forminf].[dbo].[MailSetting] 
-                                                set  toaddr=@toaddr, body = @body,attch = @attch, remark = @remark, updateuser = @updateuser, updatetime = @updatetime
+                                                set  toaddr=@toaddr,toname=@toname, body = @body,attch = @attch, remark = @remark, updateuser = @updateuser, updatetime = @updatetime
                                                      where subject = @subject ");
                     }
                     else if (model.type == "add")
