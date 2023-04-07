@@ -91,11 +91,6 @@
                             }
 
                     },
-                    //{
-                    //    field: 'Form_Name',
-                    //    title: '单据名称',
-                    //    switchable: true
-                    //},
                     {
                         field: 'Stu_Empno',
                         title: '学号',
@@ -207,7 +202,7 @@
                     //}
                     ],
         });
-        
+
         $('#btn_export').click(function () {
             var Stu_Empno = $("#Stu_Empno").val();
             var url = "@(Url.Action("QuestionExport", "Question"))" + "?Stu_Empno=" + Stu_Empno;
@@ -217,6 +212,14 @@
         $('#btn_search').click(function () {
             $('#table').bootstrapTable('refresh', { pageNumber: 1 });
         });
+
+        window.operateEvents = {
+            'click .view': function (e, value, row, index) {
+                var url = ".."
+                var picUrl = url + value;
+                window.open(picUrl);
+            },
+        };
 
     });
 </script>
