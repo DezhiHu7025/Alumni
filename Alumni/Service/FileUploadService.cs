@@ -21,7 +21,7 @@ namespace Alumni.Service
                 try
                 {
                     string fileType = Path.GetExtension(httpPostedFileBase.FileName);//原始文件名称
-                    string fileName = string.Format(Stu_Empno + "_{0}." + fileType, DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+                    string fileName = string.Format(Stu_Empno + "_{0}" + fileType, DateTime.Now.ToString("yyyyMMddHHmmssfff"));
 
 
                     byte[] fileData = ReadFileBytes(httpPostedFileBase);//文件流转化为二进制字节
@@ -78,7 +78,7 @@ namespace Alumni.Service
             string result;
             try
             {
-                string saveName = Stu_Empno + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + fileName; //保存文件名称
+                string saveName = fileName; //保存文件名称
 
                 // 文件上传后的保存路径
                 string basePath = "UploadFile";
