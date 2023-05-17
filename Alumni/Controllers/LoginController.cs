@@ -151,7 +151,7 @@ namespace Alumni.Controllers
        a.email,
 	   b.DeptName,
 	   c.groupid,
-	   c.groupname,a.password2
+	   c.groupname,a.password password2
 FROM [Common].[dbo].[kcis_account] a
 LEFT JOIN [Common].[dbo].[AFS_Dept] B
 ON a.deptid2 =b.DeptID_eip  
