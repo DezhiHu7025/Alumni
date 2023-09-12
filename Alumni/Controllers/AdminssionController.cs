@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Alumni.Controllers
 {
-    public class AdminssionController:Controller
+    public class AdminssionController : Controller
     {
         /// <summary>
         /// 入校申请
@@ -42,7 +42,7 @@ namespace Alumni.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(model.teacherAD)|| string.IsNullOrEmpty(model.teacnerName)|| string.IsNullOrEmpty(model.DeptName))
+                if (string.IsNullOrEmpty(model.teacherAD) || string.IsNullOrEmpty(model.teacnerName) || string.IsNullOrEmpty(model.DeptName))
                 {
                     return Json(new FlagTips
                     {
@@ -54,7 +54,7 @@ namespace Alumni.Controllers
                 if (model.intoDate < today)
                 {
                     string tipday = DateTime.Now.ToString("yyyy/MM/dd");
-                    return Json(new FlagTips { IsSuccess = false, Msg = string.Format( "校友入校日期不得早于当前日期{0}", tipday) });
+                    return Json(new FlagTips { IsSuccess = false, Msg = string.Format("校友入校日期不得早于当前日期{0}", tipday) });
                 }
                 using (SchoolDb db = new SchoolDb())
                 {
@@ -91,10 +91,12 @@ namespace Alumni.Controllers
                         trans.Add(insertSql, model);
                         trans.Add(insertSql2, model);
                         db.DoExtremeSpeedTransaction(trans);
-                    }else{
+                    }
+                    else
+                    {
                         return Json(new FlagTips { IsSuccess = false, Msg = "邮件发送失败，提交失败 Mail sending failed, submission failed" });
                     }
-                    
+
                 }
                 return Json(new FlagTips { IsSuccess = true });
             }
@@ -148,7 +150,7 @@ WHERE b.shopForm_id = 'S0000001' ");
             }
             return Json(list);
         }
-        
+
         public List<AdminssionModel> querList(string Stu_Empno, string IS_PASS)
         {
             var list = new List<AdminssionModel>();
@@ -194,7 +196,7 @@ WHERE b.shopForm_id = 'S0000001' ");
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ActionResult AdminissionExport(string Stu_Empno,string IS_PASS)
+        public ActionResult AdminissionExport(string Stu_Empno, string IS_PASS)
         {
             try
             {
@@ -323,11 +325,48 @@ WHERE b.shopForm_id = 'S0000001' and a.RmchSeqNo = @RmchSeqNo ");
                     string sql2 = @"update  [db_forminf].[dbo].[OldStudent_Onlin_List] set is_pass =@IS_PASS where form_name=@Form_Name and  is_pass = 'N'  and mchSeqNo =@RmchSeqNo ";
                     string sqlRecord = @"INSERT INTO  [db_forminf].[dbo].[Record] ([GUID],[ChSeqNo],[Form_Name],[Signer],[SignTime],[Comments],[IS_PASS])
                                            VALUES(@GUID,@ChSeqNo,@Form_Name,@Signer,@SignTime,@Comments,@IS_PASS);";
-                    
+
+                    //发送邮件
+                    string mailSql = string.Format(@"Insert into [Common].[dbo].[oa_emaillog](pid,emailid ,actiontype ,toaddr,toname ,fromaddr ,fromname,subject,body
+                                  ,createdate ) 
+                                   values(@pid, @emailid , @actiontype , @toaddr, @toname , 'automail@kcisec.com' , @strSystem, @subject, @body
+                                  ,getdate())");//
+                    EmailModel emailModel = new EmailModel();
+                    var newModel = db.Query<AdminssionModel>("select a.*,a.intoDate intoDate2 from [db_forminf].[dbo].[EntryApply_indent] a where a.form_name=@Form_Name and a.RmchSeqNo =@RmchSeqNo", new { model.Form_Name,model.RmchSeqNo }).FirstOrDefault();
+                    string strBody = newModel.teacnerName + "老师您好：您提交的入校申请单，详情如下：<br /><br />";
+                    strBody += "单据编号：" + newModel.RmchSeqNo + "<br /><br />";
+                    strBody += "校友学号：" + newModel.alumnusEmp + "<br /><br />";
+                    strBody += "校友姓名：" + newModel.alumnusName + "<br /><br />";
+                    strBody += "校友电话：" + newModel.alumnusPhone + "<br /><br />";
+                    strBody += "校友离校班级：" + newModel.LeaveClass + "<br /><br />";
+                    strBody += "校友入校日期：" + newModel.intoDate2 + "<br /><br />";
+                    if (model.IS_PASS == "Y")
+                    {
+                        strBody += "该校友入校申请已审核通过";
+                    }
+                    else if (model.IS_PASS == "D")
+                    {
+                        strBody += "该校友入校申请审核不通过<br /><br />原因：" + model.Comments;
+                    }
+                    else
+                    {
+                        strBody += "该校友入校申请" + model.IS_PASS;
+                    }
+                    // emailModel = db.Query<EmailModel>(mailSetSql, new { subject }).FirstOrDefault();
+                    emailModel.pid = "sys_flowengin";
+                    emailModel.emailid = Convert.ToString(System.Guid.NewGuid());
+                    emailModel.actiontype = "email";
+                    emailModel.toaddr = newModel.teacherAD + "@kcisec.com";
+                    emailModel.toname = newModel.teacnerName;
+                    emailModel.strSystem = "线上校友专区";
+                    emailModel.subject = "校友入校申请";
+                    emailModel.body = strBody;
+
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(sql1, model);
                     trans.Add(sql2, model);
                     trans.Add(sqlRecord, record);
+                    trans.Add(mailSql, emailModel);
                     db.DoExtremeSpeedTransaction(trans);
                 }
                 return Json(new FlagTips { IsSuccess = true });
