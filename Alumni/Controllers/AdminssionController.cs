@@ -308,8 +308,9 @@ WHERE b.shopForm_id = 'S0000001' and a.RmchSeqNo = @RmchSeqNo ");
                     record.GUID = Guid.NewGuid().ToString();
                     record.ChSeqNo = model.RmchSeqNo;
                     record.Form_Name = model.Form_Name;
-                    //todo:获取登录名
-                    record.Signer = "admin";
+
+                    HttpCookie cookie = Request.Cookies["fullname"];
+                    record.Signer = HttpUtility.UrlDecode(cookie.Value);
                     record.SignTime = now;
                     record.Comments = model.Comments;
                     record.IS_PASS = model.SignStatus;
@@ -352,7 +353,6 @@ WHERE b.shopForm_id = 'S0000001' and a.RmchSeqNo = @RmchSeqNo ");
                     {
                         strBody += "该校友入校申请" + model.IS_PASS;
                     }
-                    // emailModel = db.Query<EmailModel>(mailSetSql, new { subject }).FirstOrDefault();
                     emailModel.pid = "sys_flowengin";
                     emailModel.emailid = Convert.ToString(System.Guid.NewGuid());
                     emailModel.actiontype = "email";
@@ -361,7 +361,7 @@ WHERE b.shopForm_id = 'S0000001' and a.RmchSeqNo = @RmchSeqNo ");
                     emailModel.strSystem = "线上校友专区";
                     emailModel.subject = "校友入校申请";
                     emailModel.body = strBody;
-
+                    
                     Dictionary<string, object> trans = new Dictionary<string, object>();
                     trans.Add(sql1, model);
                     trans.Add(sql2, model);

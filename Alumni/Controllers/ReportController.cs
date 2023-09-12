@@ -220,8 +220,8 @@ WHERE b.shopForm_id = 'S0000001' and a.CmchSeqNo = @CmchSeqNo ");
                     record.GUID = Guid.NewGuid().ToString();
                     record.ChSeqNo = model.CmchSeqNo;
                     record.Form_Name = model.Form_Name;
-                    //todo:获取登录名
-                    record.Signer = "admin";
+                    HttpCookie cookie = Request.Cookies["fullname"];
+                    record.Signer = HttpUtility.UrlDecode(cookie.Value);
                     record.SignTime = now;
                     record.Comments = model.Comments;
                     record.IS_PASS = model.SignStatus;
