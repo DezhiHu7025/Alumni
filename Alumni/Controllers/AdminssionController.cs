@@ -27,6 +27,12 @@ namespace Alumni.Controllers
         }
 
         [App_Start.AuthFilter]
+        public ActionResult Instructions()
+        {
+            return View();
+        }
+
+        [App_Start.AuthFilter]
         public ActionResult TotalAdminissionIndex()
         {
             return View();

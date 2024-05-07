@@ -447,6 +447,7 @@
     <Content Include="Views\Mail\AddMailVw.cshtml" />
     <Content Include="Views\Bill\BillQueryVw.cshtml" />
     <Content Include="Views\Bill\BillDetailVw.cshtml" />
+    <Content Include="Views\Adminssion\Instructions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
